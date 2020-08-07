@@ -1,0 +1,114 @@
+{% extends "base.twig" %}
+
+{% block content %}
+<div class="container">
+
+    <div class="row">
+        <div class="column">
+            <h3 class="no-margin-botton no-padding-botton">Ewerton H Marschalk</h3>
+            <small>PPPoE: {{ pppoeuser }}</small><br>
+            <small>Senha: {{ pppoepass }}</small>
+        </div>
+        <div class="column float-right">
+        </div>
+        <div class="column float-right">
+            <br>
+            <b>ST Contrato:</b> {{ stcontrato }}<br>
+            <b>Serviço:</b> {{ servico }}<br>
+            <b>Up/Down (Plano):</b> {{ velocidade }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="column"><h4>IP: <a class="anchor-green" href="http://{{ ip }}:8096">{{ ip }}</a></h4></div>
+        <div class="column"></div>
+    </div>
+    <!-- buttons / tables -->
+    <div class="row">
+        <div class="column">
+            <div class="row">
+                <div class="column"></div>
+                <div class="column"><a class="button {% if autenticacao %}button-outline{% endif %}" href="?autenticacao=1">Extrato de Autenticação</a></div>
+                <div class="column"><a class="button {% if log %}button-outline{% endif %}" href="?log=1">Log do Radius</a></div>
+                <div class="column"></div>
+            </div>
+            {% if autenticacao %}
+                <div class="row">
+                    <h4>Extrado de autenticações</h4>
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Concentrador</th>
+                                <th>Inicio</th>
+                                <th>Término</th>
+                                <th>Duração</th>
+                                <th>Tráfego</th>
+                                <th>Motivo Desc.</th>
+                                <th>IP Conexão</th>
+                                <th>IP Concentrador</th>
+                                <th>IPv6</th>
+                                <th>MAC</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Mikrotik_5</td>
+                                <td>05/08/2020 00:44:07</td>
+                                <td>05/08/2020 01:13:21</td>
+                                <td>00:30h</td>
+                                <td>14.3GB</td>
+                                <td>Lost Carrier</td>
+                                <td>100.64.164.53</td>
+                                <td>10.45.3.2</td>
+                                <td></td>
+                                <td>68:FF:7B:83:93:EE</td>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <th>N. de Registros:</th>
+                                <td>1</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            {% endif %}
+            {% if log %}
+                <div class="row">
+                    <h4>Log do Radius</h4>
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Log</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>2020-08-06 20:36:18</td>
+                                <td>Existing IP: 186.227.140.112 (did Mikrotik2 cli E4:18:6B:F7:09:E8 port 15729138 user eh.marschalk)</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
