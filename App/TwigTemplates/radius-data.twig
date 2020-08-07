@@ -53,23 +53,25 @@
                             </tr>
                             </thead>
                             <tbody>
+                            {% for auth in auths %}
                             <tr>
-                                <td>Mikrotik_5</td>
-                                <td>05/08/2020 00:44:07</td>
-                                <td>05/08/2020 01:13:21</td>
-                                <td>00:30h</td>
-                                <td>14.3GB</td>
-                                <td>Lost Carrier</td>
-                                <td>100.64.164.53</td>
-                                <td>10.45.3.2</td>
-                                <td></td>
-                                <td>68:FF:7B:83:93:EE</td>
+                                <td>{{ auth.concentrador }}</td>
+                                <td>{{ auth.inicio }}</td>
+                                <td>{{ auth.termino }}</td>
+                                <td>{{ auth.duracao }}</td>
+                                <td>{{ auth.trafego }}</td>
+                                <td>{{ auth.motivo }}</td>
+                                <td>{{ auth.ipconection }}</td>
+                                <td>{{ auth.ipconcentrador }}</td>
+                                <td>{{ auth.ipv6 }}</td>
+                                <td>{{ auth.mac }}</td>
                             </tr>
+                            {% endfor %}
                             </tbody>
                             <tfoot>
                             <tr>
                                 <th>N. de Registros:</th>
-                                <td>1</td>
+                                <td>{{ auths|length }}</td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -87,7 +89,7 @@
             {% endif %}
             {% if log %}
                 <div class="row">
-                    <h4>Log do Radius</h4>
+                    <h3>Log do radius</h3>
                 </div>
                 <div class="row">
                     <div class="column">
@@ -99,10 +101,12 @@
                             </tr>
                             </thead>
                             <tbody>
+                            {% for log in logs %}
                             <tr>
-                                <td>2020-08-06 20:36:18</td>
-                                <td>Existing IP: 186.227.140.112 (did Mikrotik2 cli E4:18:6B:F7:09:E8 port 15729138 user eh.marschalk)</td>
+                                <td>{{ log.data }}</td>
+                                <td>{{ log.log }}</td>
                             </tr>
+                            {% endfor %}
                             </tbody>
                         </table>
                     </div>
