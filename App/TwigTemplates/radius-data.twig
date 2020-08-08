@@ -5,7 +5,7 @@
 
     <div class="row">
         <div class="column">
-            <h3 class="no-margin-botton no-padding-botton">Ewerton H Marschalk</h3>
+            <h3 class="no-margin-botton no-padding-botton">{{ nome }}</h3>
             <small>PPPoE: {{ pppoeuser }}</small><br>
             <small>Senha: {{ pppoepass }}</small>
         </div>
@@ -32,9 +32,6 @@
                 <div class="column"></div>
             </div>
             {% if autenticacao %}
-                <div class="row">
-                    <h4>Extrado de autenticações</h4>
-                </div>
                 <div class="row">
                     <div class="column">
                         <table>
@@ -88,9 +85,6 @@
                 </div>
             {% endif %}
             {% if log %}
-                <div class="row">
-                    <h3>Log do radius</h3>
-                </div>
                 <div class="row">
                     <div class="column">
                         <table>

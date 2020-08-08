@@ -1,0 +1,41 @@
+{% extends "base.twig" %}
+
+{% block content %}
+
+    <form method="post" action="index.php">
+        <input type="text" name="nome" value="{{ nome }}">
+        <input type="text" name="ip" value="{{ ip }}">
+        <input type="text" name="pppoeuser" value="{{ pppoeuser }}">
+        <input type="text" name="pppoepass" value="{{ pppoepass }}">
+        <input type="text" name="stcontrato" value="{{ stcontrato }}">
+        <input type="text" name="servico" value="{{ servico }}">
+        <input type="text" name="velocidade" value="{{ velocidade }}">
+
+        {% set counter = 0 %}
+        {% for log in logs %}
+            <input type="text" name="log_data[{{ counter }}]" value="{{ log.data }}">
+            <input type="text" name="log_log[{{ counter }}]" value="{{ log.log }}">
+            {% set counter = counter + 1 %}
+        {% endfor %}
+
+        {% set counter = 0 %}
+        {% for auth in auths %}
+            <input type="text" name="auth_concentrador[{{ counter }}]" value="{{ auth.concentrador }}">
+            <input type="text" name="auth_inicio[{{ counter }}]" value="{{ auth.inicio }}">
+            <input type="text" name="auth_termino[{{ counter }}]" value="{{ auth.termino }}">
+            <input type="text" name="auth_duracao[{{ counter }}]" value="{{ auth.duracao }}">
+            <input type="text" name="auth_trafego[{{ counter }}]" value="{{ auth.trafego }}">
+            <input type="text" name="auth_motivo[{{ counter }}]" value="{{ auth.motivo }}">
+            <input type="text" name="auth_ipconection[{{ counter }}]" value="{{ auth.ipconection }}">
+            <input type="text" name="auth_ipconcentrador[{{ counter }}]" value="{{ auth.ipconcentrador }}">
+            <input type="text" name="auth_ipv6[{{ counter }}]" value="{{ auth.ipv6 }}">
+            <input type="text" name="auth_mac[{{ counter }}]" value="{{ auth.mac }}">
+            {% set counter = counter + 1 %}
+        {% endfor %}
+        <input type="submit">
+
+
+
+    </form>
+
+{% endblock %}

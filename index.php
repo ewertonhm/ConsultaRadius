@@ -1,42 +1,75 @@
 <?php
 require_once 'config.php';
 
+if(!isset($_GET['autenticacao']) AND !isset($_GET['log'])){
+    session_start();
+    session_unset();
+    session_destroy();
+    session_write_close();
+    session_start();
+
+    if(!isset($_POST['nome'])){
+        header('location:datasend.php');
+    }
+    $_SESSION['nome'] = $_POST['nome'];
+    $_SESSION['ip'] = $_POST['ip'];
+    $_SESSION['pppoeuser'] = $_POST['pppoeuser'];
+    $_SESSION['pppoepass'] = $_POST['pppoepass'];
+    $_SESSION['stcontrato'] = $_POST['stcontrato'];
+    $_SESSION['servico'] = $_POST['servico'];
+    $_SESSION['velocidade'] = $_POST['velocidade'];
+
+    for($c=0;$c<count($_POST['log_data']);$c++){
+        $_SESSION['log_data'][$c] = $_POST['log_data'][$c];
+        $_SESSION['log_log'][$c] = $_POST['log_log'][$c];
+    }
+
+    for($c=0;$c<count($_POST['auth_concentrador']);$c++){
+        $_SESSION['auth_concentrador'][$c] = $_POST['auth_concentrador'][$c];
+        $_SESSION['auth_inicio'][$c] = $_POST['auth_inicio'][$c];
+        $_SESSION['auth_termino'][$c]= $_POST['auth_termino'][$c];
+        $_SESSION['auth_duracao'][$c] = $_POST['auth_duracao'][$c];
+        $_SESSION['auth_trafego'][$c] = $_POST['auth_trafego'][$c];
+        $_SESSION['auth_motivo'][$c] = $_POST['auth_motivo'][$c];
+        $_SESSION['auth_ipconection'][$c] = $_POST['auth_ipconection'][$c];
+        $_SESSION['auth_ipconcentrador'][$c] = $_POST['auth_ipconcentrador'][$c];
+        $_SESSION['auth_ipv6'][$c] = $_POST['auth_ipv6'][$c];
+        $_SESSION['auth_mac'][$c] = $_POST['auth_mac'][$c];
+    }
+}
+if(!isset($_SESSION)){
+    session_start();
+}
+
+
 $vars= [
-    'ip'=>'186.227.140.112',
-    'pppoeuser'=>'eh.marschalk',
-    'pppoepass'=>'E10971',
-    'stcontrato'=>'normal',
-    'servico'=>'Composto 240mb - União e região',
-    'velocidade'=>'260Mbps / 260Mbps'
+    'nome'=>$_SESSION['nome'],
+    'ip'=>$_SESSION['ip'],
+    'pppoeuser'=>$_SESSION['pppoeuser'],
+    'pppoepass'=>$_SESSION['pppoepass'],
+    'stcontrato'=>$_SESSION['stcontrato'],
+    'servico'=>$_SESSION['servico'],
+    'velocidade'=>$_SESSION['velocidade']
 ];
 
-$vars['logs'][0]['data'] = '2020-08-06 20:36:18';
-$vars['logs'][0]['log'] = 'Existing IP: 186.227.140.112 (did Mikrotik2 cli E4:18:6B:F7:09:E8 port 15729138 user eh.marschalk)';
-$vars['logs'][1]['data'] = '2020-08-06 20:36:18';
-$vars['logs'][1]['log'] = 'Existing IP: 186.227.140.112 (did Mikrotik2 cli E4:18:6B:F7:09:E8 port 15729138 user eh.marschalk)';
+for($c=0;$c<count($_SESSION['log_data']);$c++){
+    $vars['logs'][$c]['data'] = $_SESSION['log_data'][$c];
+    $vars['logs'][$c]['log'] = $_SESSION['log_log'][$c];
+}
 
+for($c=0;$c<count($_SESSION['auth_concentrador']);$c++){
+    $vars['auths'][$c]['concentrador'] = $_SESSION['auth_concentrador'][$c];
+    $vars['auths'][$c]['inicio'] = $_SESSION['auth_inicio'][$c];
+    $vars['auths'][$c]['termino'] = $_SESSION['auth_termino'][$c];
+    $vars['auths'][$c]['duracao'] = $_SESSION['auth_duracao'][$c];
+    $vars['auths'][$c]['trafego'] = $_SESSION['auth_trafego'][$c];
+    $vars['auths'][$c]['motivo'] = $_SESSION['auth_motivo'][$c];
+    $vars['auths'][$c]['ipconection'] = $_SESSION['auth_ipconection'][$c];
+    $vars['auths'][$c]['ipconcentrador'] = $_SESSION['auth_ipconcentrador'][$c];
+    $vars['auths'][$c]['ipv6'] = $_SESSION['auth_ipv6'][$c];
+    $vars['auths'][$c]['mac'] = $_SESSION['auth_mac'][$c];
 
-$vars['auths'][0]['concentrador'] = 'Mikrotik_5';
-$vars['auths'][0]['inicio'] = '05/08/2020 00:44:07';
-$vars['auths'][0]['termino'] = '05/08/2020 01:13:21';
-$vars['auths'][0]['duracao'] = '00:30h';
-$vars['auths'][0]['trafego'] = '14.3GB';
-$vars['auths'][0]['motivo'] = 'Lost Carrier';
-$vars['auths'][0]['ipconection'] = '100.64.164.53';
-$vars['auths'][0]['ipconcentrador'] = '100.64.164.53';
-$vars['auths'][0]['ipv6'] = '';
-$vars['auths'][0]['mac'] = '68:FF:7B:83:93:EE';
-
-$vars['auths'][1]['concentrador'] = 'Mikrotik_5';
-$vars['auths'][1]['inicio'] = '05/08/2020 00:44:07';
-$vars['auths'][1]['termino'] = '05/08/2020 01:13:21';
-$vars['auths'][1]['duracao'] = '00:30h';
-$vars['auths'][1]['trafego'] = '14.3GB';
-$vars['auths'][1]['motivo'] = 'Lost Carrier';
-$vars['auths'][1]['ipconection'] = '100.64.164.53';
-$vars['auths'][1]['ipconcentrador'] = '100.64.164.53';
-$vars['auths'][1]['ipv6'] = '';
-$vars['auths'][1]['mac'] = '68:FF:7B:83:93:EE';
+}
 
 if(isset($_GET['autenticacao']) AND $_GET['autenticacao'] == 1){
     $vars['autenticacao'] = 'true';
