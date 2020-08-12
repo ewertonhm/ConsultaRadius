@@ -53,7 +53,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            {% for auth in auths %}
+                            {% for auth in auths|slice(0,30) %}
                             <tr>
                                 <td>{{ auth.concentrador }}</td>
                                 <td>{{ auth.inicio }}</td>
@@ -98,7 +98,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            {% for log in logs %}
+                            {% for log in logs|slice(0,30) %}
                             <tr>
                                 <td>{{ log.data }}</td>
                                 <td>{{ log.log }}</td>

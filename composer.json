@@ -10,7 +10,8 @@
     "require": {
         "filp/whoops": "^2.7",
         "symfony/var-dumper": "^5.1",
-        "twig/twig": "^3.0"
+        "twig/twig": "^3.0",
+        "propel/propel": "~2.0@dev"
     },
     "autoload": {
         "psr-4": {
