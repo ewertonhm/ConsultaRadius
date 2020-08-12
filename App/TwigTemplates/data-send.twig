@@ -2,7 +2,9 @@
 
 {% block content %}
 
-    <form method="post" action="index.php">
+    <form name="form" method="post" action="index.php">
+        <input type="submit">
+
         <input type="text" name="nome" value="{{ nome }}">
         <input type="text" name="ip" value="{{ ip }}">
         <input type="text" name="concentrador" value="{{ concentrador }}">
@@ -33,10 +35,19 @@
             <input type="text" name="auth_mac[{{ counter }}]" value="{{ auth.mac }}">
             {% set counter = counter + 1 %}
         {% endfor %}
-        <input type="submit">
-
-
 
     </form>
 
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        function submitform(){
+            document.forms["form"].submit();
+        }
+        {% if reload %}
+            window.onload=function(){submitform();}
+
+        {% endif %}
+    </script>
 {% endblock %}

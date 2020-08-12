@@ -40,7 +40,9 @@ $vars['auths'][1]['ipconcentrador'] = '100.64.164.53';
 $vars['auths'][1]['ipv6'] = '';
 $vars['auths'][1]['mac'] = '68:FF:7B:83:93:EE';
 
-
+if(isset($_GET['reload'])){
+    $vars['reload'] = $_GET['reload'];
+}
 
 
 

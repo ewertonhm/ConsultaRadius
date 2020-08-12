@@ -1,7 +1,7 @@
 <?php
 require_once 'config.php';
 
-if(!isset($_GET['autenticacao']) AND !isset($_GET['log'])){
+if(!isset($_GET['autenticacao']) AND !isset($_GET['log']) AND !isset($_GET['editar'])){
     session_start();
     session_unset();
     session_destroy();
@@ -80,6 +80,10 @@ if(isset($_GET['autenticacao']) AND $_GET['autenticacao'] == 1){
 if(isset($_GET['log']) AND $_GET['log'] == 1){
     $vars['log'] = 'true';
 }
+if(isset($_GET['editar']) AND $_GET['editar'] == 1){
+    $vars['editar'] = 'true';
+}
+
 
 
 
