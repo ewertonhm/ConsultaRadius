@@ -8,11 +8,14 @@ if(!isset($_GET['autenticacao']) AND !isset($_GET['log'])){
     session_write_close();
     session_start();
 
-    if(!isset($_POST['nome'])){
-        header('location:datasend.php');
+    if(!isset($_POST) OR $_POST == null OR empty($_POST) OR count($_POST)<=0){
+        header('Location: datasend.php');
+        die();
     }
+
     $_SESSION['nome'] = $_POST['nome'];
     $_SESSION['ip'] = $_POST['ip'];
+    $_SESSION['concentrador'] = $_POST['concentrador'];
     $_SESSION['pppoeuser'] = $_POST['pppoeuser'];
     $_SESSION['pppoepass'] = $_POST['pppoepass'];
     $_SESSION['stcontrato'] = $_POST['stcontrato'];
@@ -41,10 +44,10 @@ if(!isset($_SESSION)){
     session_start();
 }
 
-
 $vars= [
     'nome'=>$_SESSION['nome'],
     'ip'=>$_SESSION['ip'],
+    'concentrador'=>$_SESSION['concentrador'],
     'pppoeuser'=>$_SESSION['pppoeuser'],
     'pppoepass'=>$_SESSION['pppoepass'],
     'stcontrato'=>$_SESSION['stcontrato'],

@@ -4,6 +4,7 @@ require_once 'config.php';
 $vars= [
     'nome'=>'Ewerton H Marschalk',
     'ip'=>'186.227.140.112',
+    'concentrador'=>'Mikrotik 5',
     'pppoeuser'=>'eh.marschalk',
     'pppoepass'=>'E10971',
     'stcontrato'=>'normal',
@@ -19,10 +20,10 @@ $vars['logs'][1]['log'] = 'Existing IP: 186.227.140.112 (did Mikrotik2 cli E4:18
 
 $vars['auths'][0]['concentrador'] = 'Mikrotik_5';
 $vars['auths'][0]['inicio'] = '05/08/2020 00:44:07';
-$vars['auths'][0]['termino'] = '05/08/2020 01:13:21';
+$vars['auths'][0]['termino'] = '';
 $vars['auths'][0]['duracao'] = '00:30h';
 $vars['auths'][0]['trafego'] = '14.3GB';
-$vars['auths'][0]['motivo'] = 'Lost Carrier';
+$vars['auths'][0]['motivo'] = '';
 $vars['auths'][0]['ipconection'] = '100.64.164.53';
 $vars['auths'][0]['ipconcentrador'] = '100.64.164.53';
 $vars['auths'][0]['ipv6'] = '';
@@ -38,6 +39,8 @@ $vars['auths'][1]['ipconection'] = '100.64.164.53';
 $vars['auths'][1]['ipconcentrador'] = '100.64.164.53';
 $vars['auths'][1]['ipv6'] = '';
 $vars['auths'][1]['mac'] = '68:FF:7B:83:93:EE';
+
+
 
 
 
