@@ -11,7 +11,8 @@
         "filp/whoops": "^2.7",
         "symfony/var-dumper": "^5.1",
         "twig/twig": "^3.0",
-        "propel/propel": "~2.0@dev"
+        "propel/propel": "~2.0@dev",
+        "nesbot/carbon": "^2.38"
     },
     "autoload": {
         "psr-4": {
