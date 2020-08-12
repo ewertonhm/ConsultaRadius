@@ -3,6 +3,8 @@
 namespace Base;
 
 use \AutenticacaoQuery as ChildAutenticacaoQuery;
+use \Cliente as ChildCliente;
+use \ClienteQuery as ChildClienteQuery;
 use \Exception;
 use \PDO;
 use Map\AutenticacaoTableMap;
@@ -135,6 +137,18 @@ abstract class Autenticacao implements ActiveRecordInterface
      * @var        string
      */
     protected $mac;
+
+    /**
+     * The value for the cliente_id field.
+     *
+     * @var        int
+     */
+    protected $cliente_id;
+
+    /**
+     * @var        ChildCliente
+     */
+    protected $aCliente;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -480,6 +494,16 @@ abstract class Autenticacao implements ActiveRecordInterface
     }
 
     /**
+     * Get the [cliente_id] column value.
+     *
+     * @return int
+     */
+    public function getClienteId()
+    {
+        return $this->cliente_id;
+    }
+
+    /**
      * Set the value of [id] column.
      *
      * @param int $v New value
@@ -700,6 +724,30 @@ abstract class Autenticacao implements ActiveRecordInterface
     } // setMac()
 
     /**
+     * Set the value of [cliente_id] column.
+     *
+     * @param int|null $v New value
+     * @return $this|\Autenticacao The current object (for fluent API support)
+     */
+    public function setClienteId($v)
+    {
+        if ($v !== null) {
+            $v = (int) $v;
+        }
+
+        if ($this->cliente_id !== $v) {
+            $this->cliente_id = $v;
+            $this->modifiedColumns[AutenticacaoTableMap::COL_CLIENTE_ID] = true;
+        }
+
+        if ($this->aCliente !== null && $this->aCliente->getId() !== $v) {
+            $this->aCliente = null;
+        }
+
+        return $this;
+    } // setClienteId()
+
+    /**
      * Indicates whether the columns in this object are only set to default values.
      *
      * This method can be used in conjunction with isModified() to indicate whether an object is both
@@ -767,6 +815,9 @@ abstract class Autenticacao implements ActiveRecordInterface
 
             $col = $row[TableMap::TYPE_NUM == $indexType ? 10 + $startcol : AutenticacaoTableMap::translateFieldName('Mac', TableMap::TYPE_PHPNAME, $indexType)];
             $this->mac = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 11 + $startcol : AutenticacaoTableMap::translateFieldName('ClienteId', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->cliente_id = (null !== $col) ? (int) $col : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -775,7 +826,7 @@ abstract class Autenticacao implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 11; // 11 = AutenticacaoTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 12; // 12 = AutenticacaoTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException(sprintf('Error populating %s object', '\\Autenticacao'), 0, $e);
@@ -797,6 +848,9 @@ abstract class Autenticacao implements ActiveRecordInterface
      */
     public function ensureConsistency()
     {
+        if ($this->aCliente !== null && $this->cliente_id !== $this->aCliente->getId()) {
+            $this->aCliente = null;
+        }
     } // ensureConsistency
 
     /**
@@ -836,6 +890,7 @@ abstract class Autenticacao implements ActiveRecordInterface
 
         if ($deep) {  // also de-associate any related objects?
 
+            $this->aCliente = null;
         } // if (deep)
     }
 
@@ -939,6 +994,18 @@ abstract class Autenticacao implements ActiveRecordInterface
         if (!$this->alreadyInSave) {
             $this->alreadyInSave = true;
 
+            // We call the save method on the following object(s) if they
+            // were passed to this object by their corresponding set
+            // method.  This object relates to these object(s) by a
+            // foreign key reference.
+
+            if ($this->aCliente !== null) {
+                if ($this->aCliente->isModified() || $this->aCliente->isNew()) {
+                    $affectedRows += $this->aCliente->save($con);
+                }
+                $this->setCliente($this->aCliente);
+            }
+
             if ($this->isNew() || $this->isModified()) {
                 // persist changes
                 if ($this->isNew()) {
@@ -1009,6 +1076,9 @@ abstract class Autenticacao implements ActiveRecordInterface
         if ($this->isColumnModified(AutenticacaoTableMap::COL_MAC)) {
             $modifiedColumns[':p' . $index++]  = 'mac';
         }
+        if ($this->isColumnModified(AutenticacaoTableMap::COL_CLIENTE_ID)) {
+            $modifiedColumns[':p' . $index++]  = 'cliente_id';
+        }
 
         $sql = sprintf(
             'INSERT INTO autenticacao (%s) VALUES (%s)',
@@ -1052,6 +1122,9 @@ abstract class Autenticacao implements ActiveRecordInterface
                         break;
                     case 'mac':
                         $stmt->bindValue($identifier, $this->mac, PDO::PARAM_STR);
+                        break;
+                    case 'cliente_id':
+                        $stmt->bindValue($identifier, $this->cliente_id, PDO::PARAM_INT);
                         break;
                 }
             }
@@ -1148,6 +1221,9 @@ abstract class Autenticacao implements ActiveRecordInterface
             case 10:
                 return $this->getMac();
                 break;
+            case 11:
+                return $this->getClienteId();
+                break;
             default:
                 return null;
                 break;
@@ -1165,10 +1241,11 @@ abstract class Autenticacao implements ActiveRecordInterface
      *                    Defaults to TableMap::TYPE_PHPNAME.
      * @param     boolean $includeLazyLoadColumns (optional) Whether to include lazy loaded columns. Defaults to TRUE.
      * @param     array $alreadyDumpedObjects List of objects to skip to avoid recursion
+     * @param     boolean $includeForeignObjects (optional) Whether to include hydrated related objects. Default to FALSE.
      *
      * @return array an associative array containing the field names (as keys) and field values
      */
-    public function toArray($keyType = TableMap::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array())
+    public function toArray($keyType = TableMap::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array(), $includeForeignObjects = false)
     {
 
         if (isset($alreadyDumpedObjects['Autenticacao'][$this->hashCode()])) {
@@ -1188,12 +1265,30 @@ abstract class Autenticacao implements ActiveRecordInterface
             $keys[8] => $this->getIpconcentrador(),
             $keys[9] => $this->getIpv6(),
             $keys[10] => $this->getMac(),
+            $keys[11] => $this->getClienteId(),
         );
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
             $result[$key] = $virtualColumn;
         }
 
+        if ($includeForeignObjects) {
+            if (null !== $this->aCliente) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'cliente';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'cliente';
+                        break;
+                    default:
+                        $key = 'Cliente';
+                }
+
+                $result[$key] = $this->aCliente->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            }
+        }
 
         return $result;
     }
@@ -1260,6 +1355,9 @@ abstract class Autenticacao implements ActiveRecordInterface
             case 10:
                 $this->setMac($value);
                 break;
+            case 11:
+                $this->setClienteId($value);
+                break;
         } // switch()
 
         return $this;
@@ -1318,6 +1416,9 @@ abstract class Autenticacao implements ActiveRecordInterface
         }
         if (array_key_exists($keys[10], $arr)) {
             $this->setMac($arr[$keys[10]]);
+        }
+        if (array_key_exists($keys[11], $arr)) {
+            $this->setClienteId($arr[$keys[11]]);
         }
     }
 
@@ -1392,6 +1493,9 @@ abstract class Autenticacao implements ActiveRecordInterface
         }
         if ($this->isColumnModified(AutenticacaoTableMap::COL_MAC)) {
             $criteria->add(AutenticacaoTableMap::COL_MAC, $this->mac);
+        }
+        if ($this->isColumnModified(AutenticacaoTableMap::COL_CLIENTE_ID)) {
+            $criteria->add(AutenticacaoTableMap::COL_CLIENTE_ID, $this->cliente_id);
         }
 
         return $criteria;
@@ -1489,6 +1593,7 @@ abstract class Autenticacao implements ActiveRecordInterface
         $copyObj->setIpconcentrador($this->getIpconcentrador());
         $copyObj->setIpv6($this->getIpv6());
         $copyObj->setMac($this->getMac());
+        $copyObj->setClienteId($this->getClienteId());
         if ($makeNew) {
             $copyObj->setNew(true);
             $copyObj->setId(NULL); // this is a auto-increment column, so set to default value
@@ -1518,12 +1623,66 @@ abstract class Autenticacao implements ActiveRecordInterface
     }
 
     /**
+     * Declares an association between this object and a ChildCliente object.
+     *
+     * @param  ChildCliente $v
+     * @return $this|\Autenticacao The current object (for fluent API support)
+     * @throws PropelException
+     */
+    public function setCliente(ChildCliente $v = null)
+    {
+        if ($v === null) {
+            $this->setClienteId(NULL);
+        } else {
+            $this->setClienteId($v->getId());
+        }
+
+        $this->aCliente = $v;
+
+        // Add binding for other direction of this n:n relationship.
+        // If this object has already been added to the ChildCliente object, it will not be re-added.
+        if ($v !== null) {
+            $v->addAutenticacao($this);
+        }
+
+
+        return $this;
+    }
+
+
+    /**
+     * Get the associated ChildCliente object
+     *
+     * @param  ConnectionInterface $con Optional Connection object.
+     * @return ChildCliente The associated ChildCliente object.
+     * @throws PropelException
+     */
+    public function getCliente(ConnectionInterface $con = null)
+    {
+        if ($this->aCliente === null && ($this->cliente_id != 0)) {
+            $this->aCliente = ChildClienteQuery::create()->findPk($this->cliente_id, $con);
+            /* The following can be used additionally to
+                guarantee the related object contains a reference
+                to this object.  This level of coupling may, however, be
+                undesirable since it could result in an only partially populated collection
+                in the referenced object.
+                $this->aCliente->addAutenticacaos($this);
+             */
+        }
+
+        return $this->aCliente;
+    }
+
+    /**
      * Clears the current object, sets all attributes to their default values and removes
      * outgoing references as well as back-references (from other objects to this one. Results probably in a database
      * change of those foreign objects when you call `save` there).
      */
     public function clear()
     {
+        if (null !== $this->aCliente) {
+            $this->aCliente->removeAutenticacao($this);
+        }
         $this->id = null;
         $this->concentrador = null;
         $this->inicio = null;
@@ -1535,6 +1694,7 @@ abstract class Autenticacao implements ActiveRecordInterface
         $this->ipconcentrador = null;
         $this->ipv6 = null;
         $this->mac = null;
+        $this->cliente_id = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();
         $this->resetModified();
@@ -1555,6 +1715,7 @@ abstract class Autenticacao implements ActiveRecordInterface
         if ($deep) {
         } // if ($deep)
 
+        $this->aCliente = null;
     }
 
     /**

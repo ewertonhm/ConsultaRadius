@@ -10,6 +10,7 @@ use Map\AutenticacaoTableMap;
 use Propel\Runtime\Propel;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Propel\Runtime\ActiveQuery\ModelCriteria;
+use Propel\Runtime\ActiveQuery\ModelJoin;
 use Propel\Runtime\Collection\ObjectCollection;
 use Propel\Runtime\Connection\ConnectionInterface;
 use Propel\Runtime\Exception\PropelException;
@@ -30,6 +31,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildAutenticacaoQuery orderByIpconcentrador($order = Criteria::ASC) Order by the ipconcentrador column
  * @method     ChildAutenticacaoQuery orderByIpv6($order = Criteria::ASC) Order by the ipv6 column
  * @method     ChildAutenticacaoQuery orderByMac($order = Criteria::ASC) Order by the mac column
+ * @method     ChildAutenticacaoQuery orderByClienteId($order = Criteria::ASC) Order by the cliente_id column
  *
  * @method     ChildAutenticacaoQuery groupById() Group by the id column
  * @method     ChildAutenticacaoQuery groupByConcentrador() Group by the concentrador column
@@ -42,6 +44,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildAutenticacaoQuery groupByIpconcentrador() Group by the ipconcentrador column
  * @method     ChildAutenticacaoQuery groupByIpv6() Group by the ipv6 column
  * @method     ChildAutenticacaoQuery groupByMac() Group by the mac column
+ * @method     ChildAutenticacaoQuery groupByClienteId() Group by the cliente_id column
  *
  * @method     ChildAutenticacaoQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     ChildAutenticacaoQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -50,6 +53,18 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildAutenticacaoQuery leftJoinWith($relation) Adds a LEFT JOIN clause and with to the query
  * @method     ChildAutenticacaoQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
  * @method     ChildAutenticacaoQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
+ *
+ * @method     ChildAutenticacaoQuery leftJoinCliente($relationAlias = null) Adds a LEFT JOIN clause to the query using the Cliente relation
+ * @method     ChildAutenticacaoQuery rightJoinCliente($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Cliente relation
+ * @method     ChildAutenticacaoQuery innerJoinCliente($relationAlias = null) Adds a INNER JOIN clause to the query using the Cliente relation
+ *
+ * @method     ChildAutenticacaoQuery joinWithCliente($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Cliente relation
+ *
+ * @method     ChildAutenticacaoQuery leftJoinWithCliente() Adds a LEFT JOIN clause and with to the query using the Cliente relation
+ * @method     ChildAutenticacaoQuery rightJoinWithCliente() Adds a RIGHT JOIN clause and with to the query using the Cliente relation
+ * @method     ChildAutenticacaoQuery innerJoinWithCliente() Adds a INNER JOIN clause and with to the query using the Cliente relation
+ *
+ * @method     \ClienteQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *
  * @method     ChildAutenticacao findOne(ConnectionInterface $con = null) Return the first ChildAutenticacao matching the query
  * @method     ChildAutenticacao findOneOrCreate(ConnectionInterface $con = null) Return the first ChildAutenticacao matching the query, or a new ChildAutenticacao object populated from the query conditions when no match is found
@@ -64,7 +79,8 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildAutenticacao findOneByIpconexao(string $ipconexao) Return the first ChildAutenticacao filtered by the ipconexao column
  * @method     ChildAutenticacao findOneByIpconcentrador(string $ipconcentrador) Return the first ChildAutenticacao filtered by the ipconcentrador column
  * @method     ChildAutenticacao findOneByIpv6(string $ipv6) Return the first ChildAutenticacao filtered by the ipv6 column
- * @method     ChildAutenticacao findOneByMac(string $mac) Return the first ChildAutenticacao filtered by the mac column *
+ * @method     ChildAutenticacao findOneByMac(string $mac) Return the first ChildAutenticacao filtered by the mac column
+ * @method     ChildAutenticacao findOneByClienteId(int $cliente_id) Return the first ChildAutenticacao filtered by the cliente_id column *
 
  * @method     ChildAutenticacao requirePk($key, ConnectionInterface $con = null) Return the ChildAutenticacao by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildAutenticacao requireOne(ConnectionInterface $con = null) Return the first ChildAutenticacao matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
@@ -80,6 +96,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildAutenticacao requireOneByIpconcentrador(string $ipconcentrador) Return the first ChildAutenticacao filtered by the ipconcentrador column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildAutenticacao requireOneByIpv6(string $ipv6) Return the first ChildAutenticacao filtered by the ipv6 column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildAutenticacao requireOneByMac(string $mac) Return the first ChildAutenticacao filtered by the mac column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAutenticacao requireOneByClienteId(int $cliente_id) Return the first ChildAutenticacao filtered by the cliente_id column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildAutenticacao[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildAutenticacao objects based on current ModelCriteria
  * @method     ChildAutenticacao[]|ObjectCollection findById(int $id) Return ChildAutenticacao objects filtered by the id column
@@ -93,6 +110,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildAutenticacao[]|ObjectCollection findByIpconcentrador(string $ipconcentrador) Return ChildAutenticacao objects filtered by the ipconcentrador column
  * @method     ChildAutenticacao[]|ObjectCollection findByIpv6(string $ipv6) Return ChildAutenticacao objects filtered by the ipv6 column
  * @method     ChildAutenticacao[]|ObjectCollection findByMac(string $mac) Return ChildAutenticacao objects filtered by the mac column
+ * @method     ChildAutenticacao[]|ObjectCollection findByClienteId(int $cliente_id) Return ChildAutenticacao objects filtered by the cliente_id column
  * @method     ChildAutenticacao[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
  *
  */
@@ -191,7 +209,7 @@ abstract class AutenticacaoQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT id, concentrador, inicio, termino, trafegoupload, trafegodownload, movitodesconexao, ipconexao, ipconcentrador, ipv6, mac FROM autenticacao WHERE id = :p0';
+        $sql = 'SELECT id, concentrador, inicio, termino, trafegoupload, trafegodownload, movitodesconexao, ipconexao, ipconcentrador, ipv6, mac, cliente_id FROM autenticacao WHERE id = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -570,6 +588,126 @@ abstract class AutenticacaoQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(AutenticacaoTableMap::COL_MAC, $mac, $comparison);
+    }
+
+    /**
+     * Filter the query on the cliente_id column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByClienteId(1234); // WHERE cliente_id = 1234
+     * $query->filterByClienteId(array(12, 34)); // WHERE cliente_id IN (12, 34)
+     * $query->filterByClienteId(array('min' => 12)); // WHERE cliente_id > 12
+     * </code>
+     *
+     * @see       filterByCliente()
+     *
+     * @param     mixed $clienteId The value to use as filter.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildAutenticacaoQuery The current query, for fluid interface
+     */
+    public function filterByClienteId($clienteId = null, $comparison = null)
+    {
+        if (is_array($clienteId)) {
+            $useMinMax = false;
+            if (isset($clienteId['min'])) {
+                $this->addUsingAlias(AutenticacaoTableMap::COL_CLIENTE_ID, $clienteId['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($clienteId['max'])) {
+                $this->addUsingAlias(AutenticacaoTableMap::COL_CLIENTE_ID, $clienteId['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(AutenticacaoTableMap::COL_CLIENTE_ID, $clienteId, $comparison);
+    }
+
+    /**
+     * Filter the query by a related \Cliente object
+     *
+     * @param \Cliente|ObjectCollection $cliente The related object(s) to use as filter
+     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @throws \Propel\Runtime\Exception\PropelException
+     *
+     * @return ChildAutenticacaoQuery The current query, for fluid interface
+     */
+    public function filterByCliente($cliente, $comparison = null)
+    {
+        if ($cliente instanceof \Cliente) {
+            return $this
+                ->addUsingAlias(AutenticacaoTableMap::COL_CLIENTE_ID, $cliente->getId(), $comparison);
+        } elseif ($cliente instanceof ObjectCollection) {
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+
+            return $this
+                ->addUsingAlias(AutenticacaoTableMap::COL_CLIENTE_ID, $cliente->toKeyValue('PrimaryKey', 'Id'), $comparison);
+        } else {
+            throw new PropelException('filterByCliente() only accepts arguments of type \Cliente or Collection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the Cliente relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return $this|ChildAutenticacaoQuery The current query, for fluid interface
+     */
+    public function joinCliente($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('Cliente');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'Cliente');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the Cliente relation Cliente object
+     *
+     * @see useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return \ClienteQuery A secondary query class using the current class as primary query
+     */
+    public function useClienteQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        return $this
+            ->joinCliente($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'Cliente', '\ClienteQuery');
     }
 
     /**

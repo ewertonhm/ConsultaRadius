@@ -22,7 +22,12 @@ CREATE TABLE `autenticacao`
     `ipconcentrador` VARCHAR(15),
     `ipv6` VARCHAR(40),
     `mac` VARCHAR(17),
-    PRIMARY KEY (`id`)
+    `cliente_id` INTEGER,
+    PRIMARY KEY (`id`),
+    INDEX `cliente_id` (`cliente_id`),
+    CONSTRAINT `autenticacao_ibfk_1`
+        FOREIGN KEY (`cliente_id`)
+        REFERENCES `cliente` (`id`)
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------

@@ -12,6 +12,13 @@
     <column name="ipconcentrador" phpName="Ipconcentrador" type="VARCHAR" size="15"/>
     <column name="ipv6" phpName="Ipv6" type="VARCHAR" size="40"/>
     <column name="mac" phpName="Mac" type="VARCHAR" size="17"/>
+    <column name="cliente_id" phpName="ClienteId" type="INTEGER"/>
+    <foreign-key foreignTable="cliente" name="autenticacao_ibfk_1">
+      <reference local="cliente_id" foreign="id"/>
+    </foreign-key>
+    <index name="cliente_id">
+      <index-column name="cliente_id"/>
+    </index>
     <vendor type="mysql">
       <parameter name="Engine" value="InnoDB"/>
     </vendor>

@@ -199,6 +199,13 @@ class ClienteTableMap extends TableMap
      */
     public function buildRelations()
     {
+        $this->addRelation('Autenticacao', '\\Autenticacao', RelationMap::ONE_TO_MANY, array (
+  0 =>
+  array (
+    0 => ':cliente_id',
+    1 => ':id',
+  ),
+), null, null, 'Autenticacaos', false);
         $this->addRelation('Log', '\\Log', RelationMap::ONE_TO_MANY, array (
   0 =>
   array (

@@ -54,6 +54,16 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildClienteQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
  * @method     ChildClienteQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
  *
+ * @method     ChildClienteQuery leftJoinAutenticacao($relationAlias = null) Adds a LEFT JOIN clause to the query using the Autenticacao relation
+ * @method     ChildClienteQuery rightJoinAutenticacao($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Autenticacao relation
+ * @method     ChildClienteQuery innerJoinAutenticacao($relationAlias = null) Adds a INNER JOIN clause to the query using the Autenticacao relation
+ *
+ * @method     ChildClienteQuery joinWithAutenticacao($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Autenticacao relation
+ *
+ * @method     ChildClienteQuery leftJoinWithAutenticacao() Adds a LEFT JOIN clause and with to the query using the Autenticacao relation
+ * @method     ChildClienteQuery rightJoinWithAutenticacao() Adds a RIGHT JOIN clause and with to the query using the Autenticacao relation
+ * @method     ChildClienteQuery innerJoinWithAutenticacao() Adds a INNER JOIN clause and with to the query using the Autenticacao relation
+ *
  * @method     ChildClienteQuery leftJoinLog($relationAlias = null) Adds a LEFT JOIN clause to the query using the Log relation
  * @method     ChildClienteQuery rightJoinLog($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Log relation
  * @method     ChildClienteQuery innerJoinLog($relationAlias = null) Adds a INNER JOIN clause to the query using the Log relation
@@ -64,7 +74,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildClienteQuery rightJoinWithLog() Adds a RIGHT JOIN clause and with to the query using the Log relation
  * @method     ChildClienteQuery innerJoinWithLog() Adds a INNER JOIN clause and with to the query using the Log relation
  *
- * @method     \LogQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
+ * @method     \AutenticacaoQuery|\LogQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *
  * @method     ChildCliente findOne(ConnectionInterface $con = null) Return the first ChildCliente matching the query
  * @method     ChildCliente findOneOrCreate(ConnectionInterface $con = null) Return the first ChildCliente matching the query, or a new ChildCliente object populated from the query conditions when no match is found
@@ -629,6 +639,79 @@ abstract class ClienteQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(ClienteTableMap::COL_ANOTACOES, $anotacoes, $comparison);
+    }
+
+    /**
+     * Filter the query by a related \Autenticacao object
+     *
+     * @param \Autenticacao|ObjectCollection $autenticacao the related object to use as filter
+     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return ChildClienteQuery The current query, for fluid interface
+     */
+    public function filterByAutenticacao($autenticacao, $comparison = null)
+    {
+        if ($autenticacao instanceof \Autenticacao) {
+            return $this
+                ->addUsingAlias(ClienteTableMap::COL_ID, $autenticacao->getClienteId(), $comparison);
+        } elseif ($autenticacao instanceof ObjectCollection) {
+            return $this
+                ->useAutenticacaoQuery()
+                ->filterByPrimaryKeys($autenticacao->getPrimaryKeys())
+                ->endUse();
+        } else {
+            throw new PropelException('filterByAutenticacao() only accepts arguments of type \Autenticacao or Collection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the Autenticacao relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return $this|ChildClienteQuery The current query, for fluid interface
+     */
+    public function joinAutenticacao($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('Autenticacao');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'Autenticacao');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the Autenticacao relation Autenticacao object
+     *
+     * @see useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return \AutenticacaoQuery A secondary query class using the current class as primary query
+     */
+    public function useAutenticacaoQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+    {
+        return $this
+            ->joinAutenticacao($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'Autenticacao', '\AutenticacaoQuery');
     }
 
     /**

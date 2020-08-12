@@ -39,5 +39,7 @@ CREATE TABLE autenticacao(
     ipconexao VARCHAR(15),
     ipconcentrador VARCHAR(15),
     ipv6 VARCHAR(40),
-    mac VARCHAR(17)
+    mac VARCHAR(17),
+    cliente_id INT,
+    FOREIGN KEY (cliente_id) REFERENCES cliente (id)
 );

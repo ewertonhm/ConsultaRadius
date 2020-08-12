@@ -58,7 +58,7 @@ class AutenticacaoTableMap extends TableMap
     /**
      * The total number of columns
      */
-    const NUM_COLUMNS = 11;
+    const NUM_COLUMNS = 12;
 
     /**
      * The number of lazy-loaded columns
@@ -68,7 +68,7 @@ class AutenticacaoTableMap extends TableMap
     /**
      * The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS)
      */
-    const NUM_HYDRATE_COLUMNS = 11;
+    const NUM_HYDRATE_COLUMNS = 12;
 
     /**
      * the column name for the id field
@@ -126,6 +126,11 @@ class AutenticacaoTableMap extends TableMap
     const COL_MAC = 'autenticacao.mac';
 
     /**
+     * the column name for the cliente_id field
+     */
+    const COL_CLIENTE_ID = 'autenticacao.cliente_id';
+
+    /**
      * The default string format for model objects of the related table
      */
     const DEFAULT_STRING_FORMAT = 'YAML';
@@ -137,11 +142,11 @@ class AutenticacaoTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Id', 'Concentrador', 'Inicio', 'Termino', 'Trafegoupload', 'Trafegodownload', 'Movitodesconexao', 'Ipconexao', 'Ipconcentrador', 'Ipv6', 'Mac', ),
-        self::TYPE_CAMELNAME     => array('id', 'concentrador', 'inicio', 'termino', 'trafegoupload', 'trafegodownload', 'movitodesconexao', 'ipconexao', 'ipconcentrador', 'ipv6', 'mac', ),
-        self::TYPE_COLNAME       => array(AutenticacaoTableMap::COL_ID, AutenticacaoTableMap::COL_CONCENTRADOR, AutenticacaoTableMap::COL_INICIO, AutenticacaoTableMap::COL_TERMINO, AutenticacaoTableMap::COL_TRAFEGOUPLOAD, AutenticacaoTableMap::COL_TRAFEGODOWNLOAD, AutenticacaoTableMap::COL_MOVITODESCONEXAO, AutenticacaoTableMap::COL_IPCONEXAO, AutenticacaoTableMap::COL_IPCONCENTRADOR, AutenticacaoTableMap::COL_IPV6, AutenticacaoTableMap::COL_MAC, ),
-        self::TYPE_FIELDNAME     => array('id', 'concentrador', 'inicio', 'termino', 'trafegoupload', 'trafegodownload', 'movitodesconexao', 'ipconexao', 'ipconcentrador', 'ipv6', 'mac', ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, )
+        self::TYPE_PHPNAME       => array('Id', 'Concentrador', 'Inicio', 'Termino', 'Trafegoupload', 'Trafegodownload', 'Movitodesconexao', 'Ipconexao', 'Ipconcentrador', 'Ipv6', 'Mac', 'ClienteId', ),
+        self::TYPE_CAMELNAME     => array('id', 'concentrador', 'inicio', 'termino', 'trafegoupload', 'trafegodownload', 'movitodesconexao', 'ipconexao', 'ipconcentrador', 'ipv6', 'mac', 'clienteId', ),
+        self::TYPE_COLNAME       => array(AutenticacaoTableMap::COL_ID, AutenticacaoTableMap::COL_CONCENTRADOR, AutenticacaoTableMap::COL_INICIO, AutenticacaoTableMap::COL_TERMINO, AutenticacaoTableMap::COL_TRAFEGOUPLOAD, AutenticacaoTableMap::COL_TRAFEGODOWNLOAD, AutenticacaoTableMap::COL_MOVITODESCONEXAO, AutenticacaoTableMap::COL_IPCONEXAO, AutenticacaoTableMap::COL_IPCONCENTRADOR, AutenticacaoTableMap::COL_IPV6, AutenticacaoTableMap::COL_MAC, AutenticacaoTableMap::COL_CLIENTE_ID, ),
+        self::TYPE_FIELDNAME     => array('id', 'concentrador', 'inicio', 'termino', 'trafegoupload', 'trafegodownload', 'movitodesconexao', 'ipconexao', 'ipconcentrador', 'ipv6', 'mac', 'cliente_id', ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, )
     );
 
     /**
@@ -151,11 +156,11 @@ class AutenticacaoTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Id' => 0, 'Concentrador' => 1, 'Inicio' => 2, 'Termino' => 3, 'Trafegoupload' => 4, 'Trafegodownload' => 5, 'Movitodesconexao' => 6, 'Ipconexao' => 7, 'Ipconcentrador' => 8, 'Ipv6' => 9, 'Mac' => 10, ),
-        self::TYPE_CAMELNAME     => array('id' => 0, 'concentrador' => 1, 'inicio' => 2, 'termino' => 3, 'trafegoupload' => 4, 'trafegodownload' => 5, 'movitodesconexao' => 6, 'ipconexao' => 7, 'ipconcentrador' => 8, 'ipv6' => 9, 'mac' => 10, ),
-        self::TYPE_COLNAME       => array(AutenticacaoTableMap::COL_ID => 0, AutenticacaoTableMap::COL_CONCENTRADOR => 1, AutenticacaoTableMap::COL_INICIO => 2, AutenticacaoTableMap::COL_TERMINO => 3, AutenticacaoTableMap::COL_TRAFEGOUPLOAD => 4, AutenticacaoTableMap::COL_TRAFEGODOWNLOAD => 5, AutenticacaoTableMap::COL_MOVITODESCONEXAO => 6, AutenticacaoTableMap::COL_IPCONEXAO => 7, AutenticacaoTableMap::COL_IPCONCENTRADOR => 8, AutenticacaoTableMap::COL_IPV6 => 9, AutenticacaoTableMap::COL_MAC => 10, ),
-        self::TYPE_FIELDNAME     => array('id' => 0, 'concentrador' => 1, 'inicio' => 2, 'termino' => 3, 'trafegoupload' => 4, 'trafegodownload' => 5, 'movitodesconexao' => 6, 'ipconexao' => 7, 'ipconcentrador' => 8, 'ipv6' => 9, 'mac' => 10, ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, )
+        self::TYPE_PHPNAME       => array('Id' => 0, 'Concentrador' => 1, 'Inicio' => 2, 'Termino' => 3, 'Trafegoupload' => 4, 'Trafegodownload' => 5, 'Movitodesconexao' => 6, 'Ipconexao' => 7, 'Ipconcentrador' => 8, 'Ipv6' => 9, 'Mac' => 10, 'ClienteId' => 11, ),
+        self::TYPE_CAMELNAME     => array('id' => 0, 'concentrador' => 1, 'inicio' => 2, 'termino' => 3, 'trafegoupload' => 4, 'trafegodownload' => 5, 'movitodesconexao' => 6, 'ipconexao' => 7, 'ipconcentrador' => 8, 'ipv6' => 9, 'mac' => 10, 'clienteId' => 11, ),
+        self::TYPE_COLNAME       => array(AutenticacaoTableMap::COL_ID => 0, AutenticacaoTableMap::COL_CONCENTRADOR => 1, AutenticacaoTableMap::COL_INICIO => 2, AutenticacaoTableMap::COL_TERMINO => 3, AutenticacaoTableMap::COL_TRAFEGOUPLOAD => 4, AutenticacaoTableMap::COL_TRAFEGODOWNLOAD => 5, AutenticacaoTableMap::COL_MOVITODESCONEXAO => 6, AutenticacaoTableMap::COL_IPCONEXAO => 7, AutenticacaoTableMap::COL_IPCONCENTRADOR => 8, AutenticacaoTableMap::COL_IPV6 => 9, AutenticacaoTableMap::COL_MAC => 10, AutenticacaoTableMap::COL_CLIENTE_ID => 11, ),
+        self::TYPE_FIELDNAME     => array('id' => 0, 'concentrador' => 1, 'inicio' => 2, 'termino' => 3, 'trafegoupload' => 4, 'trafegodownload' => 5, 'movitodesconexao' => 6, 'ipconexao' => 7, 'ipconcentrador' => 8, 'ipv6' => 9, 'mac' => 10, 'cliente_id' => 11, ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, )
     );
 
     /**
@@ -186,6 +191,7 @@ class AutenticacaoTableMap extends TableMap
         $this->addColumn('ipconcentrador', 'Ipconcentrador', 'VARCHAR', false, 15, null);
         $this->addColumn('ipv6', 'Ipv6', 'VARCHAR', false, 40, null);
         $this->addColumn('mac', 'Mac', 'VARCHAR', false, 17, null);
+        $this->addForeignKey('cliente_id', 'ClienteId', 'INTEGER', 'cliente', 'id', false, null, null);
     } // initialize()
 
     /**
@@ -193,6 +199,13 @@ class AutenticacaoTableMap extends TableMap
      */
     public function buildRelations()
     {
+        $this->addRelation('Cliente', '\\Cliente', RelationMap::MANY_TO_ONE, array (
+  0 =>
+  array (
+    0 => ':cliente_id',
+    1 => ':id',
+  ),
+), null, null, null, false);
     } // buildRelations()
 
     /**
@@ -347,6 +360,7 @@ class AutenticacaoTableMap extends TableMap
             $criteria->addSelectColumn(AutenticacaoTableMap::COL_IPCONCENTRADOR);
             $criteria->addSelectColumn(AutenticacaoTableMap::COL_IPV6);
             $criteria->addSelectColumn(AutenticacaoTableMap::COL_MAC);
+            $criteria->addSelectColumn(AutenticacaoTableMap::COL_CLIENTE_ID);
         } else {
             $criteria->addSelectColumn($alias . '.id');
             $criteria->addSelectColumn($alias . '.concentrador');
@@ -359,6 +373,7 @@ class AutenticacaoTableMap extends TableMap
             $criteria->addSelectColumn($alias . '.ipconcentrador');
             $criteria->addSelectColumn($alias . '.ipv6');
             $criteria->addSelectColumn($alias . '.mac');
+            $criteria->addSelectColumn($alias . '.cliente_id');
         }
     }
 

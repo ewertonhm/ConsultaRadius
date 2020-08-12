@@ -2,12 +2,15 @@
 
 namespace Base;
 
+use \Autenticacao as ChildAutenticacao;
+use \AutenticacaoQuery as ChildAutenticacaoQuery;
 use \Cliente as ChildCliente;
 use \ClienteQuery as ChildClienteQuery;
 use \Log as ChildLog;
 use \LogQuery as ChildLogQuery;
 use \Exception;
 use \PDO;
+use Map\AutenticacaoTableMap;
 use Map\ClienteTableMap;
 use Map\LogTableMap;
 use Propel\Runtime\Propel;
@@ -149,6 +152,12 @@ abstract class Cliente implements ActiveRecordInterface
     protected $anotacoes;
 
     /**
+     * @var        ObjectCollection|ChildAutenticacao[] Collection to store aggregation of ChildAutenticacao objects.
+     */
+    protected $collAutenticacaos;
+    protected $collAutenticacaosPartial;
+
+    /**
      * @var        ObjectCollection|ChildLog[] Collection to store aggregation of ChildLog objects.
      */
     protected $collLogs;
@@ -161,6 +170,12 @@ abstract class Cliente implements ActiveRecordInterface
      * @var boolean
      */
     protected $alreadyInSave = false;
+
+    /**
+     * An array of objects scheduled for deletion.
+     * @var ObjectCollection|ChildAutenticacao[]
+     */
+    protected $autenticacaosScheduledForDeletion = null;
 
     /**
      * An array of objects scheduled for deletion.
@@ -893,6 +908,8 @@ abstract class Cliente implements ActiveRecordInterface
 
         if ($deep) {  // also de-associate any related objects?
 
+            $this->collAutenticacaos = null;
+
             $this->collLogs = null;
 
         } // if (deep)
@@ -1007,6 +1024,24 @@ abstract class Cliente implements ActiveRecordInterface
                     $affectedRows += $this->doUpdate($con);
                 }
                 $this->resetModified();
+            }
+
+            if ($this->autenticacaosScheduledForDeletion !== null) {
+                if (!$this->autenticacaosScheduledForDeletion->isEmpty()) {
+                    foreach ($this->autenticacaosScheduledForDeletion as $autenticacao) {
+                        // need to save related object because we set the relation to null
+                        $autenticacao->save($con);
+                    }
+                    $this->autenticacaosScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collAutenticacaos !== null) {
+                foreach ($this->collAutenticacaos as $referrerFK) {
+                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
             }
 
             if ($this->logsScheduledForDeletion !== null) {
@@ -1283,6 +1318,21 @@ abstract class Cliente implements ActiveRecordInterface
         }
 
         if ($includeForeignObjects) {
+            if (null !== $this->collAutenticacaos) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'autenticacaos';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'autenticacaos';
+                        break;
+                    default:
+                        $key = 'Autenticacaos';
+                }
+
+                $result[$key] = $this->collAutenticacaos->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            }
             if (null !== $this->collLogs) {
 
                 switch ($keyType) {
@@ -1610,6 +1660,12 @@ abstract class Cliente implements ActiveRecordInterface
             // the getter/setter methods for fkey referrer objects.
             $copyObj->setNew(false);
 
+            foreach ($this->getAutenticacaos() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addAutenticacao($relObj->copy($deepCopy));
+                }
+            }
+
             foreach ($this->getLogs() as $relObj) {
                 if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
                     $copyObj->addLog($relObj->copy($deepCopy));
@@ -1657,10 +1713,248 @@ abstract class Cliente implements ActiveRecordInterface
      */
     public function initRelation($relationName)
     {
+        if ('Autenticacao' === $relationName) {
+            $this->initAutenticacaos();
+            return;
+        }
         if ('Log' === $relationName) {
             $this->initLogs();
             return;
         }
+    }
+
+    /**
+     * Clears out the collAutenticacaos collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return void
+     * @see        addAutenticacaos()
+     */
+    public function clearAutenticacaos()
+    {
+        $this->collAutenticacaos = null; // important to set this to NULL since that means it is uninitialized
+    }
+
+    /**
+     * Reset is the collAutenticacaos collection loaded partially.
+     */
+    public function resetPartialAutenticacaos($v = true)
+    {
+        $this->collAutenticacaosPartial = $v;
+    }
+
+    /**
+     * Initializes the collAutenticacaos collection.
+     *
+     * By default this just sets the collAutenticacaos collection to an empty array (like clearcollAutenticacaos());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param      boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initAutenticacaos($overrideExisting = true)
+    {
+        if (null !== $this->collAutenticacaos && !$overrideExisting) {
+            return;
+        }
+
+        $collectionClassName = AutenticacaoTableMap::getTableMap()->getCollectionClassName();
+
+        $this->collAutenticacaos = new $collectionClassName;
+        $this->collAutenticacaos->setModel('\Autenticacao');
+    }
+
+    /**
+     * Gets an array of ChildAutenticacao objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this ChildCliente is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param      Criteria $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con optional connection object
+     * @return ObjectCollection|ChildAutenticacao[] List of ChildAutenticacao objects
+     * @throws PropelException
+     */
+    public function getAutenticacaos(Criteria $criteria = null, ConnectionInterface $con = null)
+    {
+        $partial = $this->collAutenticacaosPartial && !$this->isNew();
+        if (null === $this->collAutenticacaos || null !== $criteria || $partial) {
+            if ($this->isNew()) {
+                // return empty collection
+                if (null === $this->collAutenticacaos) {
+                    $this->initAutenticacaos();
+                } else {
+                    $collectionClassName = AutenticacaoTableMap::getTableMap()->getCollectionClassName();
+
+                    $collAutenticacaos = new $collectionClassName;
+                    $collAutenticacaos->setModel('\Autenticacao');
+
+                    return $collAutenticacaos;
+                }
+            } else {
+                $collAutenticacaos = ChildAutenticacaoQuery::create(null, $criteria)
+                    ->filterByCliente($this)
+                    ->find($con);
+
+                if (null !== $criteria) {
+                    if (false !== $this->collAutenticacaosPartial && count($collAutenticacaos)) {
+                        $this->initAutenticacaos(false);
+
+                        foreach ($collAutenticacaos as $obj) {
+                            if (false == $this->collAutenticacaos->contains($obj)) {
+                                $this->collAutenticacaos->append($obj);
+                            }
+                        }
+
+                        $this->collAutenticacaosPartial = true;
+                    }
+
+                    return $collAutenticacaos;
+                }
+
+                if ($partial && $this->collAutenticacaos) {
+                    foreach ($this->collAutenticacaos as $obj) {
+                        if ($obj->isNew()) {
+                            $collAutenticacaos[] = $obj;
+                        }
+                    }
+                }
+
+                $this->collAutenticacaos = $collAutenticacaos;
+                $this->collAutenticacaosPartial = false;
+            }
+        }
+
+        return $this->collAutenticacaos;
+    }
+
+    /**
+     * Sets a collection of ChildAutenticacao objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param      Collection $autenticacaos A Propel collection.
+     * @param      ConnectionInterface $con Optional connection object
+     * @return $this|ChildCliente The current object (for fluent API support)
+     */
+    public function setAutenticacaos(Collection $autenticacaos, ConnectionInterface $con = null)
+    {
+        /** @var ChildAutenticacao[] $autenticacaosToDelete */
+        $autenticacaosToDelete = $this->getAutenticacaos(new Criteria(), $con)->diff($autenticacaos);
+
+
+        $this->autenticacaosScheduledForDeletion = $autenticacaosToDelete;
+
+        foreach ($autenticacaosToDelete as $autenticacaoRemoved) {
+            $autenticacaoRemoved->setCliente(null);
+        }
+
+        $this->collAutenticacaos = null;
+        foreach ($autenticacaos as $autenticacao) {
+            $this->addAutenticacao($autenticacao);
+        }
+
+        $this->collAutenticacaos = $autenticacaos;
+        $this->collAutenticacaosPartial = false;
+
+        return $this;
+    }
+
+    /**
+     * Returns the number of related Autenticacao objects.
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct
+     * @param      ConnectionInterface $con
+     * @return int             Count of related Autenticacao objects.
+     * @throws PropelException
+     */
+    public function countAutenticacaos(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
+    {
+        $partial = $this->collAutenticacaosPartial && !$this->isNew();
+        if (null === $this->collAutenticacaos || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collAutenticacaos) {
+                return 0;
+            }
+
+            if ($partial && !$criteria) {
+                return count($this->getAutenticacaos());
+            }
+
+            $query = ChildAutenticacaoQuery::create(null, $criteria);
+            if ($distinct) {
+                $query->distinct();
+            }
+
+            return $query
+                ->filterByCliente($this)
+                ->count($con);
+        }
+
+        return count($this->collAutenticacaos);
+    }
+
+    /**
+     * Method called to associate a ChildAutenticacao object to this object
+     * through the ChildAutenticacao foreign key attribute.
+     *
+     * @param  ChildAutenticacao $l ChildAutenticacao
+     * @return $this|\Cliente The current object (for fluent API support)
+     */
+    public function addAutenticacao(ChildAutenticacao $l)
+    {
+        if ($this->collAutenticacaos === null) {
+            $this->initAutenticacaos();
+            $this->collAutenticacaosPartial = true;
+        }
+
+        if (!$this->collAutenticacaos->contains($l)) {
+            $this->doAddAutenticacao($l);
+
+            if ($this->autenticacaosScheduledForDeletion and $this->autenticacaosScheduledForDeletion->contains($l)) {
+                $this->autenticacaosScheduledForDeletion->remove($this->autenticacaosScheduledForDeletion->search($l));
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param ChildAutenticacao $autenticacao The ChildAutenticacao object to add.
+     */
+    protected function doAddAutenticacao(ChildAutenticacao $autenticacao)
+    {
+        $this->collAutenticacaos[]= $autenticacao;
+        $autenticacao->setCliente($this);
+    }
+
+    /**
+     * @param  ChildAutenticacao $autenticacao The ChildAutenticacao object to remove.
+     * @return $this|ChildCliente The current object (for fluent API support)
+     */
+    public function removeAutenticacao(ChildAutenticacao $autenticacao)
+    {
+        if ($this->getAutenticacaos()->contains($autenticacao)) {
+            $pos = $this->collAutenticacaos->search($autenticacao);
+            $this->collAutenticacaos->remove($pos);
+            if (null === $this->autenticacaosScheduledForDeletion) {
+                $this->autenticacaosScheduledForDeletion = clone $this->collAutenticacaos;
+                $this->autenticacaosScheduledForDeletion->clear();
+            }
+            $this->autenticacaosScheduledForDeletion[]= $autenticacao;
+            $autenticacao->setCliente(null);
+        }
+
+        return $this;
     }
 
     /**
@@ -1934,6 +2228,11 @@ abstract class Cliente implements ActiveRecordInterface
     public function clearAllReferences($deep = false)
     {
         if ($deep) {
+            if ($this->collAutenticacaos) {
+                foreach ($this->collAutenticacaos as $o) {
+                    $o->clearAllReferences($deep);
+                }
+            }
             if ($this->collLogs) {
                 foreach ($this->collLogs as $o) {
                     $o->clearAllReferences($deep);
@@ -1941,6 +2240,7 @@ abstract class Cliente implements ActiveRecordInterface
             }
         } // if ($deep)
 
+        $this->collAutenticacaos = null;
         $this->collLogs = null;
     }
 
