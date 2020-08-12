@@ -2,6 +2,9 @@
 // setup the autoloading
 require_once 'vendor/autoload.php';
 
+// setup database
+require_once 'database-conf/config.php';
+
 //setup whoops
 $whoops = new \Whoops\Run;
 $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);

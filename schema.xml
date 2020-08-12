@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<database name="default" defaultIdMethod="native" defaultPhpNamingMethod="underscore">
+  <table name="autenticacao" idMethod="native" phpName="Autenticacao">
+    <column name="id" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="concentrador" phpName="Concentrador" type="VARCHAR" size="45"/>
+    <column name="inicio" phpName="Inicio" type="VARCHAR" size="45"/>
+    <column name="termino" phpName="Termino" type="VARCHAR" size="45"/>
+    <column name="trafegoupload" phpName="Trafegoupload" type="VARCHAR" size="45"/>
+    <column name="trafegodownload" phpName="Trafegodownload" type="VARCHAR" size="45"/>
+    <column name="movitodesconexao" phpName="Movitodesconexao" type="VARCHAR" size="45"/>
+    <column name="ipconexao" phpName="Ipconexao" type="VARCHAR" size="15"/>
+    <column name="ipconcentrador" phpName="Ipconcentrador" type="VARCHAR" size="15"/>
+    <column name="ipv6" phpName="Ipv6" type="VARCHAR" size="40"/>
+    <column name="mac" phpName="Mac" type="VARCHAR" size="17"/>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="cliente" idMethod="native" phpName="Cliente">
+    <column name="id" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="nome" phpName="Nome" type="VARCHAR" size="60" required="true"/>
+    <column name="ip" phpName="Ip" type="VARCHAR" size="15"/>
+    <column name="concentrador" phpName="Concentrador" type="VARCHAR" size="45"/>
+    <column name="vlan" phpName="Vlan" type="INTEGER"/>
+    <column name="pppoe" phpName="Pppoe" type="VARCHAR" size="45" required="true"/>
+    <column name="senha" phpName="Senha" type="VARCHAR" size="45"/>
+    <column name="stcontrato" phpName="Stcontrato" type="VARCHAR" size="45"/>
+    <column name="servico" phpName="Servico" type="VARCHAR" size="45"/>
+    <column name="velocidade" phpName="Velocidade" type="VARCHAR" size="45"/>
+    <column name="status" phpName="Status" type="VARCHAR" size="45"/>
+    <column name="anotacoes" phpName="Anotacoes" type="VARCHAR" size="500"/>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="log" idMethod="native" phpName="Log">
+    <column name="id" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="data" phpName="Data" type="VARCHAR" size="45"/>
+    <column name="log" phpName="Log" type="VARCHAR" size="45"/>
+    <column name="cliente_id" phpName="ClienteId" type="INTEGER"/>
+    <foreign-key foreignTable="cliente" name="log_ibfk_1">
+      <reference local="cliente_id" foreign="id"/>
+    </foreign-key>
+    <index name="cliente_id">
+      <index-column name="cliente_id"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="usuario" idMethod="native" phpName="Usuario">
+    <column name="id" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="login" phpName="Login" type="VARCHAR" size="45" required="true"/>
+    <column name="senha" phpName="Senha" type="VARCHAR" size="32" required="true"/>
+    <column name="permissao" phpName="Permissao" type="INTEGER"/>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+</database>
