@@ -73,8 +73,8 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildAutenticacao findOneByConcentrador(string $concentrador) Return the first ChildAutenticacao filtered by the concentrador column
  * @method     ChildAutenticacao findOneByInicio(string $inicio) Return the first ChildAutenticacao filtered by the inicio column
  * @method     ChildAutenticacao findOneByTermino(string $termino) Return the first ChildAutenticacao filtered by the termino column
- * @method     ChildAutenticacao findOneByTrafegoupload(string $trafegoupload) Return the first ChildAutenticacao filtered by the trafegoupload column
- * @method     ChildAutenticacao findOneByTrafegodownload(string $trafegodownload) Return the first ChildAutenticacao filtered by the trafegodownload column
+ * @method     ChildAutenticacao findOneByTrafegoupload(double $trafegoupload) Return the first ChildAutenticacao filtered by the trafegoupload column
+ * @method     ChildAutenticacao findOneByTrafegodownload(double $trafegodownload) Return the first ChildAutenticacao filtered by the trafegodownload column
  * @method     ChildAutenticacao findOneByMovitodesconexao(string $movitodesconexao) Return the first ChildAutenticacao filtered by the movitodesconexao column
  * @method     ChildAutenticacao findOneByIpconexao(string $ipconexao) Return the first ChildAutenticacao filtered by the ipconexao column
  * @method     ChildAutenticacao findOneByIpconcentrador(string $ipconcentrador) Return the first ChildAutenticacao filtered by the ipconcentrador column
@@ -89,8 +89,8 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildAutenticacao requireOneByConcentrador(string $concentrador) Return the first ChildAutenticacao filtered by the concentrador column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildAutenticacao requireOneByInicio(string $inicio) Return the first ChildAutenticacao filtered by the inicio column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildAutenticacao requireOneByTermino(string $termino) Return the first ChildAutenticacao filtered by the termino column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAutenticacao requireOneByTrafegoupload(string $trafegoupload) Return the first ChildAutenticacao filtered by the trafegoupload column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildAutenticacao requireOneByTrafegodownload(string $trafegodownload) Return the first ChildAutenticacao filtered by the trafegodownload column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAutenticacao requireOneByTrafegoupload(double $trafegoupload) Return the first ChildAutenticacao filtered by the trafegoupload column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildAutenticacao requireOneByTrafegodownload(double $trafegodownload) Return the first ChildAutenticacao filtered by the trafegodownload column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildAutenticacao requireOneByMovitodesconexao(string $movitodesconexao) Return the first ChildAutenticacao filtered by the movitodesconexao column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildAutenticacao requireOneByIpconexao(string $ipconexao) Return the first ChildAutenticacao filtered by the ipconexao column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildAutenticacao requireOneByIpconcentrador(string $ipconcentrador) Return the first ChildAutenticacao filtered by the ipconcentrador column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
@@ -103,8 +103,8 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildAutenticacao[]|ObjectCollection findByConcentrador(string $concentrador) Return ChildAutenticacao objects filtered by the concentrador column
  * @method     ChildAutenticacao[]|ObjectCollection findByInicio(string $inicio) Return ChildAutenticacao objects filtered by the inicio column
  * @method     ChildAutenticacao[]|ObjectCollection findByTermino(string $termino) Return ChildAutenticacao objects filtered by the termino column
- * @method     ChildAutenticacao[]|ObjectCollection findByTrafegoupload(string $trafegoupload) Return ChildAutenticacao objects filtered by the trafegoupload column
- * @method     ChildAutenticacao[]|ObjectCollection findByTrafegodownload(string $trafegodownload) Return ChildAutenticacao objects filtered by the trafegodownload column
+ * @method     ChildAutenticacao[]|ObjectCollection findByTrafegoupload(double $trafegoupload) Return ChildAutenticacao objects filtered by the trafegoupload column
+ * @method     ChildAutenticacao[]|ObjectCollection findByTrafegodownload(double $trafegodownload) Return ChildAutenticacao objects filtered by the trafegodownload column
  * @method     ChildAutenticacao[]|ObjectCollection findByMovitodesconexao(string $movitodesconexao) Return ChildAutenticacao objects filtered by the movitodesconexao column
  * @method     ChildAutenticacao[]|ObjectCollection findByIpconexao(string $ipconexao) Return ChildAutenticacao objects filtered by the ipconexao column
  * @method     ChildAutenticacao[]|ObjectCollection findByIpconcentrador(string $ipconcentrador) Return ChildAutenticacao objects filtered by the ipconcentrador column
@@ -420,19 +420,35 @@ abstract class AutenticacaoQuery extends ModelCriteria
      *
      * Example usage:
      * <code>
-     * $query->filterByTrafegoupload('fooValue');   // WHERE trafegoupload = 'fooValue'
-     * $query->filterByTrafegoupload('%fooValue%', Criteria::LIKE); // WHERE trafegoupload LIKE '%fooValue%'
+     * $query->filterByTrafegoupload(1234); // WHERE trafegoupload = 1234
+     * $query->filterByTrafegoupload(array(12, 34)); // WHERE trafegoupload IN (12, 34)
+     * $query->filterByTrafegoupload(array('min' => 12)); // WHERE trafegoupload > 12
      * </code>
      *
-     * @param     string $trafegoupload The value to use as filter.
+     * @param     mixed $trafegoupload The value to use as filter.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildAutenticacaoQuery The current query, for fluid interface
      */
     public function filterByTrafegoupload($trafegoupload = null, $comparison = null)
     {
-        if (null === $comparison) {
-            if (is_array($trafegoupload)) {
+        if (is_array($trafegoupload)) {
+            $useMinMax = false;
+            if (isset($trafegoupload['min'])) {
+                $this->addUsingAlias(AutenticacaoTableMap::COL_TRAFEGOUPLOAD, $trafegoupload['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($trafegoupload['max'])) {
+                $this->addUsingAlias(AutenticacaoTableMap::COL_TRAFEGOUPLOAD, $trafegoupload['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
                 $comparison = Criteria::IN;
             }
         }
@@ -445,19 +461,35 @@ abstract class AutenticacaoQuery extends ModelCriteria
      *
      * Example usage:
      * <code>
-     * $query->filterByTrafegodownload('fooValue');   // WHERE trafegodownload = 'fooValue'
-     * $query->filterByTrafegodownload('%fooValue%', Criteria::LIKE); // WHERE trafegodownload LIKE '%fooValue%'
+     * $query->filterByTrafegodownload(1234); // WHERE trafegodownload = 1234
+     * $query->filterByTrafegodownload(array(12, 34)); // WHERE trafegodownload IN (12, 34)
+     * $query->filterByTrafegodownload(array('min' => 12)); // WHERE trafegodownload > 12
      * </code>
      *
-     * @param     string $trafegodownload The value to use as filter.
+     * @param     mixed $trafegodownload The value to use as filter.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildAutenticacaoQuery The current query, for fluid interface
      */
     public function filterByTrafegodownload($trafegodownload = null, $comparison = null)
     {
-        if (null === $comparison) {
-            if (is_array($trafegodownload)) {
+        if (is_array($trafegodownload)) {
+            $useMinMax = false;
+            if (isset($trafegodownload['min'])) {
+                $this->addUsingAlias(AutenticacaoTableMap::COL_TRAFEGODOWNLOAD, $trafegodownload['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($trafegodownload['max'])) {
+                $this->addUsingAlias(AutenticacaoTableMap::COL_TRAFEGODOWNLOAD, $trafegodownload['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
                 $comparison = Criteria::IN;
             }
         }

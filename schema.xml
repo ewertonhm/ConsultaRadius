@@ -5,8 +5,8 @@
     <column name="concentrador" phpName="Concentrador" type="VARCHAR" size="45"/>
     <column name="inicio" phpName="Inicio" type="VARCHAR" size="45"/>
     <column name="termino" phpName="Termino" type="VARCHAR" size="45"/>
-    <column name="trafegoupload" phpName="Trafegoupload" type="VARCHAR" size="45"/>
-    <column name="trafegodownload" phpName="Trafegodownload" type="VARCHAR" size="45"/>
+    <column name="trafegoupload" phpName="Trafegoupload" type="FLOAT"/>
+    <column name="trafegodownload" phpName="Trafegodownload" type="FLOAT"/>
     <column name="movitodesconexao" phpName="Movitodesconexao" type="VARCHAR" size="45"/>
     <column name="ipconexao" phpName="Ipconexao" type="VARCHAR" size="15"/>
     <column name="ipconcentrador" phpName="Ipconcentrador" type="VARCHAR" size="15"/>

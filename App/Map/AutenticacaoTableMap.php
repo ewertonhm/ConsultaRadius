@@ -184,8 +184,8 @@ class AutenticacaoTableMap extends TableMap
         $this->addColumn('concentrador', 'Concentrador', 'VARCHAR', false, 45, null);
         $this->addColumn('inicio', 'Inicio', 'VARCHAR', false, 45, null);
         $this->addColumn('termino', 'Termino', 'VARCHAR', false, 45, null);
-        $this->addColumn('trafegoupload', 'Trafegoupload', 'VARCHAR', false, 45, null);
-        $this->addColumn('trafegodownload', 'Trafegodownload', 'VARCHAR', false, 45, null);
+        $this->addColumn('trafegoupload', 'Trafegoupload', 'FLOAT', false, null, null);
+        $this->addColumn('trafegodownload', 'Trafegodownload', 'FLOAT', false, null, null);
         $this->addColumn('movitodesconexao', 'Movitodesconexao', 'VARCHAR', false, 45, null);
         $this->addColumn('ipconexao', 'Ipconexao', 'VARCHAR', false, 15, null);
         $this->addColumn('ipconcentrador', 'Ipconcentrador', 'VARCHAR', false, 15, null);

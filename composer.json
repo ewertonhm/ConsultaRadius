@@ -7,16 +7,14 @@
             "email": "sis-ewertonmarschalk@uniguacu.edu.br"
         }
     ],
+    "autoload": {
+        "classmap": ["App/"]
+    },
     "require": {
         "filp/whoops": "^2.7",
         "symfony/var-dumper": "^5.1",
         "twig/twig": "^3.0",
         "propel/propel": "~2.0@dev",
         "nesbot/carbon": "^2.38"
-    },
-    "autoload": {
-        "psr-4": {
-            "App\\": "app/"
-        }
     }
 }

@@ -23,7 +23,7 @@ CREATE TABLE cliente(
 CREATE TABLE log(
   id INT AUTO_INCREMENT PRIMARY KEY,
   data VARCHAR(45),
-  log VARCHAR(45),
+  log VARCHAR(250),
   cliente_id INT,
   FOREIGN KEY (cliente_id) REFERENCES cliente (id)
 );
@@ -33,8 +33,8 @@ CREATE TABLE autenticacao(
     concentrador VARCHAR(45),
     inicio VARCHAR(45),
     termino VARCHAR(45),
-    trafegoupload VARCHAR(45),
-    trafegodownload VARCHAR(45),
+    trafegoupload FLOAT,
+    trafegodownload FLOAT,
     movitodesconexao VARCHAR(45),
     ipconexao VARCHAR(15),
     ipconcentrador VARCHAR(15),

@@ -92,14 +92,14 @@ abstract class Autenticacao implements ActiveRecordInterface
     /**
      * The value for the trafegoupload field.
      *
-     * @var        string
+     * @var        double
      */
     protected $trafegoupload;
 
     /**
      * The value for the trafegodownload field.
      *
-     * @var        string
+     * @var        double
      */
     protected $trafegodownload;
 
@@ -426,7 +426,7 @@ abstract class Autenticacao implements ActiveRecordInterface
     /**
      * Get the [trafegoupload] column value.
      *
-     * @return string
+     * @return double
      */
     public function getTrafegoupload()
     {
@@ -436,7 +436,7 @@ abstract class Autenticacao implements ActiveRecordInterface
     /**
      * Get the [trafegodownload] column value.
      *
-     * @return string
+     * @return double
      */
     public function getTrafegodownload()
     {
@@ -586,13 +586,13 @@ abstract class Autenticacao implements ActiveRecordInterface
     /**
      * Set the value of [trafegoupload] column.
      *
-     * @param string|null $v New value
+     * @param double|null $v New value
      * @return $this|\Autenticacao The current object (for fluent API support)
      */
     public function setTrafegoupload($v)
     {
         if ($v !== null) {
-            $v = (string) $v;
+            $v = (double) $v;
         }
 
         if ($this->trafegoupload !== $v) {
@@ -606,13 +606,13 @@ abstract class Autenticacao implements ActiveRecordInterface
     /**
      * Set the value of [trafegodownload] column.
      *
-     * @param string|null $v New value
+     * @param double|null $v New value
      * @return $this|\Autenticacao The current object (for fluent API support)
      */
     public function setTrafegodownload($v)
     {
         if ($v !== null) {
-            $v = (string) $v;
+            $v = (double) $v;
         }
 
         if ($this->trafegodownload !== $v) {
@@ -796,10 +796,10 @@ abstract class Autenticacao implements ActiveRecordInterface
             $this->termino = (null !== $col) ? (string) $col : null;
 
             $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : AutenticacaoTableMap::translateFieldName('Trafegoupload', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->trafegoupload = (null !== $col) ? (string) $col : null;
+            $this->trafegoupload = (null !== $col) ? (double) $col : null;
 
             $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : AutenticacaoTableMap::translateFieldName('Trafegodownload', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->trafegodownload = (null !== $col) ? (string) $col : null;
+            $this->trafegodownload = (null !== $col) ? (double) $col : null;
 
             $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : AutenticacaoTableMap::translateFieldName('Movitodesconexao', TableMap::TYPE_PHPNAME, $indexType)];
             $this->movitodesconexao = (null !== $col) ? (string) $col : null;
