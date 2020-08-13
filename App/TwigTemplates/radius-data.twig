@@ -29,9 +29,9 @@
     <div class="row">
         <div class="column">
             <div class="row">
-                <div class="column"><a class="button {% if editar %}button-outline{% endif %}" href="?editar=1">Editar</a></div>
-                <div class="column"><a class="button {% if autenticacao %}button-outline{% endif %}" href="?autenticacao=1">Extrato de Autenticação</a></div>
-                <div class="column"><a class="button {% if log %}button-outline{% endif %}" href="?log=1">Log do Radius</a></div>
+                <div class="column"><a class="button {% if editar %}button-outline{% endif %}" href="?editar=1&id={{ id }}">Editar</a></div>
+                <div class="column"><a class="button {% if autenticacao %}button-outline{% endif %}" href="?autenticacao=1&id={{ id }}">Extrato de Autenticação</a></div>
+                <div class="column"><a class="button {% if log %}button-outline{% endif %}" href="?log=1&id={{ id }}">Log do Radius</a></div>
                 <div class="column"><a class="button" href="datasend.php?reload={{ pppoeuser }}">Recarregar</a></div>
             </div>
             {% if autenticacao %}

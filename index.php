@@ -1,12 +1,12 @@
 <?php
 require_once 'config.php';
 
-if(!isset($_POST) OR $_POST == null OR empty($_POST) OR count($_POST)<=0){
-    header('Location: datasend.php');
+if(!isset($_GET) OR $_GET == null OR empty($_GET) OR count($_GET)<=0){
+    header('Location: busca.php');
     die();
 }
 
-$dados = ClienteQuery::create()->findOneByPppoe($_POST['pppoeuser']);
+$dados = ClienteQuery::create()->findOneById($_GET['id']);
 
 
 $vars= [
@@ -17,7 +17,8 @@ $vars= [
     'pppoepass'=>$dados->getSenha(),
     'stcontrato'=>$dados->getStcontrato(),
     'servico'=>$dados->getServico(),
-    'velocidade'=>$dados->getVelocidade()
+    'velocidade'=>$dados->getVelocidade(),
+    'id'=>$dados->getId()
 ];
 
 $logs = LogQuery::create()->findByClienteId($dados->getId());
@@ -33,8 +34,8 @@ for($c=0;$c<count($auths);$c++){
     $vars['auths'][$c]['concentrador'] = $auths[$c]->getConcentrador();
     $vars['auths'][$c]['inicio'] = $auths[$c]->getInicio();
     $vars['auths'][$c]['termino'] = $auths[$c]->getTermino();
-    $vars['auths'][$c]['duracao'] = '';
-    $vars['auths'][$c]['trafego'] = $auths[$c]->getTrafegodownload() + $auths[c]->getTrafegoupload() + 'GB';
+    $vars['auths'][$c]['duracao'] = $auths[$c]->getDuracaoDaConexao().'h';
+    $vars['auths'][$c]['trafego'] = $auths[$c]->getTrafegoTotal().'GB';
     $vars['auths'][$c]['motivo'] = $auths[$c]->getMovitodesconexao();
     $vars['auths'][$c]['ipconection'] = $auths[$c]->getIpconexao();
     $vars['auths'][$c]['ipconcentrador'] = $auths[$c]->getIpconcentrador();
