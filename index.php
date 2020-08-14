@@ -1,4 +1,9 @@
 <?php
+session_start();
+if(!isset($_SESSION['logado']) OR $_SESSION['logado'] != true){
+    header("location: login.php");
+    die();
+}
 require_once 'config.php';
 
 if(!isset($_GET) OR $_GET == null OR empty($_GET) OR count($_GET)<=0){
@@ -18,7 +23,8 @@ $vars= [
     'stcontrato'=>$dados->getStcontrato(),
     'servico'=>$dados->getServico(),
     'velocidade'=>$dados->getVelocidade(),
-    'id'=>$dados->getId()
+    'id'=>$dados->getId(),
+    'vlan'=>$dados->getVlan()
 ];
 
 $logs = LogQuery::create()->findByClienteId($dados->getId());

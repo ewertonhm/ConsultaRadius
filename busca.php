@@ -1,4 +1,10 @@
 <?php
+session_start();
+if(!isset($_SESSION['logado']) OR $_SESSION['logado'] != true){
+    header("location: login.php");
+    die();
+}
+
 require_once 'config.php';
 
 $vars = [];

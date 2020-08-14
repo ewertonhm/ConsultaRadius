@@ -21,7 +21,7 @@
     <div class="row">
         <div class="column">
             <h4 class="no-margin-botton no-padding-botton">IP: <a class="anchor-green  " target="_blank" href="http://{{ ip }}:8096">{{ ip }}</a></h4>
-            <small class="no-margin-botton no-padding-botton">{{ concentrador }}</small>
+            <small class="no-margin-botton no-padding-botton">{{ concentrador }} {% if vlan %}vlan: {{ vlan }}{% endif %}</small>
         </div>
         <div class="column"></div>
     </div>
