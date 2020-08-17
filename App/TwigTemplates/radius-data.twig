@@ -167,6 +167,32 @@
                     </div>
                 </div>
             {% endif %}
+            {% if roteadordata %}
+                <div class="row">
+                    <div class="column">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td><b>Acesso Porta 8096</b></td>
+                                    <td>{% if roteador.port8096 %}Sim{% else %}Não{% endif %}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Acesso Porta 8080</b></td>
+                                    <td>{% if roteador.port8080 %}Sim{% else %}Não{% endif %}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Acesso Porta 80</b></td>
+                                    <td>{% if roteador.port80 %}Sim{% else %}Não{% endif %}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Acesso Porta 443</b></td>
+                                    <td>{% if roteador.port443 %}Sim{% else %}Não{% endif %}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {% endif %}
             {% if editar %}
                 <div class="row">
 

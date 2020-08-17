@@ -93,6 +93,30 @@ if(isset($_GET['onu']) AND $_GET['onu'] == 1){
 }
 if(isset($_GET['roteador']) AND $_GET['roteador'] == 1){
     $vars['roteadordata'] = 'true';
+
+    $socket = new Socket();
+    if($socket->tcpTest($vars['ip'],8096)){
+        $vars['roteador']['port8096'] = true;
+    } else {
+        $vars['roteador']['port8096'] = false;
+    }
+    if($socket->tcpTest($vars['ip'],80)){
+        $vars['roteador']['port80'] = true;
+    } else {
+        $vars['roteador']['port80'] = false;
+    }
+    if($socket->tcpTest($vars['ip'],443)){
+        $vars['roteador']['port443'] = true;
+    } else {
+        $vars['roteador']['port443'] = false;
+    }
+    if($socket->tcpTest($vars['ip'],8080)){
+        $vars['roteador']['port8080'] = true;
+    } else {
+        $vars['roteador']['port8080'] = false;
+    }
+
+
 }
 
 
