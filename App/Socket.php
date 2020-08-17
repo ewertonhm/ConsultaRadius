@@ -1,18 +1,16 @@
 <?php
 
-
-namespace App;
-
-
 class Socket
 {
     public function tcpTest($host, $port){
         $waitTimeoutInSeconds = 1;
-        if($fp = fsockopen($host,$port,$errCode,$errStr,$waitTimeoutInSeconds)){
+
+        try {
+            $fp = fsockopen($host,$port,$errCode,$errStr,$waitTimeoutInSeconds);
             fclose($fp);
             return true;
-        } else {
-            fclose($fp);
+        }
+        catch(\Exception $ex) { //used back-slash for global namespace
             return false;
         }
     }

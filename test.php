@@ -1,6 +1,11 @@
 <?php
 require_once 'config.php';
 
-$auth = AutenticacaoQuery::create()->findOneById(1);
+$s = new Socket();
 
-echo $auth->getDuracaoDaConexao();
+if($s->tcpTest('186.227.140.112','80')){
+    echo "deu good";
+} else {
+    echo 'deu bad';
+}
+

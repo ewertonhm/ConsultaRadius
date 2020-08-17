@@ -91,6 +91,9 @@ if(isset($_GET['editar']) AND $_GET['editar'] == 1){
 if(isset($_GET['onu']) AND $_GET['onu'] == 1){
     $vars['onudata'] = 'true';
 }
+if(isset($_GET['roteador']) AND $_GET['roteador'] == 1){
+    $vars['roteadordata'] = 'true';
+}
 
 
 
