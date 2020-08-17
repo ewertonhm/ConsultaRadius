@@ -1,9 +1,9 @@
 <?php
 session_start();
-if(!isset($_SESSION['logado']) OR $_SESSION['logado'] != true){
+/*if(!isset($_SESSION['logado']) OR $_SESSION['logado'] != true){
     header("location: login.php");
     die();
-}
+}*/
 require_once 'config.php';
 
 if(!isset($_GET) OR $_GET == null OR empty($_GET) OR count($_GET)<=0){
@@ -50,6 +50,35 @@ for($c=0;$c<count($auths);$c++){
 
 }
 
+$vars['onu']['mac'] = 'FHTT05442F08';
+$vars['onu']['olt'] = 'OLT-UNIAO';
+$vars['onu']['slot'] = '17/1';
+$vars['onu']['sinal'] = '-19.07';
+$vars['onu']['laston'] = '17/08/2020 15:43:28';
+$vars['onu']['lastoff'] = '17/08/2020 15:40:19';
+$vars['onu']['mode'] = 'Bridge';
+
+$vars['onu']['ports'][0]['number'] = '1';
+$vars['onu']['ports'][0]['status'] = 'Ativa';
+$vars['onu']['ports'][0]['speed'] = '1000';
+$vars['onu']['ports'][0]['vlan'] = '531';
+
+$vars['onu']['ports'][1]['number'] = '2';
+$vars['onu']['ports'][1]['status'] = 'Inativa';
+$vars['onu']['ports'][1]['speed'] = '0';
+$vars['onu']['ports'][1]['vlan'] = '531';
+
+$vars['onu']['ports'][2]['number'] = '3';
+$vars['onu']['ports'][2]['status'] = 'Inativa';
+$vars['onu']['ports'][2]['speed'] = '0';
+$vars['onu']['ports'][2]['vlan'] = '531';
+
+$vars['onu']['ports'][3]['number'] = '4';
+$vars['onu']['ports'][3]['status'] = 'Inativa';
+$vars['onu']['ports'][3]['speed'] = '0';
+$vars['onu']['ports'][3]['vlan'] = '531';
+
+
 if(isset($_GET['autenticacao']) AND $_GET['autenticacao'] == 1){
     $vars['autenticacao'] = 'true';
 }
@@ -59,6 +88,10 @@ if(isset($_GET['log']) AND $_GET['log'] == 1){
 if(isset($_GET['editar']) AND $_GET['editar'] == 1){
     $vars['editar'] = 'true';
 }
+if(isset($_GET['onu']) AND $_GET['onu'] == 1){
+    $vars['onudata'] = 'true';
+}
+
 
 
 

@@ -32,7 +32,9 @@
                 <div class="column"><a class="button {% if editar %}button-outline{% endif %}" href="?editar=1&id={{ id }}">Editar</a></div>
                 <div class="column"><a class="button {% if autenticacao %}button-outline{% endif %}" href="?autenticacao=1&id={{ id }}">Extrato de Autenticação</a></div>
                 <div class="column"><a class="button {% if log %}button-outline{% endif %}" href="?log=1&id={{ id }}">Log do Radius</a></div>
-                <div class="column"><a class="button" href="datasend.php?reload={{ pppoeuser }}">Recarregar</a></div>
+                <div class="column"><a class="button {% if onudata %}button-outline{% endif %}" href="?onu=1&id={{ id }}">Dados ONU</a></div>
+
+                <div class="column"><a class="button" href="busca.php?pppoe={{ pppoeuser }}">Recarregar</a></div>
             </div>
             {% if autenticacao %}
                 <div class="row">
@@ -104,6 +106,61 @@
                                 <td>{{ log.log }}</td>
                             </tr>
                             {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {% endif %}
+            {% if onudata %}
+                <div class="row">
+                    <div class="column">
+                        <table>
+                            <thead>
+
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><b>MAC</b></td>
+                                    <td>{{ onu.mac }}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>OLT</b></td>
+                                    <td>{{ onu.olt }}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>SLOT/PON</b></td>
+                                    <td>{{ onu.slot }}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>SINAL</b></td>
+                                    <td>{{ onu.sinal }}dBm</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Última vez Online</b></td>
+                                    <td>{{ onu.laston }}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Última vez Offline</b></td>
+                                    <td>{{ onu.lastoff }}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Modo de Operação</b></td>
+                                    <td>{{ onu.mode }}</td>
+                                </tr>
+                                <thead>
+                                    <td><b>Port Number</b></td>
+                                    <td><b>Status</b></td>
+                                    <td><b>Velocidade</b></td>
+                                    <td><b>Vlan</b></td>
+                            </thead>
+                                {% for port in onu.ports %}
+                                    <tr>
+                                        <td>{{ port.number }}</td>
+                                        <td>{{ port.status }}</td>
+                                        <td>{{ port.speed }}</td>
+                                        <td>{{ port.vlan }}</td>
+                                    </tr>
+                                {% endfor %}
                             </tbody>
                         </table>
                     </div>
