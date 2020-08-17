@@ -1,9 +1,9 @@
 <?php
 session_start();
-/*if(!isset($_SESSION['logado']) OR $_SESSION['logado'] != true){
+if(!isset($_SESSION['logado']) OR $_SESSION['logado'] != true){
     header("location: login.php");
     die();
-}*/
+}
 require_once 'config.php';
 
 if(!isset($_GET) OR $_GET == null OR empty($_GET) OR count($_GET)<=0){
