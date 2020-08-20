@@ -18,3 +18,8 @@
 .no-margin-botton {
     margin-bottom: 0px !important;
 }
+.no-decoration-text {
+    text-decoration: none;
+}
+
+
