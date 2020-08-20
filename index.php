@@ -57,8 +57,14 @@ for($c=0;$c<count($logs);$c++){
     $vars['logs'][$c]['log'] = $logs[$c]->getLog();
 }
 
-// busca as autenticações no banco apartir do id do cliente
-$auths = AutenticacaoQuery::create()->findByClienteId($dados->getId());
+// busca as autenticações no banco apartir do id do cliente, ordena conrome o valor da variável orderby, descrecente ou crescente
+if(isset($vars['orderby']['inicio']) AND $vars['orderby']['inicio'] == 'decrescente'){
+    $auths = AutenticacaoQuery::create()->orderById('asc')->findByClienteId($dados->getId());
+} elseif (isset($vars['orderby']['inicio']) AND $vars['orderby']['inicio'] == 'crescente'){
+    $auths = AutenticacaoQuery::create()->orderById('desc')->findByClienteId($dados->getId());
+} else {
+    $auths = AutenticacaoQuery::create()->findByClienteId($dados->getId());
+}
 
 // adiciona uma linha de cada log apartir do que veio do banco
 // TODO: maximo de linhas
