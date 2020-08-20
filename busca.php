@@ -9,10 +9,10 @@ require_once 'config.php';
 
 $vars = [];
 
-if(isset($_GET['pppoe']) AND $_GET['pppoe'] != null){
-    $vars['pppoe'] = $_GET['pppoe'];
+if(isset($_GET['buscar']) AND $_GET['buscar'] != null){
+    $vars['buscar'] = $_GET['buscar'];
 
-    $clientes = ClienteQuery::create()->where("pppoe like '%".$_GET['pppoe']."%'OR nome like '%".$_GET['pppoe']."%' OR documento like '%".$_GET['pppoe']."%'");
+    $clientes = ClienteQuery::create()->where("pppoe like '%".$_GET['buscar']."%'OR nome like '%".$_GET['buscar']."%' OR documento like '%".$_GET['buscar']."%'");
     $counter = 0;
     foreach ($clientes as $cliente){
         $vars['clientes'][$counter]['nome'] = $cliente->getNome();
@@ -21,6 +21,8 @@ if(isset($_GET['pppoe']) AND $_GET['pppoe'] != null){
         $vars['clientes'][$counter]['documento'] = $cliente->getDocumento();
         $vars['clientes'][$counter]['cidade'] = $cliente->getCidade();
         $vars['clientes'][$counter]['endereco'] = $cliente->getEndereco();
+        $vars['clientes'][$counter]['servico'] = $cliente->getServico();
+        $vars['clientes'][$counter]['stcontrato'] = $cliente->getStcontrato();
         $counter++;
     }
 }
