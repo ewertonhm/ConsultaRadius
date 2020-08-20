@@ -38,13 +38,20 @@
                 <div class="column"><a class="button" href="busca.php?pppoe={{ pppoeuser }}">Recarregar</a></div>
             </div>
             {% if autenticacao %}
+                <br>
                 <div class="row">
                     <div class="column">
                         <table>
                             <thead>
                             <tr>
                                 <th>Concentrador</th>
-                                <th>Inicio</th>
+                                <th>
+                                    <a href="?autenticacao=1&id={{ id }}&orderByInicio={% if orderby.inicio == 'crescente' %}decrescente{% else %}crescente{% endif %}">Inicio
+                                        {% if orderby.inicio == 'decrescente' %}<i class="fas fa-sort-amount-down"></i>
+                                        {% elseif orderby.inicio == 'crescente' %}<i class="fas fa-sort-amount-down-alt"></i>
+                                        {% endif %}
+                                    </a>
+                                </th>
                                 <th>Término</th>
                                 <th>Duração</th>
                                 <th>Tráfego</th>
@@ -91,6 +98,7 @@
                 </div>
             {% endif %}
             {% if log %}
+                <br>
                 <div class="row">
                     <div class="column">
                         <table>
@@ -113,6 +121,7 @@
                 </div>
             {% endif %}
             {% if onudata %}
+                <br>
                 <div class="row">
                     <div class="column">
                         <table>
@@ -168,25 +177,29 @@
                 </div>
             {% endif %}
             {% if roteadordata %}
+                <br>
                 <div class="row">
                     <div class="column">
                         <table>
                             <tbody>
                                 <tr>
                                     <td><b>Acesso Porta 8096</b></td>
-                                    <td>{% if roteador.port8096 %}Sim{% else %}Não{% endif %}</td>
+                                    <td>{% if roteador.port8096 %}Acessível{% else %}Inacessível{% endif %}</td>
+                                    <td><a a class="anchor-green  " target="_blank" href="http://{{ ip }}:8096">HTTP{% if roteador.port8096title %} - {{ roteador.port8096title }}{% endif %}</a></td>
+                                    <td><a a class="anchor-green  " target="_blank" href="https://{{ ip }}:8096">HTTPS{% if roteador.port8096title %} - {{ roteador.port8096title }}{% endif %}</a></td>
                                 </tr>
                                 <tr>
                                     <td><b>Acesso Porta 8080</b></td>
-                                    <td>{% if roteador.port8080 %}Sim{% else %}Não{% endif %}</td>
+                                    <td>{% if roteador.port8080 %}Acessível{% else %}Inacessível{% endif %}</td>
+                                    <td><a a class="anchor-green  " target="_blank" href="http://{{ ip }}:8080">HTTP{% if roteador.port8080title %} - {{ roteador.port8080title }}{% endif %}</a></td>
+                                    <td><a a class="anchor-green  " target="_blank" href="https://{{ ip }}:8080">HTTPS{% if roteador.port8080title %} - {{ roteador.port8080title }}{% endif %}</a></td>
+
                                 </tr>
                                 <tr>
-                                    <td><b>Acesso Porta 80</b></td>
-                                    <td>{% if roteador.port80 %}Sim{% else %}Não{% endif %}</td>
-                                </tr>
-                                <tr>
-                                    <td><b>Acesso Porta 443</b></td>
-                                    <td>{% if roteador.port443 %}Sim{% else %}Não{% endif %}</td>
+                                    <td><b>Acesso Porta 80/443</b></td>
+                                    <td>{% if roteador.port80 %}80 - Acessível{% else %}80 - Inacessível{% endif %} &nbsp;|&nbsp; {% if roteador.port443 %}443 - Acessível{% else %}443 - Inacessível{% endif %}</td>
+                                    <td><a a class="anchor-green  " target="_blank" href="http://{{ ip }}:80">HTTP (80){% if roteador.port80title %} - {{ roteador.port80title }}{% endif %}</a></td>
+                                    <td><a a class="anchor-green  " target="_blank" href="https://{{ ip }}:443">HTTPS (443){% if roteador.port443title %} - {{ roteador.port443title }}{% endif %}</a></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -194,6 +207,7 @@
                 </div>
             {% endif %}
             {% if editar %}
+                <br>
                 <div class="row">
 
                     <div class="column">

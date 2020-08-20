@@ -11,7 +11,7 @@
 
                     <label for="psw"><b>Senha</b></label>
                     <input type="password" placeholder="Enter Password" name="psw" required>
-
+                    {% if error %}<p class="">Usuário ou senha incorreto!</p>{% endif %}
                     <button type="submit">Login</button>
                     <label>
                         <input type="checkbox" checked="checked" name="remember"> Remember me
