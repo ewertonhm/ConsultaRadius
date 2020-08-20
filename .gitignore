@@ -24,3 +24,4 @@
 /app/Config/database.php
 /vendors/*
 /pagina_exemplo.txt
+/App/TwigTemplates/css
