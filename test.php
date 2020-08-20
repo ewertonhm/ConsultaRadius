@@ -1,11 +1,13 @@
 <?php
 require_once 'config.php';
 
-$s = new Socket();
-
-if($s->tcpTest('186.227.140.112','80')){
-    echo "deu good";
-} else {
-    echo 'deu bad';
+function get_title($url){
+    $str = file_get_contents($url);
+    if(strlen($str)>0){
+        $str = trim(preg_replace('/\s+/', ' ', $str)); // supports line breaks inside <title>
+        preg_match("/\<title\>(.*)\<\/title\>/i",$str,$title); // ignore case
+        return $title[1];
+    }
 }
-
+//Example:
+echo get_title("http://186.227.131.141:8096");
