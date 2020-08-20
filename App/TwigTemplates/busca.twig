@@ -3,8 +3,8 @@
 {% block content %}
     <form method="get" action="busca.php">
         <fieldset>
-            <label for="nameField">PPPoE ou Nome</label>
-            <input type="text" name="pppoe" {% if pppoe %}value="{{ pppoe }}" {% endif %}>
+            <label for="nameField">Buscar</label>
+            <input type="text" name="pppoe" {% if pppoe %}value="{{ pppoe }}"{% else %}placeholder="Nome, PPPoE ou CPF/CNPJ" {% endif %}>
             <input class="button-primary" type="submit" value="Buscar">
         </fieldset>
     </form>
@@ -12,16 +12,17 @@
         <table>
             <thead>
             <tr>
-                <th>Nome</th>
+                <th>Cliente</th>
                 <th>PPPoE</th>
-
+                <th>Endereço</th>
             </tr>
             </thead>
             <tbody>
                 {% for cliente in clientes %}
                     <tr>
-                        <td><a href="index.php?id={{ cliente.id }}">{{ cliente.nome }}</a></td>
+                        <td><a href="index.php?id={{ cliente.id }}">{{ cliente.nome }} - {{ cliente.documento }}</a></td>
                         <td><a href="index.php?id={{ cliente.id }}">{{ cliente.pppoe }}</a></td>
+                        <td><a href="index.php?id={{ cliente.id }}">{{ cliente.endereco }} - {{ cliente.cidade }}</a></td>
                     </tr>
                 {% endfor %}
             </tbody>
