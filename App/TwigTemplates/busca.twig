@@ -3,7 +3,7 @@
 {% block content %}
     <form method="get" action="busca.php">
         <fieldset>
-            <label for="nameField">PPPoE</label>
+            <label for="nameField">PPPoE ou Nome</label>
             <input type="text" name="pppoe" {% if pppoe %}value="{{ pppoe }}" {% endif %}>
             <input class="button-primary" type="submit" value="Buscar">
         </fieldset>
