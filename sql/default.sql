@@ -50,6 +50,9 @@ CREATE TABLE `cliente`
     `velocidade` VARCHAR(45),
     `status` VARCHAR(45),
     `anotacoes` VARCHAR(500),
+    `documento` VARCHAR(30),
+    `endereco` VARCHAR(120),
+    `cidade` VARCHAR(30),
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
 
@@ -63,7 +66,7 @@ CREATE TABLE `log`
 (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `data` VARCHAR(45),
-    `log` VARCHAR(45),
+    `log` VARCHAR(250),
     `cliente_id` INTEGER,
     PRIMARY KEY (`id`),
     INDEX `cliente_id` (`cliente_id`),

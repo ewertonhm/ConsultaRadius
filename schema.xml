@@ -36,6 +36,9 @@
     <column name="velocidade" phpName="Velocidade" type="VARCHAR" size="45"/>
     <column name="status" phpName="Status" type="VARCHAR" size="45"/>
     <column name="anotacoes" phpName="Anotacoes" type="VARCHAR" size="500"/>
+    <column name="documento" phpName="Documento" type="VARCHAR" size="30"/>
+    <column name="endereco" phpName="Endereco" type="VARCHAR" size="120"/>
+    <column name="cidade" phpName="Cidade" type="VARCHAR" size="30"/>
     <vendor type="mysql">
       <parameter name="Engine" value="InnoDB"/>
     </vendor>
@@ -43,7 +46,7 @@
   <table name="log" idMethod="native" phpName="Log">
     <column name="id" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
     <column name="data" phpName="Data" type="VARCHAR" size="45"/>
-    <column name="log" phpName="Log" type="VARCHAR" size="45"/>
+    <column name="log" phpName="Log" type="VARCHAR" size="250"/>
     <column name="cliente_id" phpName="ClienteId" type="INTEGER"/>
     <foreign-key foreignTable="cliente" name="log_ibfk_1">
       <reference local="cliente_id" foreign="id"/>

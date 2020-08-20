@@ -142,7 +142,7 @@ class LogTableMap extends TableMap
         // columns
         $this->addPrimaryKey('id', 'Id', 'INTEGER', true, null, null);
         $this->addColumn('data', 'Data', 'VARCHAR', false, 45, null);
-        $this->addColumn('log', 'Log', 'VARCHAR', false, 45, null);
+        $this->addColumn('log', 'Log', 'VARCHAR', false, 250, null);
         $this->addForeignKey('cliente_id', 'ClienteId', 'INTEGER', 'cliente', 'id', false, null, null);
     } // initialize()
 

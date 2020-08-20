@@ -32,6 +32,9 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildClienteQuery orderByVelocidade($order = Criteria::ASC) Order by the velocidade column
  * @method     ChildClienteQuery orderByStatus($order = Criteria::ASC) Order by the status column
  * @method     ChildClienteQuery orderByAnotacoes($order = Criteria::ASC) Order by the anotacoes column
+ * @method     ChildClienteQuery orderByDocumento($order = Criteria::ASC) Order by the documento column
+ * @method     ChildClienteQuery orderByEndereco($order = Criteria::ASC) Order by the endereco column
+ * @method     ChildClienteQuery orderByCidade($order = Criteria::ASC) Order by the cidade column
  *
  * @method     ChildClienteQuery groupById() Group by the id column
  * @method     ChildClienteQuery groupByNome() Group by the nome column
@@ -45,6 +48,9 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildClienteQuery groupByVelocidade() Group by the velocidade column
  * @method     ChildClienteQuery groupByStatus() Group by the status column
  * @method     ChildClienteQuery groupByAnotacoes() Group by the anotacoes column
+ * @method     ChildClienteQuery groupByDocumento() Group by the documento column
+ * @method     ChildClienteQuery groupByEndereco() Group by the endereco column
+ * @method     ChildClienteQuery groupByCidade() Group by the cidade column
  *
  * @method     ChildClienteQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     ChildClienteQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -90,7 +96,10 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildCliente findOneByServico(string $servico) Return the first ChildCliente filtered by the servico column
  * @method     ChildCliente findOneByVelocidade(string $velocidade) Return the first ChildCliente filtered by the velocidade column
  * @method     ChildCliente findOneByStatus(string $status) Return the first ChildCliente filtered by the status column
- * @method     ChildCliente findOneByAnotacoes(string $anotacoes) Return the first ChildCliente filtered by the anotacoes column *
+ * @method     ChildCliente findOneByAnotacoes(string $anotacoes) Return the first ChildCliente filtered by the anotacoes column
+ * @method     ChildCliente findOneByDocumento(string $documento) Return the first ChildCliente filtered by the documento column
+ * @method     ChildCliente findOneByEndereco(string $endereco) Return the first ChildCliente filtered by the endereco column
+ * @method     ChildCliente findOneByCidade(string $cidade) Return the first ChildCliente filtered by the cidade column *
 
  * @method     ChildCliente requirePk($key, ConnectionInterface $con = null) Return the ChildCliente by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildCliente requireOne(ConnectionInterface $con = null) Return the first ChildCliente matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
@@ -107,6 +116,9 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildCliente requireOneByVelocidade(string $velocidade) Return the first ChildCliente filtered by the velocidade column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildCliente requireOneByStatus(string $status) Return the first ChildCliente filtered by the status column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildCliente requireOneByAnotacoes(string $anotacoes) Return the first ChildCliente filtered by the anotacoes column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildCliente requireOneByDocumento(string $documento) Return the first ChildCliente filtered by the documento column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildCliente requireOneByEndereco(string $endereco) Return the first ChildCliente filtered by the endereco column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildCliente requireOneByCidade(string $cidade) Return the first ChildCliente filtered by the cidade column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildCliente[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildCliente objects based on current ModelCriteria
  * @method     ChildCliente[]|ObjectCollection findById(int $id) Return ChildCliente objects filtered by the id column
@@ -121,6 +133,9 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildCliente[]|ObjectCollection findByVelocidade(string $velocidade) Return ChildCliente objects filtered by the velocidade column
  * @method     ChildCliente[]|ObjectCollection findByStatus(string $status) Return ChildCliente objects filtered by the status column
  * @method     ChildCliente[]|ObjectCollection findByAnotacoes(string $anotacoes) Return ChildCliente objects filtered by the anotacoes column
+ * @method     ChildCliente[]|ObjectCollection findByDocumento(string $documento) Return ChildCliente objects filtered by the documento column
+ * @method     ChildCliente[]|ObjectCollection findByEndereco(string $endereco) Return ChildCliente objects filtered by the endereco column
+ * @method     ChildCliente[]|ObjectCollection findByCidade(string $cidade) Return ChildCliente objects filtered by the cidade column
  * @method     ChildCliente[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
  *
  */
@@ -219,7 +234,7 @@ abstract class ClienteQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT id, nome, ip, concentrador, vlan, pppoe, senha, stcontrato, servico, velocidade, status, anotacoes FROM cliente WHERE id = :p0';
+        $sql = 'SELECT id, nome, ip, concentrador, vlan, pppoe, senha, stcontrato, servico, velocidade, status, anotacoes, documento, endereco, cidade FROM cliente WHERE id = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -639,6 +654,81 @@ abstract class ClienteQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(ClienteTableMap::COL_ANOTACOES, $anotacoes, $comparison);
+    }
+
+    /**
+     * Filter the query on the documento column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByDocumento('fooValue');   // WHERE documento = 'fooValue'
+     * $query->filterByDocumento('%fooValue%', Criteria::LIKE); // WHERE documento LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $documento The value to use as filter.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildClienteQuery The current query, for fluid interface
+     */
+    public function filterByDocumento($documento = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($documento)) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(ClienteTableMap::COL_DOCUMENTO, $documento, $comparison);
+    }
+
+    /**
+     * Filter the query on the endereco column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByEndereco('fooValue');   // WHERE endereco = 'fooValue'
+     * $query->filterByEndereco('%fooValue%', Criteria::LIKE); // WHERE endereco LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $endereco The value to use as filter.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildClienteQuery The current query, for fluid interface
+     */
+    public function filterByEndereco($endereco = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($endereco)) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(ClienteTableMap::COL_ENDERECO, $endereco, $comparison);
+    }
+
+    /**
+     * Filter the query on the cidade column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByCidade('fooValue');   // WHERE cidade = 'fooValue'
+     * $query->filterByCidade('%fooValue%', Criteria::LIKE); // WHERE cidade LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $cidade The value to use as filter.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildClienteQuery The current query, for fluid interface
+     */
+    public function filterByCidade($cidade = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($cidade)) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(ClienteTableMap::COL_CIDADE, $cidade, $comparison);
     }
 
     /**

@@ -58,7 +58,7 @@ class ClienteTableMap extends TableMap
     /**
      * The total number of columns
      */
-    const NUM_COLUMNS = 12;
+    const NUM_COLUMNS = 15;
 
     /**
      * The number of lazy-loaded columns
@@ -68,7 +68,7 @@ class ClienteTableMap extends TableMap
     /**
      * The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS)
      */
-    const NUM_HYDRATE_COLUMNS = 12;
+    const NUM_HYDRATE_COLUMNS = 15;
 
     /**
      * the column name for the id field
@@ -131,6 +131,21 @@ class ClienteTableMap extends TableMap
     const COL_ANOTACOES = 'cliente.anotacoes';
 
     /**
+     * the column name for the documento field
+     */
+    const COL_DOCUMENTO = 'cliente.documento';
+
+    /**
+     * the column name for the endereco field
+     */
+    const COL_ENDERECO = 'cliente.endereco';
+
+    /**
+     * the column name for the cidade field
+     */
+    const COL_CIDADE = 'cliente.cidade';
+
+    /**
      * The default string format for model objects of the related table
      */
     const DEFAULT_STRING_FORMAT = 'YAML';
@@ -142,11 +157,11 @@ class ClienteTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Id', 'Nome', 'Ip', 'Concentrador', 'Vlan', 'Pppoe', 'Senha', 'Stcontrato', 'Servico', 'Velocidade', 'Status', 'Anotacoes', ),
-        self::TYPE_CAMELNAME     => array('id', 'nome', 'ip', 'concentrador', 'vlan', 'pppoe', 'senha', 'stcontrato', 'servico', 'velocidade', 'status', 'anotacoes', ),
-        self::TYPE_COLNAME       => array(ClienteTableMap::COL_ID, ClienteTableMap::COL_NOME, ClienteTableMap::COL_IP, ClienteTableMap::COL_CONCENTRADOR, ClienteTableMap::COL_VLAN, ClienteTableMap::COL_PPPOE, ClienteTableMap::COL_SENHA, ClienteTableMap::COL_STCONTRATO, ClienteTableMap::COL_SERVICO, ClienteTableMap::COL_VELOCIDADE, ClienteTableMap::COL_STATUS, ClienteTableMap::COL_ANOTACOES, ),
-        self::TYPE_FIELDNAME     => array('id', 'nome', 'ip', 'concentrador', 'vlan', 'pppoe', 'senha', 'stcontrato', 'servico', 'velocidade', 'status', 'anotacoes', ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, )
+        self::TYPE_PHPNAME       => array('Id', 'Nome', 'Ip', 'Concentrador', 'Vlan', 'Pppoe', 'Senha', 'Stcontrato', 'Servico', 'Velocidade', 'Status', 'Anotacoes', 'Documento', 'Endereco', 'Cidade', ),
+        self::TYPE_CAMELNAME     => array('id', 'nome', 'ip', 'concentrador', 'vlan', 'pppoe', 'senha', 'stcontrato', 'servico', 'velocidade', 'status', 'anotacoes', 'documento', 'endereco', 'cidade', ),
+        self::TYPE_COLNAME       => array(ClienteTableMap::COL_ID, ClienteTableMap::COL_NOME, ClienteTableMap::COL_IP, ClienteTableMap::COL_CONCENTRADOR, ClienteTableMap::COL_VLAN, ClienteTableMap::COL_PPPOE, ClienteTableMap::COL_SENHA, ClienteTableMap::COL_STCONTRATO, ClienteTableMap::COL_SERVICO, ClienteTableMap::COL_VELOCIDADE, ClienteTableMap::COL_STATUS, ClienteTableMap::COL_ANOTACOES, ClienteTableMap::COL_DOCUMENTO, ClienteTableMap::COL_ENDERECO, ClienteTableMap::COL_CIDADE, ),
+        self::TYPE_FIELDNAME     => array('id', 'nome', 'ip', 'concentrador', 'vlan', 'pppoe', 'senha', 'stcontrato', 'servico', 'velocidade', 'status', 'anotacoes', 'documento', 'endereco', 'cidade', ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, )
     );
 
     /**
@@ -156,11 +171,11 @@ class ClienteTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Id' => 0, 'Nome' => 1, 'Ip' => 2, 'Concentrador' => 3, 'Vlan' => 4, 'Pppoe' => 5, 'Senha' => 6, 'Stcontrato' => 7, 'Servico' => 8, 'Velocidade' => 9, 'Status' => 10, 'Anotacoes' => 11, ),
-        self::TYPE_CAMELNAME     => array('id' => 0, 'nome' => 1, 'ip' => 2, 'concentrador' => 3, 'vlan' => 4, 'pppoe' => 5, 'senha' => 6, 'stcontrato' => 7, 'servico' => 8, 'velocidade' => 9, 'status' => 10, 'anotacoes' => 11, ),
-        self::TYPE_COLNAME       => array(ClienteTableMap::COL_ID => 0, ClienteTableMap::COL_NOME => 1, ClienteTableMap::COL_IP => 2, ClienteTableMap::COL_CONCENTRADOR => 3, ClienteTableMap::COL_VLAN => 4, ClienteTableMap::COL_PPPOE => 5, ClienteTableMap::COL_SENHA => 6, ClienteTableMap::COL_STCONTRATO => 7, ClienteTableMap::COL_SERVICO => 8, ClienteTableMap::COL_VELOCIDADE => 9, ClienteTableMap::COL_STATUS => 10, ClienteTableMap::COL_ANOTACOES => 11, ),
-        self::TYPE_FIELDNAME     => array('id' => 0, 'nome' => 1, 'ip' => 2, 'concentrador' => 3, 'vlan' => 4, 'pppoe' => 5, 'senha' => 6, 'stcontrato' => 7, 'servico' => 8, 'velocidade' => 9, 'status' => 10, 'anotacoes' => 11, ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, )
+        self::TYPE_PHPNAME       => array('Id' => 0, 'Nome' => 1, 'Ip' => 2, 'Concentrador' => 3, 'Vlan' => 4, 'Pppoe' => 5, 'Senha' => 6, 'Stcontrato' => 7, 'Servico' => 8, 'Velocidade' => 9, 'Status' => 10, 'Anotacoes' => 11, 'Documento' => 12, 'Endereco' => 13, 'Cidade' => 14, ),
+        self::TYPE_CAMELNAME     => array('id' => 0, 'nome' => 1, 'ip' => 2, 'concentrador' => 3, 'vlan' => 4, 'pppoe' => 5, 'senha' => 6, 'stcontrato' => 7, 'servico' => 8, 'velocidade' => 9, 'status' => 10, 'anotacoes' => 11, 'documento' => 12, 'endereco' => 13, 'cidade' => 14, ),
+        self::TYPE_COLNAME       => array(ClienteTableMap::COL_ID => 0, ClienteTableMap::COL_NOME => 1, ClienteTableMap::COL_IP => 2, ClienteTableMap::COL_CONCENTRADOR => 3, ClienteTableMap::COL_VLAN => 4, ClienteTableMap::COL_PPPOE => 5, ClienteTableMap::COL_SENHA => 6, ClienteTableMap::COL_STCONTRATO => 7, ClienteTableMap::COL_SERVICO => 8, ClienteTableMap::COL_VELOCIDADE => 9, ClienteTableMap::COL_STATUS => 10, ClienteTableMap::COL_ANOTACOES => 11, ClienteTableMap::COL_DOCUMENTO => 12, ClienteTableMap::COL_ENDERECO => 13, ClienteTableMap::COL_CIDADE => 14, ),
+        self::TYPE_FIELDNAME     => array('id' => 0, 'nome' => 1, 'ip' => 2, 'concentrador' => 3, 'vlan' => 4, 'pppoe' => 5, 'senha' => 6, 'stcontrato' => 7, 'servico' => 8, 'velocidade' => 9, 'status' => 10, 'anotacoes' => 11, 'documento' => 12, 'endereco' => 13, 'cidade' => 14, ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, )
     );
 
     /**
@@ -192,6 +207,9 @@ class ClienteTableMap extends TableMap
         $this->addColumn('velocidade', 'Velocidade', 'VARCHAR', false, 45, null);
         $this->addColumn('status', 'Status', 'VARCHAR', false, 45, null);
         $this->addColumn('anotacoes', 'Anotacoes', 'VARCHAR', false, 500, null);
+        $this->addColumn('documento', 'Documento', 'VARCHAR', false, 30, null);
+        $this->addColumn('endereco', 'Endereco', 'VARCHAR', false, 120, null);
+        $this->addColumn('cidade', 'Cidade', 'VARCHAR', false, 30, null);
     } // initialize()
 
     /**
@@ -368,6 +386,9 @@ class ClienteTableMap extends TableMap
             $criteria->addSelectColumn(ClienteTableMap::COL_VELOCIDADE);
             $criteria->addSelectColumn(ClienteTableMap::COL_STATUS);
             $criteria->addSelectColumn(ClienteTableMap::COL_ANOTACOES);
+            $criteria->addSelectColumn(ClienteTableMap::COL_DOCUMENTO);
+            $criteria->addSelectColumn(ClienteTableMap::COL_ENDERECO);
+            $criteria->addSelectColumn(ClienteTableMap::COL_CIDADE);
         } else {
             $criteria->addSelectColumn($alias . '.id');
             $criteria->addSelectColumn($alias . '.nome');
@@ -381,6 +402,9 @@ class ClienteTableMap extends TableMap
             $criteria->addSelectColumn($alias . '.velocidade');
             $criteria->addSelectColumn($alias . '.status');
             $criteria->addSelectColumn($alias . '.anotacoes');
+            $criteria->addSelectColumn($alias . '.documento');
+            $criteria->addSelectColumn($alias . '.endereco');
+            $criteria->addSelectColumn($alias . '.cidade');
         }
     }
 

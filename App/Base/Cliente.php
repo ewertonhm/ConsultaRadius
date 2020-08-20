@@ -152,6 +152,27 @@ abstract class Cliente implements ActiveRecordInterface
     protected $anotacoes;
 
     /**
+     * The value for the documento field.
+     *
+     * @var        string
+     */
+    protected $documento;
+
+    /**
+     * The value for the endereco field.
+     *
+     * @var        string
+     */
+    protected $endereco;
+
+    /**
+     * The value for the cidade field.
+     *
+     * @var        string
+     */
+    protected $cidade;
+
+    /**
      * @var        ObjectCollection|ChildAutenticacao[] Collection to store aggregation of ChildAutenticacao objects.
      */
     protected $collAutenticacaos;
@@ -529,6 +550,36 @@ abstract class Cliente implements ActiveRecordInterface
     }
 
     /**
+     * Get the [documento] column value.
+     *
+     * @return string
+     */
+    public function getDocumento()
+    {
+        return $this->documento;
+    }
+
+    /**
+     * Get the [endereco] column value.
+     *
+     * @return string
+     */
+    public function getEndereco()
+    {
+        return $this->endereco;
+    }
+
+    /**
+     * Get the [cidade] column value.
+     *
+     * @return string
+     */
+    public function getCidade()
+    {
+        return $this->cidade;
+    }
+
+    /**
      * Set the value of [id] column.
      *
      * @param int $v New value
@@ -769,6 +820,66 @@ abstract class Cliente implements ActiveRecordInterface
     } // setAnotacoes()
 
     /**
+     * Set the value of [documento] column.
+     *
+     * @param string|null $v New value
+     * @return $this|\Cliente The current object (for fluent API support)
+     */
+    public function setDocumento($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->documento !== $v) {
+            $this->documento = $v;
+            $this->modifiedColumns[ClienteTableMap::COL_DOCUMENTO] = true;
+        }
+
+        return $this;
+    } // setDocumento()
+
+    /**
+     * Set the value of [endereco] column.
+     *
+     * @param string|null $v New value
+     * @return $this|\Cliente The current object (for fluent API support)
+     */
+    public function setEndereco($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->endereco !== $v) {
+            $this->endereco = $v;
+            $this->modifiedColumns[ClienteTableMap::COL_ENDERECO] = true;
+        }
+
+        return $this;
+    } // setEndereco()
+
+    /**
+     * Set the value of [cidade] column.
+     *
+     * @param string|null $v New value
+     * @return $this|\Cliente The current object (for fluent API support)
+     */
+    public function setCidade($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->cidade !== $v) {
+            $this->cidade = $v;
+            $this->modifiedColumns[ClienteTableMap::COL_CIDADE] = true;
+        }
+
+        return $this;
+    } // setCidade()
+
+    /**
      * Indicates whether the columns in this object are only set to default values.
      *
      * This method can be used in conjunction with isModified() to indicate whether an object is both
@@ -839,6 +950,15 @@ abstract class Cliente implements ActiveRecordInterface
 
             $col = $row[TableMap::TYPE_NUM == $indexType ? 11 + $startcol : ClienteTableMap::translateFieldName('Anotacoes', TableMap::TYPE_PHPNAME, $indexType)];
             $this->anotacoes = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 12 + $startcol : ClienteTableMap::translateFieldName('Documento', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->documento = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 13 + $startcol : ClienteTableMap::translateFieldName('Endereco', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->endereco = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 14 + $startcol : ClienteTableMap::translateFieldName('Cidade', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->cidade = (null !== $col) ? (string) $col : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -847,7 +967,7 @@ abstract class Cliente implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 12; // 12 = ClienteTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 15; // 15 = ClienteTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException(sprintf('Error populating %s object', '\\Cliente'), 0, $e);
@@ -1124,6 +1244,15 @@ abstract class Cliente implements ActiveRecordInterface
         if ($this->isColumnModified(ClienteTableMap::COL_ANOTACOES)) {
             $modifiedColumns[':p' . $index++]  = 'anotacoes';
         }
+        if ($this->isColumnModified(ClienteTableMap::COL_DOCUMENTO)) {
+            $modifiedColumns[':p' . $index++]  = 'documento';
+        }
+        if ($this->isColumnModified(ClienteTableMap::COL_ENDERECO)) {
+            $modifiedColumns[':p' . $index++]  = 'endereco';
+        }
+        if ($this->isColumnModified(ClienteTableMap::COL_CIDADE)) {
+            $modifiedColumns[':p' . $index++]  = 'cidade';
+        }
 
         $sql = sprintf(
             'INSERT INTO cliente (%s) VALUES (%s)',
@@ -1170,6 +1299,15 @@ abstract class Cliente implements ActiveRecordInterface
                         break;
                     case 'anotacoes':
                         $stmt->bindValue($identifier, $this->anotacoes, PDO::PARAM_STR);
+                        break;
+                    case 'documento':
+                        $stmt->bindValue($identifier, $this->documento, PDO::PARAM_STR);
+                        break;
+                    case 'endereco':
+                        $stmt->bindValue($identifier, $this->endereco, PDO::PARAM_STR);
+                        break;
+                    case 'cidade':
+                        $stmt->bindValue($identifier, $this->cidade, PDO::PARAM_STR);
                         break;
                 }
             }
@@ -1269,6 +1407,15 @@ abstract class Cliente implements ActiveRecordInterface
             case 11:
                 return $this->getAnotacoes();
                 break;
+            case 12:
+                return $this->getDocumento();
+                break;
+            case 13:
+                return $this->getEndereco();
+                break;
+            case 14:
+                return $this->getCidade();
+                break;
             default:
                 return null;
                 break;
@@ -1311,6 +1458,9 @@ abstract class Cliente implements ActiveRecordInterface
             $keys[9] => $this->getVelocidade(),
             $keys[10] => $this->getStatus(),
             $keys[11] => $this->getAnotacoes(),
+            $keys[12] => $this->getDocumento(),
+            $keys[13] => $this->getEndereco(),
+            $keys[14] => $this->getCidade(),
         );
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
@@ -1418,6 +1568,15 @@ abstract class Cliente implements ActiveRecordInterface
             case 11:
                 $this->setAnotacoes($value);
                 break;
+            case 12:
+                $this->setDocumento($value);
+                break;
+            case 13:
+                $this->setEndereco($value);
+                break;
+            case 14:
+                $this->setCidade($value);
+                break;
         } // switch()
 
         return $this;
@@ -1479,6 +1638,15 @@ abstract class Cliente implements ActiveRecordInterface
         }
         if (array_key_exists($keys[11], $arr)) {
             $this->setAnotacoes($arr[$keys[11]]);
+        }
+        if (array_key_exists($keys[12], $arr)) {
+            $this->setDocumento($arr[$keys[12]]);
+        }
+        if (array_key_exists($keys[13], $arr)) {
+            $this->setEndereco($arr[$keys[13]]);
+        }
+        if (array_key_exists($keys[14], $arr)) {
+            $this->setCidade($arr[$keys[14]]);
         }
     }
 
@@ -1556,6 +1724,15 @@ abstract class Cliente implements ActiveRecordInterface
         }
         if ($this->isColumnModified(ClienteTableMap::COL_ANOTACOES)) {
             $criteria->add(ClienteTableMap::COL_ANOTACOES, $this->anotacoes);
+        }
+        if ($this->isColumnModified(ClienteTableMap::COL_DOCUMENTO)) {
+            $criteria->add(ClienteTableMap::COL_DOCUMENTO, $this->documento);
+        }
+        if ($this->isColumnModified(ClienteTableMap::COL_ENDERECO)) {
+            $criteria->add(ClienteTableMap::COL_ENDERECO, $this->endereco);
+        }
+        if ($this->isColumnModified(ClienteTableMap::COL_CIDADE)) {
+            $criteria->add(ClienteTableMap::COL_CIDADE, $this->cidade);
         }
 
         return $criteria;
@@ -1654,6 +1831,9 @@ abstract class Cliente implements ActiveRecordInterface
         $copyObj->setVelocidade($this->getVelocidade());
         $copyObj->setStatus($this->getStatus());
         $copyObj->setAnotacoes($this->getAnotacoes());
+        $copyObj->setDocumento($this->getDocumento());
+        $copyObj->setEndereco($this->getEndereco());
+        $copyObj->setCidade($this->getCidade());
 
         if ($deepCopy) {
             // important: temporarily setNew(false) because this affects the behavior of
@@ -2210,6 +2390,9 @@ abstract class Cliente implements ActiveRecordInterface
         $this->velocidade = null;
         $this->status = null;
         $this->anotacoes = null;
+        $this->documento = null;
+        $this->endereco = null;
+        $this->cidade = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();
         $this->resetModified();
