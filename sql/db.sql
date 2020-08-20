@@ -8,6 +8,9 @@ CREATE TABLE usuario(
 CREATE TABLE cliente(
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(60) NOT NULL,
+    documento VARCHAR(30),
+    endereco VARCHAR(120),
+    cidade VARCHAR(30),
     ip VARCHAR(15),
     concentrador VARCHAR(45),
     vlan INT,
