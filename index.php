@@ -31,6 +31,7 @@ $vars= [
     'vlan'=>$dados->getVlan()
 ];
 
+
 // define o maximo de linhas que vai buscar para o log, se receber um valor maximo via get, esse é definido, senão usa 30 como padrão
 if(isset($_GET['logmax']) AND $_GET['logmax'] != NULL){
     $logmax = (int)$_GET['logmax'];

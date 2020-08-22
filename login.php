@@ -16,6 +16,7 @@ if(isset($_POST['uname']) AND isset($_POST['psw'])){
             if(isset($_POST['psw'])){
                 if ($user->getSenha() == md5($_POST['psw'])){
                     $_SESSION['logado'] = true;
+                    $_SESSION['id'] = $user->getId();
                     header("location: login.php");
                     die();
                 } else {

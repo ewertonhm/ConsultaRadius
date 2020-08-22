@@ -1,5 +1,9 @@
 {% extends "base.twig" %}
 
+{% block navbar %}
+    {% include 'navbar.html' %}
+{% endblock %}
+
 {% block content %}
     <form method="get" action="busca.php">
         <fieldset>

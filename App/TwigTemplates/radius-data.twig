@@ -1,8 +1,10 @@
 {% extends "base.twig" %}
 
-{% block content %}
-<div class="container">
+{% block navbar %}
+    {% include 'navbar.html' %}
+{% endblock %}
 
+{% block content %}
     <div class="row">
         <div class="column">
             <h3 class="no-margin-botton no-padding-botton">{{ nome }}</h3>
@@ -226,7 +228,6 @@
             {% endif %}
         </div>
     </div>
-</div>
 {% endblock %}
 
 {% block scripts %}
