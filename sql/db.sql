@@ -46,3 +46,14 @@ CREATE TABLE autenticacao(
     cliente_id INT,
     FOREIGN KEY (cliente_id) REFERENCES cliente (id)
 );
+
+CREATE TABLE onu(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    mac VARCHAR(45) NOT NULL,
+    olt INT NOT NULL,
+    slot INT NOT NULL,
+    pon INT NOT NULL,
+    onu INT NOT NULL,
+    modelo VARCHAR(100),
+    nome VARCHAR(100)
+);
