@@ -2,8 +2,8 @@
 
 namespace Map;
 
-use \Cliente;
-use \ClienteQuery;
+use \Onu;
+use \OnuQuery;
 use Propel\Runtime\Propel;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Propel\Runtime\ActiveQuery\InstancePoolTrait;
@@ -16,7 +16,7 @@ use Propel\Runtime\Map\TableMapTrait;
 
 
 /**
- * This class defines the structure of the 'cliente' table.
+ * This class defines the structure of the 'onu' table.
  *
  *
  *
@@ -25,7 +25,7 @@ use Propel\Runtime\Map\TableMapTrait;
  * ORDER BY clause to know whether it needs to apply SQL to make the ORDER BY case-insensitive
  * (i.e. if it's a text column type).
  */
-class ClienteTableMap extends TableMap
+class OnuTableMap extends TableMap
 {
     use InstancePoolTrait;
     use TableMapTrait;
@@ -33,7 +33,7 @@ class ClienteTableMap extends TableMap
     /**
      * The (dot-path) name of this class
      */
-    const CLASS_NAME = '.Map.ClienteTableMap';
+    const CLASS_NAME = '.Map.OnuTableMap';
 
     /**
      * The default database name for this class
@@ -43,22 +43,22 @@ class ClienteTableMap extends TableMap
     /**
      * The table name for this class
      */
-    const TABLE_NAME = 'cliente';
+    const TABLE_NAME = 'onu';
 
     /**
      * The related Propel class for this table
      */
-    const OM_CLASS = '\\Cliente';
+    const OM_CLASS = '\\Onu';
 
     /**
      * A class that can be returned by this tableMap
      */
-    const CLASS_DEFAULT = 'Cliente';
+    const CLASS_DEFAULT = 'Onu';
 
     /**
      * The total number of columns
      */
-    const NUM_COLUMNS = 16;
+    const NUM_COLUMNS = 8;
 
     /**
      * The number of lazy-loaded columns
@@ -68,87 +68,47 @@ class ClienteTableMap extends TableMap
     /**
      * The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS)
      */
-    const NUM_HYDRATE_COLUMNS = 16;
+    const NUM_HYDRATE_COLUMNS = 8;
 
     /**
      * the column name for the id field
      */
-    const COL_ID = 'cliente.id';
-
-    /**
-     * the column name for the nome field
-     */
-    const COL_NOME = 'cliente.nome';
-
-    /**
-     * the column name for the documento field
-     */
-    const COL_DOCUMENTO = 'cliente.documento';
-
-    /**
-     * the column name for the endereco field
-     */
-    const COL_ENDERECO = 'cliente.endereco';
-
-    /**
-     * the column name for the cidade field
-     */
-    const COL_CIDADE = 'cliente.cidade';
-
-    /**
-     * the column name for the ip field
-     */
-    const COL_IP = 'cliente.ip';
-
-    /**
-     * the column name for the concentrador field
-     */
-    const COL_CONCENTRADOR = 'cliente.concentrador';
-
-    /**
-     * the column name for the vlan field
-     */
-    const COL_VLAN = 'cliente.vlan';
-
-    /**
-     * the column name for the pppoe field
-     */
-    const COL_PPPOE = 'cliente.pppoe';
+    const COL_ID = 'onu.id';
 
     /**
      * the column name for the mac field
      */
-    const COL_MAC = 'cliente.mac';
+    const COL_MAC = 'onu.mac';
 
     /**
-     * the column name for the senha field
+     * the column name for the olt field
      */
-    const COL_SENHA = 'cliente.senha';
+    const COL_OLT = 'onu.olt';
 
     /**
-     * the column name for the stcontrato field
+     * the column name for the slot field
      */
-    const COL_STCONTRATO = 'cliente.stcontrato';
+    const COL_SLOT = 'onu.slot';
 
     /**
-     * the column name for the servico field
+     * the column name for the pon field
      */
-    const COL_SERVICO = 'cliente.servico';
+    const COL_PON = 'onu.pon';
 
     /**
-     * the column name for the velocidade field
+     * the column name for the onu field
      */
-    const COL_VELOCIDADE = 'cliente.velocidade';
+    const COL_ONU = 'onu.onu';
 
     /**
-     * the column name for the status field
+     * the column name for the modelo field
      */
-    const COL_STATUS = 'cliente.status';
+    const COL_MODELO = 'onu.modelo';
 
     /**
-     * the column name for the anotacoes field
+     * the column name for the nome field
      */
-    const COL_ANOTACOES = 'cliente.anotacoes';
+    const COL_NOME = 'onu.nome';
 
     /**
      * The default string format for model objects of the related table
@@ -162,11 +122,11 @@ class ClienteTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Id', 'Nome', 'Documento', 'Endereco', 'Cidade', 'Ip', 'Concentrador', 'Vlan', 'Pppoe', 'Mac', 'Senha', 'Stcontrato', 'Servico', 'Velocidade', 'Status', 'Anotacoes', ),
-        self::TYPE_CAMELNAME     => array('id', 'nome', 'documento', 'endereco', 'cidade', 'ip', 'concentrador', 'vlan', 'pppoe', 'mac', 'senha', 'stcontrato', 'servico', 'velocidade', 'status', 'anotacoes', ),
-        self::TYPE_COLNAME       => array(ClienteTableMap::COL_ID, ClienteTableMap::COL_NOME, ClienteTableMap::COL_DOCUMENTO, ClienteTableMap::COL_ENDERECO, ClienteTableMap::COL_CIDADE, ClienteTableMap::COL_IP, ClienteTableMap::COL_CONCENTRADOR, ClienteTableMap::COL_VLAN, ClienteTableMap::COL_PPPOE, ClienteTableMap::COL_MAC, ClienteTableMap::COL_SENHA, ClienteTableMap::COL_STCONTRATO, ClienteTableMap::COL_SERVICO, ClienteTableMap::COL_VELOCIDADE, ClienteTableMap::COL_STATUS, ClienteTableMap::COL_ANOTACOES, ),
-        self::TYPE_FIELDNAME     => array('id', 'nome', 'documento', 'endereco', 'cidade', 'ip', 'concentrador', 'vlan', 'pppoe', 'mac', 'senha', 'stcontrato', 'servico', 'velocidade', 'status', 'anotacoes', ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, )
+        self::TYPE_PHPNAME       => array('Id', 'Mac', 'Olt', 'Slot', 'Pon', 'Onu', 'Modelo', 'Nome', ),
+        self::TYPE_CAMELNAME     => array('id', 'mac', 'olt', 'slot', 'pon', 'onu', 'modelo', 'nome', ),
+        self::TYPE_COLNAME       => array(OnuTableMap::COL_ID, OnuTableMap::COL_MAC, OnuTableMap::COL_OLT, OnuTableMap::COL_SLOT, OnuTableMap::COL_PON, OnuTableMap::COL_ONU, OnuTableMap::COL_MODELO, OnuTableMap::COL_NOME, ),
+        self::TYPE_FIELDNAME     => array('id', 'mac', 'olt', 'slot', 'pon', 'onu', 'modelo', 'nome', ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, )
     );
 
     /**
@@ -176,11 +136,11 @@ class ClienteTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Id' => 0, 'Nome' => 1, 'Documento' => 2, 'Endereco' => 3, 'Cidade' => 4, 'Ip' => 5, 'Concentrador' => 6, 'Vlan' => 7, 'Pppoe' => 8, 'Mac' => 9, 'Senha' => 10, 'Stcontrato' => 11, 'Servico' => 12, 'Velocidade' => 13, 'Status' => 14, 'Anotacoes' => 15, ),
-        self::TYPE_CAMELNAME     => array('id' => 0, 'nome' => 1, 'documento' => 2, 'endereco' => 3, 'cidade' => 4, 'ip' => 5, 'concentrador' => 6, 'vlan' => 7, 'pppoe' => 8, 'mac' => 9, 'senha' => 10, 'stcontrato' => 11, 'servico' => 12, 'velocidade' => 13, 'status' => 14, 'anotacoes' => 15, ),
-        self::TYPE_COLNAME       => array(ClienteTableMap::COL_ID => 0, ClienteTableMap::COL_NOME => 1, ClienteTableMap::COL_DOCUMENTO => 2, ClienteTableMap::COL_ENDERECO => 3, ClienteTableMap::COL_CIDADE => 4, ClienteTableMap::COL_IP => 5, ClienteTableMap::COL_CONCENTRADOR => 6, ClienteTableMap::COL_VLAN => 7, ClienteTableMap::COL_PPPOE => 8, ClienteTableMap::COL_MAC => 9, ClienteTableMap::COL_SENHA => 10, ClienteTableMap::COL_STCONTRATO => 11, ClienteTableMap::COL_SERVICO => 12, ClienteTableMap::COL_VELOCIDADE => 13, ClienteTableMap::COL_STATUS => 14, ClienteTableMap::COL_ANOTACOES => 15, ),
-        self::TYPE_FIELDNAME     => array('id' => 0, 'nome' => 1, 'documento' => 2, 'endereco' => 3, 'cidade' => 4, 'ip' => 5, 'concentrador' => 6, 'vlan' => 7, 'pppoe' => 8, 'mac' => 9, 'senha' => 10, 'stcontrato' => 11, 'servico' => 12, 'velocidade' => 13, 'status' => 14, 'anotacoes' => 15, ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, )
+        self::TYPE_PHPNAME       => array('Id' => 0, 'Mac' => 1, 'Olt' => 2, 'Slot' => 3, 'Pon' => 4, 'Onu' => 5, 'Modelo' => 6, 'Nome' => 7, ),
+        self::TYPE_CAMELNAME     => array('id' => 0, 'mac' => 1, 'olt' => 2, 'slot' => 3, 'pon' => 4, 'onu' => 5, 'modelo' => 6, 'nome' => 7, ),
+        self::TYPE_COLNAME       => array(OnuTableMap::COL_ID => 0, OnuTableMap::COL_MAC => 1, OnuTableMap::COL_OLT => 2, OnuTableMap::COL_SLOT => 3, OnuTableMap::COL_PON => 4, OnuTableMap::COL_ONU => 5, OnuTableMap::COL_MODELO => 6, OnuTableMap::COL_NOME => 7, ),
+        self::TYPE_FIELDNAME     => array('id' => 0, 'mac' => 1, 'olt' => 2, 'slot' => 3, 'pon' => 4, 'onu' => 5, 'modelo' => 6, 'nome' => 7, ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, )
     );
 
     /**
@@ -193,29 +153,21 @@ class ClienteTableMap extends TableMap
     public function initialize()
     {
         // attributes
-        $this->setName('cliente');
-        $this->setPhpName('Cliente');
+        $this->setName('onu');
+        $this->setPhpName('Onu');
         $this->setIdentifierQuoting(false);
-        $this->setClassName('\\Cliente');
+        $this->setClassName('\\Onu');
         $this->setPackage('');
         $this->setUseIdGenerator(true);
         // columns
         $this->addPrimaryKey('id', 'Id', 'INTEGER', true, null, null);
-        $this->addColumn('nome', 'Nome', 'VARCHAR', true, 60, null);
-        $this->addColumn('documento', 'Documento', 'VARCHAR', false, 30, null);
-        $this->addColumn('endereco', 'Endereco', 'VARCHAR', false, 120, null);
-        $this->addColumn('cidade', 'Cidade', 'VARCHAR', false, 30, null);
-        $this->addColumn('ip', 'Ip', 'VARCHAR', false, 15, null);
-        $this->addColumn('concentrador', 'Concentrador', 'VARCHAR', false, 45, null);
-        $this->addColumn('vlan', 'Vlan', 'INTEGER', false, null, null);
-        $this->addColumn('pppoe', 'Pppoe', 'VARCHAR', true, 45, null);
-        $this->addColumn('mac', 'Mac', 'VARCHAR', false, 45, null);
-        $this->addColumn('senha', 'Senha', 'VARCHAR', false, 45, null);
-        $this->addColumn('stcontrato', 'Stcontrato', 'VARCHAR', false, 45, null);
-        $this->addColumn('servico', 'Servico', 'VARCHAR', false, 45, null);
-        $this->addColumn('velocidade', 'Velocidade', 'VARCHAR', false, 45, null);
-        $this->addColumn('status', 'Status', 'VARCHAR', false, 45, null);
-        $this->addColumn('anotacoes', 'Anotacoes', 'VARCHAR', false, 500, null);
+        $this->addColumn('mac', 'Mac', 'LONGVARCHAR', true, null, null);
+        $this->addColumn('olt', 'Olt', 'INTEGER', true, null, null);
+        $this->addColumn('slot', 'Slot', 'INTEGER', true, null, null);
+        $this->addColumn('pon', 'Pon', 'INTEGER', true, null, null);
+        $this->addColumn('onu', 'Onu', 'INTEGER', true, null, null);
+        $this->addColumn('modelo', 'Modelo', 'LONGVARCHAR', false, null, null);
+        $this->addColumn('nome', 'Nome', 'LONGVARCHAR', false, null, null);
     } // initialize()
 
     /**
@@ -223,20 +175,6 @@ class ClienteTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('Autenticacao', '\\Autenticacao', RelationMap::ONE_TO_MANY, array (
-  0 =>
-  array (
-    0 => ':cliente_id',
-    1 => ':id',
-  ),
-), null, null, 'Autenticacaos', false);
-        $this->addRelation('Log', '\\Log', RelationMap::ONE_TO_MANY, array (
-  0 =>
-  array (
-    0 => ':cliente_id',
-    1 => ':id',
-  ),
-), null, null, 'Logs', false);
     } // buildRelations()
 
     /**
@@ -296,7 +234,7 @@ class ClienteTableMap extends TableMap
      */
     public static function getOMClass($withPrefix = true)
     {
-        return $withPrefix ? ClienteTableMap::CLASS_DEFAULT : ClienteTableMap::OM_CLASS;
+        return $withPrefix ? OnuTableMap::CLASS_DEFAULT : OnuTableMap::OM_CLASS;
     }
 
     /**
@@ -310,22 +248,22 @@ class ClienteTableMap extends TableMap
      *
      * @throws PropelException Any exceptions caught during processing will be
      *                         rethrown wrapped into a PropelException.
-     * @return array           (Cliente object, last column rank)
+     * @return array           (Onu object, last column rank)
      */
     public static function populateObject($row, $offset = 0, $indexType = TableMap::TYPE_NUM)
     {
-        $key = ClienteTableMap::getPrimaryKeyHashFromRow($row, $offset, $indexType);
-        if (null !== ($obj = ClienteTableMap::getInstanceFromPool($key))) {
+        $key = OnuTableMap::getPrimaryKeyHashFromRow($row, $offset, $indexType);
+        if (null !== ($obj = OnuTableMap::getInstanceFromPool($key))) {
             // We no longer rehydrate the object, since this can cause data loss.
             // See http://www.propelorm.org/ticket/509
             // $obj->hydrate($row, $offset, true); // rehydrate
-            $col = $offset + ClienteTableMap::NUM_HYDRATE_COLUMNS;
+            $col = $offset + OnuTableMap::NUM_HYDRATE_COLUMNS;
         } else {
-            $cls = ClienteTableMap::OM_CLASS;
-            /** @var Cliente $obj */
+            $cls = OnuTableMap::OM_CLASS;
+            /** @var Onu $obj */
             $obj = new $cls();
             $col = $obj->hydrate($row, $offset, false, $indexType);
-            ClienteTableMap::addInstanceToPool($obj, $key);
+            OnuTableMap::addInstanceToPool($obj, $key);
         }
 
         return array($obj, $col);
@@ -348,18 +286,18 @@ class ClienteTableMap extends TableMap
         $cls = static::getOMClass(false);
         // populate the object(s)
         while ($row = $dataFetcher->fetch()) {
-            $key = ClienteTableMap::getPrimaryKeyHashFromRow($row, 0, $dataFetcher->getIndexType());
-            if (null !== ($obj = ClienteTableMap::getInstanceFromPool($key))) {
+            $key = OnuTableMap::getPrimaryKeyHashFromRow($row, 0, $dataFetcher->getIndexType());
+            if (null !== ($obj = OnuTableMap::getInstanceFromPool($key))) {
                 // We no longer rehydrate the object, since this can cause data loss.
                 // See http://www.propelorm.org/ticket/509
                 // $obj->hydrate($row, 0, true); // rehydrate
                 $results[] = $obj;
             } else {
-                /** @var Cliente $obj */
+                /** @var Onu $obj */
                 $obj = new $cls();
                 $obj->hydrate($row);
                 $results[] = $obj;
-                ClienteTableMap::addInstanceToPool($obj, $key);
+                OnuTableMap::addInstanceToPool($obj, $key);
             } // if key exists
         }
 
@@ -380,39 +318,23 @@ class ClienteTableMap extends TableMap
     public static function addSelectColumns(Criteria $criteria, $alias = null)
     {
         if (null === $alias) {
-            $criteria->addSelectColumn(ClienteTableMap::COL_ID);
-            $criteria->addSelectColumn(ClienteTableMap::COL_NOME);
-            $criteria->addSelectColumn(ClienteTableMap::COL_DOCUMENTO);
-            $criteria->addSelectColumn(ClienteTableMap::COL_ENDERECO);
-            $criteria->addSelectColumn(ClienteTableMap::COL_CIDADE);
-            $criteria->addSelectColumn(ClienteTableMap::COL_IP);
-            $criteria->addSelectColumn(ClienteTableMap::COL_CONCENTRADOR);
-            $criteria->addSelectColumn(ClienteTableMap::COL_VLAN);
-            $criteria->addSelectColumn(ClienteTableMap::COL_PPPOE);
-            $criteria->addSelectColumn(ClienteTableMap::COL_MAC);
-            $criteria->addSelectColumn(ClienteTableMap::COL_SENHA);
-            $criteria->addSelectColumn(ClienteTableMap::COL_STCONTRATO);
-            $criteria->addSelectColumn(ClienteTableMap::COL_SERVICO);
-            $criteria->addSelectColumn(ClienteTableMap::COL_VELOCIDADE);
-            $criteria->addSelectColumn(ClienteTableMap::COL_STATUS);
-            $criteria->addSelectColumn(ClienteTableMap::COL_ANOTACOES);
+            $criteria->addSelectColumn(OnuTableMap::COL_ID);
+            $criteria->addSelectColumn(OnuTableMap::COL_MAC);
+            $criteria->addSelectColumn(OnuTableMap::COL_OLT);
+            $criteria->addSelectColumn(OnuTableMap::COL_SLOT);
+            $criteria->addSelectColumn(OnuTableMap::COL_PON);
+            $criteria->addSelectColumn(OnuTableMap::COL_ONU);
+            $criteria->addSelectColumn(OnuTableMap::COL_MODELO);
+            $criteria->addSelectColumn(OnuTableMap::COL_NOME);
         } else {
             $criteria->addSelectColumn($alias . '.id');
-            $criteria->addSelectColumn($alias . '.nome');
-            $criteria->addSelectColumn($alias . '.documento');
-            $criteria->addSelectColumn($alias . '.endereco');
-            $criteria->addSelectColumn($alias . '.cidade');
-            $criteria->addSelectColumn($alias . '.ip');
-            $criteria->addSelectColumn($alias . '.concentrador');
-            $criteria->addSelectColumn($alias . '.vlan');
-            $criteria->addSelectColumn($alias . '.pppoe');
             $criteria->addSelectColumn($alias . '.mac');
-            $criteria->addSelectColumn($alias . '.senha');
-            $criteria->addSelectColumn($alias . '.stcontrato');
-            $criteria->addSelectColumn($alias . '.servico');
-            $criteria->addSelectColumn($alias . '.velocidade');
-            $criteria->addSelectColumn($alias . '.status');
-            $criteria->addSelectColumn($alias . '.anotacoes');
+            $criteria->addSelectColumn($alias . '.olt');
+            $criteria->addSelectColumn($alias . '.slot');
+            $criteria->addSelectColumn($alias . '.pon');
+            $criteria->addSelectColumn($alias . '.onu');
+            $criteria->addSelectColumn($alias . '.modelo');
+            $criteria->addSelectColumn($alias . '.nome');
         }
     }
 
@@ -425,7 +347,7 @@ class ClienteTableMap extends TableMap
      */
     public static function getTableMap()
     {
-        return Propel::getServiceContainer()->getDatabaseMap(ClienteTableMap::DATABASE_NAME)->getTable(ClienteTableMap::TABLE_NAME);
+        return Propel::getServiceContainer()->getDatabaseMap(OnuTableMap::DATABASE_NAME)->getTable(OnuTableMap::TABLE_NAME);
     }
 
     /**
@@ -433,16 +355,16 @@ class ClienteTableMap extends TableMap
      */
     public static function buildTableMap()
     {
-        $dbMap = Propel::getServiceContainer()->getDatabaseMap(ClienteTableMap::DATABASE_NAME);
-        if (!$dbMap->hasTable(ClienteTableMap::TABLE_NAME)) {
-            $dbMap->addTableObject(new ClienteTableMap());
+        $dbMap = Propel::getServiceContainer()->getDatabaseMap(OnuTableMap::DATABASE_NAME);
+        if (!$dbMap->hasTable(OnuTableMap::TABLE_NAME)) {
+            $dbMap->addTableObject(new OnuTableMap());
         }
     }
 
     /**
-     * Performs a DELETE on the database, given a Cliente or Criteria object OR a primary key value.
+     * Performs a DELETE on the database, given a Onu or Criteria object OR a primary key value.
      *
-     * @param mixed               $values Criteria or Cliente object or primary key or array of primary keys
+     * @param mixed               $values Criteria or Onu object or primary key or array of primary keys
      *              which is used to create the DELETE statement
      * @param  ConnectionInterface $con the connection to use
      * @return int             The number of affected rows (if supported by underlying database driver).  This includes CASCADE-related rows
@@ -453,27 +375,27 @@ class ClienteTableMap extends TableMap
      public static function doDelete($values, ConnectionInterface $con = null)
      {
         if (null === $con) {
-            $con = Propel::getServiceContainer()->getWriteConnection(ClienteTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(OnuTableMap::DATABASE_NAME);
         }
 
         if ($values instanceof Criteria) {
             // rename for clarity
             $criteria = $values;
-        } elseif ($values instanceof \Cliente) { // it's a model object
+        } elseif ($values instanceof \Onu) { // it's a model object
             // create criteria based on pk values
             $criteria = $values->buildPkeyCriteria();
         } else { // it's a primary key, or an array of pks
-            $criteria = new Criteria(ClienteTableMap::DATABASE_NAME);
-            $criteria->add(ClienteTableMap::COL_ID, (array) $values, Criteria::IN);
+            $criteria = new Criteria(OnuTableMap::DATABASE_NAME);
+            $criteria->add(OnuTableMap::COL_ID, (array) $values, Criteria::IN);
         }
 
-        $query = ClienteQuery::create()->mergeWith($criteria);
+        $query = OnuQuery::create()->mergeWith($criteria);
 
         if ($values instanceof Criteria) {
-            ClienteTableMap::clearInstancePool();
+            OnuTableMap::clearInstancePool();
         } elseif (!is_object($values)) { // it's a primary key, or an array of pks
             foreach ((array) $values as $singleval) {
-                ClienteTableMap::removeInstanceFromPool($singleval);
+                OnuTableMap::removeInstanceFromPool($singleval);
             }
         }
 
@@ -481,20 +403,20 @@ class ClienteTableMap extends TableMap
     }
 
     /**
-     * Deletes all rows from the cliente table.
+     * Deletes all rows from the onu table.
      *
      * @param ConnectionInterface $con the connection to use
      * @return int The number of affected rows (if supported by underlying database driver).
      */
     public static function doDeleteAll(ConnectionInterface $con = null)
     {
-        return ClienteQuery::create()->doDeleteAll($con);
+        return OnuQuery::create()->doDeleteAll($con);
     }
 
     /**
-     * Performs an INSERT on the database, given a Cliente or Criteria object.
+     * Performs an INSERT on the database, given a Onu or Criteria object.
      *
-     * @param mixed               $criteria Criteria or Cliente object containing data that is used to create the INSERT statement.
+     * @param mixed               $criteria Criteria or Onu object containing data that is used to create the INSERT statement.
      * @param ConnectionInterface $con the ConnectionInterface connection to use
      * @return mixed           The new primary key.
      * @throws PropelException Any exceptions caught during processing will be
@@ -503,22 +425,22 @@ class ClienteTableMap extends TableMap
     public static function doInsert($criteria, ConnectionInterface $con = null)
     {
         if (null === $con) {
-            $con = Propel::getServiceContainer()->getWriteConnection(ClienteTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(OnuTableMap::DATABASE_NAME);
         }
 
         if ($criteria instanceof Criteria) {
             $criteria = clone $criteria; // rename for clarity
         } else {
-            $criteria = $criteria->buildCriteria(); // build Criteria from Cliente object
+            $criteria = $criteria->buildCriteria(); // build Criteria from Onu object
         }
 
-        if ($criteria->containsKey(ClienteTableMap::COL_ID) && $criteria->keyContainsValue(ClienteTableMap::COL_ID) ) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key ('.ClienteTableMap::COL_ID.')');
+        if ($criteria->containsKey(OnuTableMap::COL_ID) && $criteria->keyContainsValue(OnuTableMap::COL_ID) ) {
+            throw new PropelException('Cannot insert a value for auto-increment primary key ('.OnuTableMap::COL_ID.')');
         }
 
 
         // Set the correct dbName
-        $query = ClienteQuery::create()->mergeWith($criteria);
+        $query = OnuQuery::create()->mergeWith($criteria);
 
         // use transaction because $criteria could contain info
         // for more than one table (I guess, conceivably)
@@ -527,7 +449,7 @@ class ClienteTableMap extends TableMap
         });
     }
 
-} // ClienteTableMap
+} // OnuTableMap
 // This is the static code needed to register the TableMap for this table with the main Propel class.
 //
-ClienteTableMap::buildTableMap();
+OnuTableMap::buildTableMap();

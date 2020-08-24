@@ -26,19 +26,20 @@
   <table name="cliente" idMethod="native" phpName="Cliente">
     <column name="id" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
     <column name="nome" phpName="Nome" type="VARCHAR" size="60" required="true"/>
+    <column name="documento" phpName="Documento" type="VARCHAR" size="30"/>
+    <column name="endereco" phpName="Endereco" type="VARCHAR" size="120"/>
+    <column name="cidade" phpName="Cidade" type="VARCHAR" size="30"/>
     <column name="ip" phpName="Ip" type="VARCHAR" size="15"/>
     <column name="concentrador" phpName="Concentrador" type="VARCHAR" size="45"/>
     <column name="vlan" phpName="Vlan" type="INTEGER"/>
     <column name="pppoe" phpName="Pppoe" type="VARCHAR" size="45" required="true"/>
+    <column name="mac" phpName="Mac" type="VARCHAR" size="45"/>
     <column name="senha" phpName="Senha" type="VARCHAR" size="45"/>
     <column name="stcontrato" phpName="Stcontrato" type="VARCHAR" size="45"/>
     <column name="servico" phpName="Servico" type="VARCHAR" size="45"/>
     <column name="velocidade" phpName="Velocidade" type="VARCHAR" size="45"/>
     <column name="status" phpName="Status" type="VARCHAR" size="45"/>
     <column name="anotacoes" phpName="Anotacoes" type="VARCHAR" size="500"/>
-    <column name="documento" phpName="Documento" type="VARCHAR" size="30"/>
-    <column name="endereco" phpName="Endereco" type="VARCHAR" size="120"/>
-    <column name="cidade" phpName="Cidade" type="VARCHAR" size="30"/>
     <vendor type="mysql">
       <parameter name="Engine" value="InnoDB"/>
     </vendor>
@@ -54,6 +55,19 @@
     <index name="cliente_id">
       <index-column name="cliente_id"/>
     </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="onu" idMethod="native" phpName="Onu">
+    <column name="id" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="mac" phpName="Mac" type="LONGVARCHAR" required="true"/>
+    <column name="olt" phpName="Olt" type="INTEGER" required="true"/>
+    <column name="slot" phpName="Slot" type="INTEGER" required="true"/>
+    <column name="pon" phpName="Pon" type="INTEGER" required="true"/>
+    <column name="onu" phpName="Onu" type="INTEGER" required="true"/>
+    <column name="modelo" phpName="Modelo" type="LONGVARCHAR"/>
+    <column name="nome" phpName="Nome" type="LONGVARCHAR"/>
     <vendor type="mysql">
       <parameter name="Engine" value="InnoDB"/>
     </vendor>

@@ -28,7 +28,8 @@ $vars= [
     'servico'=>$dados->getServico(),
     'velocidade'=>$dados->getVelocidade(),
     'id'=>$dados->getId(),
-    'vlan'=>$dados->getVlan()
+    'vlan'=>$dados->getVlan(),
+    'mac'=>$dados->getMac()
 ];
 
 

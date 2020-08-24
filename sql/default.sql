@@ -40,19 +40,20 @@ CREATE TABLE `cliente`
 (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `nome` VARCHAR(60) NOT NULL,
+    `documento` VARCHAR(30),
+    `endereco` VARCHAR(120),
+    `cidade` VARCHAR(30),
     `ip` VARCHAR(15),
     `concentrador` VARCHAR(45),
     `vlan` INTEGER,
     `pppoe` VARCHAR(45) NOT NULL,
+    `mac` VARCHAR(45),
     `senha` VARCHAR(45),
     `stcontrato` VARCHAR(45),
     `servico` VARCHAR(45),
     `velocidade` VARCHAR(45),
     `status` VARCHAR(45),
     `anotacoes` VARCHAR(500),
-    `documento` VARCHAR(30),
-    `endereco` VARCHAR(120),
-    `cidade` VARCHAR(30),
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
 
@@ -73,6 +74,25 @@ CREATE TABLE `log`
     CONSTRAINT `log_ibfk_1`
         FOREIGN KEY (`cliente_id`)
         REFERENCES `cliente` (`id`)
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- onu
+-- ---------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `onu`;
+
+CREATE TABLE `onu`
+(
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `mac` TEXT NOT NULL,
+    `olt` INTEGER NOT NULL,
+    `slot` INTEGER NOT NULL,
+    `pon` INTEGER NOT NULL,
+    `onu` INTEGER NOT NULL,
+    `modelo` TEXT,
+    `nome` TEXT,
+    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
