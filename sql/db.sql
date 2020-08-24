@@ -15,6 +15,7 @@ CREATE TABLE cliente(
     concentrador VARCHAR(45),
     vlan INT,
     pppoe VARCHAR(45) NOT NULL,
+    mac VARCHAR(45),
     senha VARCHAR(45),
     stcontrato VARCHAR(45),
     servico VARCHAR(45),
