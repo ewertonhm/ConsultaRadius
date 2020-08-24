@@ -33,13 +33,14 @@
     <column name="concentrador" phpName="Concentrador" type="VARCHAR" size="45"/>
     <column name="vlan" phpName="Vlan" type="INTEGER"/>
     <column name="pppoe" phpName="Pppoe" type="VARCHAR" size="45" required="true"/>
-    <column name="mac" phpName="Mac" type="VARCHAR" size="45"/>
     <column name="senha" phpName="Senha" type="VARCHAR" size="45"/>
     <column name="stcontrato" phpName="Stcontrato" type="VARCHAR" size="45"/>
     <column name="servico" phpName="Servico" type="VARCHAR" size="45"/>
     <column name="velocidade" phpName="Velocidade" type="VARCHAR" size="45"/>
     <column name="status" phpName="Status" type="VARCHAR" size="45"/>
     <column name="anotacoes" phpName="Anotacoes" type="VARCHAR" size="500"/>
+    <column name="macroteador" phpName="Macroteador" type="VARCHAR" size="45"/>
+    <column name="maconu" phpName="Maconu" type="VARCHAR" size="45"/>
     <vendor type="mysql">
       <parameter name="Engine" value="InnoDB"/>
     </vendor>

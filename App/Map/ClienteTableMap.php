@@ -58,7 +58,7 @@ class ClienteTableMap extends TableMap
     /**
      * The total number of columns
      */
-    const NUM_COLUMNS = 16;
+    const NUM_COLUMNS = 17;
 
     /**
      * The number of lazy-loaded columns
@@ -68,7 +68,7 @@ class ClienteTableMap extends TableMap
     /**
      * The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS)
      */
-    const NUM_HYDRATE_COLUMNS = 16;
+    const NUM_HYDRATE_COLUMNS = 17;
 
     /**
      * the column name for the id field
@@ -116,11 +116,6 @@ class ClienteTableMap extends TableMap
     const COL_PPPOE = 'cliente.pppoe';
 
     /**
-     * the column name for the mac field
-     */
-    const COL_MAC = 'cliente.mac';
-
-    /**
      * the column name for the senha field
      */
     const COL_SENHA = 'cliente.senha';
@@ -151,6 +146,16 @@ class ClienteTableMap extends TableMap
     const COL_ANOTACOES = 'cliente.anotacoes';
 
     /**
+     * the column name for the macroteador field
+     */
+    const COL_MACROTEADOR = 'cliente.macroteador';
+
+    /**
+     * the column name for the maconu field
+     */
+    const COL_MACONU = 'cliente.maconu';
+
+    /**
      * The default string format for model objects of the related table
      */
     const DEFAULT_STRING_FORMAT = 'YAML';
@@ -162,11 +167,11 @@ class ClienteTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Id', 'Nome', 'Documento', 'Endereco', 'Cidade', 'Ip', 'Concentrador', 'Vlan', 'Pppoe', 'Mac', 'Senha', 'Stcontrato', 'Servico', 'Velocidade', 'Status', 'Anotacoes', ),
-        self::TYPE_CAMELNAME     => array('id', 'nome', 'documento', 'endereco', 'cidade', 'ip', 'concentrador', 'vlan', 'pppoe', 'mac', 'senha', 'stcontrato', 'servico', 'velocidade', 'status', 'anotacoes', ),
-        self::TYPE_COLNAME       => array(ClienteTableMap::COL_ID, ClienteTableMap::COL_NOME, ClienteTableMap::COL_DOCUMENTO, ClienteTableMap::COL_ENDERECO, ClienteTableMap::COL_CIDADE, ClienteTableMap::COL_IP, ClienteTableMap::COL_CONCENTRADOR, ClienteTableMap::COL_VLAN, ClienteTableMap::COL_PPPOE, ClienteTableMap::COL_MAC, ClienteTableMap::COL_SENHA, ClienteTableMap::COL_STCONTRATO, ClienteTableMap::COL_SERVICO, ClienteTableMap::COL_VELOCIDADE, ClienteTableMap::COL_STATUS, ClienteTableMap::COL_ANOTACOES, ),
-        self::TYPE_FIELDNAME     => array('id', 'nome', 'documento', 'endereco', 'cidade', 'ip', 'concentrador', 'vlan', 'pppoe', 'mac', 'senha', 'stcontrato', 'servico', 'velocidade', 'status', 'anotacoes', ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, )
+        self::TYPE_PHPNAME       => array('Id', 'Nome', 'Documento', 'Endereco', 'Cidade', 'Ip', 'Concentrador', 'Vlan', 'Pppoe', 'Senha', 'Stcontrato', 'Servico', 'Velocidade', 'Status', 'Anotacoes', 'Macroteador', 'Maconu', ),
+        self::TYPE_CAMELNAME     => array('id', 'nome', 'documento', 'endereco', 'cidade', 'ip', 'concentrador', 'vlan', 'pppoe', 'senha', 'stcontrato', 'servico', 'velocidade', 'status', 'anotacoes', 'macroteador', 'maconu', ),
+        self::TYPE_COLNAME       => array(ClienteTableMap::COL_ID, ClienteTableMap::COL_NOME, ClienteTableMap::COL_DOCUMENTO, ClienteTableMap::COL_ENDERECO, ClienteTableMap::COL_CIDADE, ClienteTableMap::COL_IP, ClienteTableMap::COL_CONCENTRADOR, ClienteTableMap::COL_VLAN, ClienteTableMap::COL_PPPOE, ClienteTableMap::COL_SENHA, ClienteTableMap::COL_STCONTRATO, ClienteTableMap::COL_SERVICO, ClienteTableMap::COL_VELOCIDADE, ClienteTableMap::COL_STATUS, ClienteTableMap::COL_ANOTACOES, ClienteTableMap::COL_MACROTEADOR, ClienteTableMap::COL_MACONU, ),
+        self::TYPE_FIELDNAME     => array('id', 'nome', 'documento', 'endereco', 'cidade', 'ip', 'concentrador', 'vlan', 'pppoe', 'senha', 'stcontrato', 'servico', 'velocidade', 'status', 'anotacoes', 'macroteador', 'maconu', ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, )
     );
 
     /**
@@ -176,11 +181,11 @@ class ClienteTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Id' => 0, 'Nome' => 1, 'Documento' => 2, 'Endereco' => 3, 'Cidade' => 4, 'Ip' => 5, 'Concentrador' => 6, 'Vlan' => 7, 'Pppoe' => 8, 'Mac' => 9, 'Senha' => 10, 'Stcontrato' => 11, 'Servico' => 12, 'Velocidade' => 13, 'Status' => 14, 'Anotacoes' => 15, ),
-        self::TYPE_CAMELNAME     => array('id' => 0, 'nome' => 1, 'documento' => 2, 'endereco' => 3, 'cidade' => 4, 'ip' => 5, 'concentrador' => 6, 'vlan' => 7, 'pppoe' => 8, 'mac' => 9, 'senha' => 10, 'stcontrato' => 11, 'servico' => 12, 'velocidade' => 13, 'status' => 14, 'anotacoes' => 15, ),
-        self::TYPE_COLNAME       => array(ClienteTableMap::COL_ID => 0, ClienteTableMap::COL_NOME => 1, ClienteTableMap::COL_DOCUMENTO => 2, ClienteTableMap::COL_ENDERECO => 3, ClienteTableMap::COL_CIDADE => 4, ClienteTableMap::COL_IP => 5, ClienteTableMap::COL_CONCENTRADOR => 6, ClienteTableMap::COL_VLAN => 7, ClienteTableMap::COL_PPPOE => 8, ClienteTableMap::COL_MAC => 9, ClienteTableMap::COL_SENHA => 10, ClienteTableMap::COL_STCONTRATO => 11, ClienteTableMap::COL_SERVICO => 12, ClienteTableMap::COL_VELOCIDADE => 13, ClienteTableMap::COL_STATUS => 14, ClienteTableMap::COL_ANOTACOES => 15, ),
-        self::TYPE_FIELDNAME     => array('id' => 0, 'nome' => 1, 'documento' => 2, 'endereco' => 3, 'cidade' => 4, 'ip' => 5, 'concentrador' => 6, 'vlan' => 7, 'pppoe' => 8, 'mac' => 9, 'senha' => 10, 'stcontrato' => 11, 'servico' => 12, 'velocidade' => 13, 'status' => 14, 'anotacoes' => 15, ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, )
+        self::TYPE_PHPNAME       => array('Id' => 0, 'Nome' => 1, 'Documento' => 2, 'Endereco' => 3, 'Cidade' => 4, 'Ip' => 5, 'Concentrador' => 6, 'Vlan' => 7, 'Pppoe' => 8, 'Senha' => 9, 'Stcontrato' => 10, 'Servico' => 11, 'Velocidade' => 12, 'Status' => 13, 'Anotacoes' => 14, 'Macroteador' => 15, 'Maconu' => 16, ),
+        self::TYPE_CAMELNAME     => array('id' => 0, 'nome' => 1, 'documento' => 2, 'endereco' => 3, 'cidade' => 4, 'ip' => 5, 'concentrador' => 6, 'vlan' => 7, 'pppoe' => 8, 'senha' => 9, 'stcontrato' => 10, 'servico' => 11, 'velocidade' => 12, 'status' => 13, 'anotacoes' => 14, 'macroteador' => 15, 'maconu' => 16, ),
+        self::TYPE_COLNAME       => array(ClienteTableMap::COL_ID => 0, ClienteTableMap::COL_NOME => 1, ClienteTableMap::COL_DOCUMENTO => 2, ClienteTableMap::COL_ENDERECO => 3, ClienteTableMap::COL_CIDADE => 4, ClienteTableMap::COL_IP => 5, ClienteTableMap::COL_CONCENTRADOR => 6, ClienteTableMap::COL_VLAN => 7, ClienteTableMap::COL_PPPOE => 8, ClienteTableMap::COL_SENHA => 9, ClienteTableMap::COL_STCONTRATO => 10, ClienteTableMap::COL_SERVICO => 11, ClienteTableMap::COL_VELOCIDADE => 12, ClienteTableMap::COL_STATUS => 13, ClienteTableMap::COL_ANOTACOES => 14, ClienteTableMap::COL_MACROTEADOR => 15, ClienteTableMap::COL_MACONU => 16, ),
+        self::TYPE_FIELDNAME     => array('id' => 0, 'nome' => 1, 'documento' => 2, 'endereco' => 3, 'cidade' => 4, 'ip' => 5, 'concentrador' => 6, 'vlan' => 7, 'pppoe' => 8, 'senha' => 9, 'stcontrato' => 10, 'servico' => 11, 'velocidade' => 12, 'status' => 13, 'anotacoes' => 14, 'macroteador' => 15, 'maconu' => 16, ),
+        self::TYPE_NUM           => array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, )
     );
 
     /**
@@ -209,13 +214,14 @@ class ClienteTableMap extends TableMap
         $this->addColumn('concentrador', 'Concentrador', 'VARCHAR', false, 45, null);
         $this->addColumn('vlan', 'Vlan', 'INTEGER', false, null, null);
         $this->addColumn('pppoe', 'Pppoe', 'VARCHAR', true, 45, null);
-        $this->addColumn('mac', 'Mac', 'VARCHAR', false, 45, null);
         $this->addColumn('senha', 'Senha', 'VARCHAR', false, 45, null);
         $this->addColumn('stcontrato', 'Stcontrato', 'VARCHAR', false, 45, null);
         $this->addColumn('servico', 'Servico', 'VARCHAR', false, 45, null);
         $this->addColumn('velocidade', 'Velocidade', 'VARCHAR', false, 45, null);
         $this->addColumn('status', 'Status', 'VARCHAR', false, 45, null);
         $this->addColumn('anotacoes', 'Anotacoes', 'VARCHAR', false, 500, null);
+        $this->addColumn('macroteador', 'Macroteador', 'VARCHAR', false, 45, null);
+        $this->addColumn('maconu', 'Maconu', 'VARCHAR', false, 45, null);
     } // initialize()
 
     /**
@@ -389,13 +395,14 @@ class ClienteTableMap extends TableMap
             $criteria->addSelectColumn(ClienteTableMap::COL_CONCENTRADOR);
             $criteria->addSelectColumn(ClienteTableMap::COL_VLAN);
             $criteria->addSelectColumn(ClienteTableMap::COL_PPPOE);
-            $criteria->addSelectColumn(ClienteTableMap::COL_MAC);
             $criteria->addSelectColumn(ClienteTableMap::COL_SENHA);
             $criteria->addSelectColumn(ClienteTableMap::COL_STCONTRATO);
             $criteria->addSelectColumn(ClienteTableMap::COL_SERVICO);
             $criteria->addSelectColumn(ClienteTableMap::COL_VELOCIDADE);
             $criteria->addSelectColumn(ClienteTableMap::COL_STATUS);
             $criteria->addSelectColumn(ClienteTableMap::COL_ANOTACOES);
+            $criteria->addSelectColumn(ClienteTableMap::COL_MACROTEADOR);
+            $criteria->addSelectColumn(ClienteTableMap::COL_MACONU);
         } else {
             $criteria->addSelectColumn($alias . '.id');
             $criteria->addSelectColumn($alias . '.nome');
@@ -406,13 +413,14 @@ class ClienteTableMap extends TableMap
             $criteria->addSelectColumn($alias . '.concentrador');
             $criteria->addSelectColumn($alias . '.vlan');
             $criteria->addSelectColumn($alias . '.pppoe');
-            $criteria->addSelectColumn($alias . '.mac');
             $criteria->addSelectColumn($alias . '.senha');
             $criteria->addSelectColumn($alias . '.stcontrato');
             $criteria->addSelectColumn($alias . '.servico');
             $criteria->addSelectColumn($alias . '.velocidade');
             $criteria->addSelectColumn($alias . '.status');
             $criteria->addSelectColumn($alias . '.anotacoes');
+            $criteria->addSelectColumn($alias . '.macroteador');
+            $criteria->addSelectColumn($alias . '.maconu');
         }
     }
 

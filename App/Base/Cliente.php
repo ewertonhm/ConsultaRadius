@@ -131,13 +131,6 @@ abstract class Cliente implements ActiveRecordInterface
     protected $pppoe;
 
     /**
-     * The value for the mac field.
-     *
-     * @var        string
-     */
-    protected $mac;
-
-    /**
      * The value for the senha field.
      *
      * @var        string
@@ -178,6 +171,20 @@ abstract class Cliente implements ActiveRecordInterface
      * @var        string
      */
     protected $anotacoes;
+
+    /**
+     * The value for the macroteador field.
+     *
+     * @var        string
+     */
+    protected $macroteador;
+
+    /**
+     * The value for the maconu field.
+     *
+     * @var        string
+     */
+    protected $maconu;
 
     /**
      * @var        ObjectCollection|ChildAutenticacao[] Collection to store aggregation of ChildAutenticacao objects.
@@ -527,16 +534,6 @@ abstract class Cliente implements ActiveRecordInterface
     }
 
     /**
-     * Get the [mac] column value.
-     *
-     * @return string
-     */
-    public function getMac()
-    {
-        return $this->mac;
-    }
-
-    /**
      * Get the [senha] column value.
      *
      * @return string
@@ -594,6 +591,26 @@ abstract class Cliente implements ActiveRecordInterface
     public function getAnotacoes()
     {
         return $this->anotacoes;
+    }
+
+    /**
+     * Get the [macroteador] column value.
+     *
+     * @return string
+     */
+    public function getMacroteador()
+    {
+        return $this->macroteador;
+    }
+
+    /**
+     * Get the [maconu] column value.
+     *
+     * @return string
+     */
+    public function getMaconu()
+    {
+        return $this->maconu;
     }
 
     /**
@@ -777,26 +794,6 @@ abstract class Cliente implements ActiveRecordInterface
     } // setPppoe()
 
     /**
-     * Set the value of [mac] column.
-     *
-     * @param string|null $v New value
-     * @return $this|\Cliente The current object (for fluent API support)
-     */
-    public function setMac($v)
-    {
-        if ($v !== null) {
-            $v = (string) $v;
-        }
-
-        if ($this->mac !== $v) {
-            $this->mac = $v;
-            $this->modifiedColumns[ClienteTableMap::COL_MAC] = true;
-        }
-
-        return $this;
-    } // setMac()
-
-    /**
      * Set the value of [senha] column.
      *
      * @param string|null $v New value
@@ -917,6 +914,46 @@ abstract class Cliente implements ActiveRecordInterface
     } // setAnotacoes()
 
     /**
+     * Set the value of [macroteador] column.
+     *
+     * @param string|null $v New value
+     * @return $this|\Cliente The current object (for fluent API support)
+     */
+    public function setMacroteador($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->macroteador !== $v) {
+            $this->macroteador = $v;
+            $this->modifiedColumns[ClienteTableMap::COL_MACROTEADOR] = true;
+        }
+
+        return $this;
+    } // setMacroteador()
+
+    /**
+     * Set the value of [maconu] column.
+     *
+     * @param string|null $v New value
+     * @return $this|\Cliente The current object (for fluent API support)
+     */
+    public function setMaconu($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->maconu !== $v) {
+            $this->maconu = $v;
+            $this->modifiedColumns[ClienteTableMap::COL_MACONU] = true;
+        }
+
+        return $this;
+    } // setMaconu()
+
+    /**
      * Indicates whether the columns in this object are only set to default values.
      *
      * This method can be used in conjunction with isModified() to indicate whether an object is both
@@ -979,26 +1016,29 @@ abstract class Cliente implements ActiveRecordInterface
             $col = $row[TableMap::TYPE_NUM == $indexType ? 8 + $startcol : ClienteTableMap::translateFieldName('Pppoe', TableMap::TYPE_PHPNAME, $indexType)];
             $this->pppoe = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 9 + $startcol : ClienteTableMap::translateFieldName('Mac', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->mac = (null !== $col) ? (string) $col : null;
-
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 10 + $startcol : ClienteTableMap::translateFieldName('Senha', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 9 + $startcol : ClienteTableMap::translateFieldName('Senha', TableMap::TYPE_PHPNAME, $indexType)];
             $this->senha = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 11 + $startcol : ClienteTableMap::translateFieldName('Stcontrato', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 10 + $startcol : ClienteTableMap::translateFieldName('Stcontrato', TableMap::TYPE_PHPNAME, $indexType)];
             $this->stcontrato = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 12 + $startcol : ClienteTableMap::translateFieldName('Servico', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 11 + $startcol : ClienteTableMap::translateFieldName('Servico', TableMap::TYPE_PHPNAME, $indexType)];
             $this->servico = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 13 + $startcol : ClienteTableMap::translateFieldName('Velocidade', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 12 + $startcol : ClienteTableMap::translateFieldName('Velocidade', TableMap::TYPE_PHPNAME, $indexType)];
             $this->velocidade = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 14 + $startcol : ClienteTableMap::translateFieldName('Status', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 13 + $startcol : ClienteTableMap::translateFieldName('Status', TableMap::TYPE_PHPNAME, $indexType)];
             $this->status = (null !== $col) ? (string) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 15 + $startcol : ClienteTableMap::translateFieldName('Anotacoes', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 14 + $startcol : ClienteTableMap::translateFieldName('Anotacoes', TableMap::TYPE_PHPNAME, $indexType)];
             $this->anotacoes = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 15 + $startcol : ClienteTableMap::translateFieldName('Macroteador', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->macroteador = (null !== $col) ? (string) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 16 + $startcol : ClienteTableMap::translateFieldName('Maconu', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->maconu = (null !== $col) ? (string) $col : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -1007,7 +1047,7 @@ abstract class Cliente implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 16; // 16 = ClienteTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 17; // 17 = ClienteTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException(sprintf('Error populating %s object', '\\Cliente'), 0, $e);
@@ -1275,9 +1315,6 @@ abstract class Cliente implements ActiveRecordInterface
         if ($this->isColumnModified(ClienteTableMap::COL_PPPOE)) {
             $modifiedColumns[':p' . $index++]  = 'pppoe';
         }
-        if ($this->isColumnModified(ClienteTableMap::COL_MAC)) {
-            $modifiedColumns[':p' . $index++]  = 'mac';
-        }
         if ($this->isColumnModified(ClienteTableMap::COL_SENHA)) {
             $modifiedColumns[':p' . $index++]  = 'senha';
         }
@@ -1295,6 +1332,12 @@ abstract class Cliente implements ActiveRecordInterface
         }
         if ($this->isColumnModified(ClienteTableMap::COL_ANOTACOES)) {
             $modifiedColumns[':p' . $index++]  = 'anotacoes';
+        }
+        if ($this->isColumnModified(ClienteTableMap::COL_MACROTEADOR)) {
+            $modifiedColumns[':p' . $index++]  = 'macroteador';
+        }
+        if ($this->isColumnModified(ClienteTableMap::COL_MACONU)) {
+            $modifiedColumns[':p' . $index++]  = 'maconu';
         }
 
         $sql = sprintf(
@@ -1334,9 +1377,6 @@ abstract class Cliente implements ActiveRecordInterface
                     case 'pppoe':
                         $stmt->bindValue($identifier, $this->pppoe, PDO::PARAM_STR);
                         break;
-                    case 'mac':
-                        $stmt->bindValue($identifier, $this->mac, PDO::PARAM_STR);
-                        break;
                     case 'senha':
                         $stmt->bindValue($identifier, $this->senha, PDO::PARAM_STR);
                         break;
@@ -1354,6 +1394,12 @@ abstract class Cliente implements ActiveRecordInterface
                         break;
                     case 'anotacoes':
                         $stmt->bindValue($identifier, $this->anotacoes, PDO::PARAM_STR);
+                        break;
+                    case 'macroteador':
+                        $stmt->bindValue($identifier, $this->macroteador, PDO::PARAM_STR);
+                        break;
+                    case 'maconu':
+                        $stmt->bindValue($identifier, $this->maconu, PDO::PARAM_STR);
                         break;
                 }
             }
@@ -1445,25 +1491,28 @@ abstract class Cliente implements ActiveRecordInterface
                 return $this->getPppoe();
                 break;
             case 9:
-                return $this->getMac();
-                break;
-            case 10:
                 return $this->getSenha();
                 break;
-            case 11:
+            case 10:
                 return $this->getStcontrato();
                 break;
-            case 12:
+            case 11:
                 return $this->getServico();
                 break;
-            case 13:
+            case 12:
                 return $this->getVelocidade();
                 break;
-            case 14:
+            case 13:
                 return $this->getStatus();
                 break;
-            case 15:
+            case 14:
                 return $this->getAnotacoes();
+                break;
+            case 15:
+                return $this->getMacroteador();
+                break;
+            case 16:
+                return $this->getMaconu();
                 break;
             default:
                 return null;
@@ -1504,13 +1553,14 @@ abstract class Cliente implements ActiveRecordInterface
             $keys[6] => $this->getConcentrador(),
             $keys[7] => $this->getVlan(),
             $keys[8] => $this->getPppoe(),
-            $keys[9] => $this->getMac(),
-            $keys[10] => $this->getSenha(),
-            $keys[11] => $this->getStcontrato(),
-            $keys[12] => $this->getServico(),
-            $keys[13] => $this->getVelocidade(),
-            $keys[14] => $this->getStatus(),
-            $keys[15] => $this->getAnotacoes(),
+            $keys[9] => $this->getSenha(),
+            $keys[10] => $this->getStcontrato(),
+            $keys[11] => $this->getServico(),
+            $keys[12] => $this->getVelocidade(),
+            $keys[13] => $this->getStatus(),
+            $keys[14] => $this->getAnotacoes(),
+            $keys[15] => $this->getMacroteador(),
+            $keys[16] => $this->getMaconu(),
         );
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
@@ -1610,25 +1660,28 @@ abstract class Cliente implements ActiveRecordInterface
                 $this->setPppoe($value);
                 break;
             case 9:
-                $this->setMac($value);
-                break;
-            case 10:
                 $this->setSenha($value);
                 break;
-            case 11:
+            case 10:
                 $this->setStcontrato($value);
                 break;
-            case 12:
+            case 11:
                 $this->setServico($value);
                 break;
-            case 13:
+            case 12:
                 $this->setVelocidade($value);
                 break;
-            case 14:
+            case 13:
                 $this->setStatus($value);
                 break;
-            case 15:
+            case 14:
                 $this->setAnotacoes($value);
+                break;
+            case 15:
+                $this->setMacroteador($value);
+                break;
+            case 16:
+                $this->setMaconu($value);
                 break;
         } // switch()
 
@@ -1684,25 +1737,28 @@ abstract class Cliente implements ActiveRecordInterface
             $this->setPppoe($arr[$keys[8]]);
         }
         if (array_key_exists($keys[9], $arr)) {
-            $this->setMac($arr[$keys[9]]);
+            $this->setSenha($arr[$keys[9]]);
         }
         if (array_key_exists($keys[10], $arr)) {
-            $this->setSenha($arr[$keys[10]]);
+            $this->setStcontrato($arr[$keys[10]]);
         }
         if (array_key_exists($keys[11], $arr)) {
-            $this->setStcontrato($arr[$keys[11]]);
+            $this->setServico($arr[$keys[11]]);
         }
         if (array_key_exists($keys[12], $arr)) {
-            $this->setServico($arr[$keys[12]]);
+            $this->setVelocidade($arr[$keys[12]]);
         }
         if (array_key_exists($keys[13], $arr)) {
-            $this->setVelocidade($arr[$keys[13]]);
+            $this->setStatus($arr[$keys[13]]);
         }
         if (array_key_exists($keys[14], $arr)) {
-            $this->setStatus($arr[$keys[14]]);
+            $this->setAnotacoes($arr[$keys[14]]);
         }
         if (array_key_exists($keys[15], $arr)) {
-            $this->setAnotacoes($arr[$keys[15]]);
+            $this->setMacroteador($arr[$keys[15]]);
+        }
+        if (array_key_exists($keys[16], $arr)) {
+            $this->setMaconu($arr[$keys[16]]);
         }
     }
 
@@ -1772,9 +1828,6 @@ abstract class Cliente implements ActiveRecordInterface
         if ($this->isColumnModified(ClienteTableMap::COL_PPPOE)) {
             $criteria->add(ClienteTableMap::COL_PPPOE, $this->pppoe);
         }
-        if ($this->isColumnModified(ClienteTableMap::COL_MAC)) {
-            $criteria->add(ClienteTableMap::COL_MAC, $this->mac);
-        }
         if ($this->isColumnModified(ClienteTableMap::COL_SENHA)) {
             $criteria->add(ClienteTableMap::COL_SENHA, $this->senha);
         }
@@ -1792,6 +1845,12 @@ abstract class Cliente implements ActiveRecordInterface
         }
         if ($this->isColumnModified(ClienteTableMap::COL_ANOTACOES)) {
             $criteria->add(ClienteTableMap::COL_ANOTACOES, $this->anotacoes);
+        }
+        if ($this->isColumnModified(ClienteTableMap::COL_MACROTEADOR)) {
+            $criteria->add(ClienteTableMap::COL_MACROTEADOR, $this->macroteador);
+        }
+        if ($this->isColumnModified(ClienteTableMap::COL_MACONU)) {
+            $criteria->add(ClienteTableMap::COL_MACONU, $this->maconu);
         }
 
         return $criteria;
@@ -1887,13 +1946,14 @@ abstract class Cliente implements ActiveRecordInterface
         $copyObj->setConcentrador($this->getConcentrador());
         $copyObj->setVlan($this->getVlan());
         $copyObj->setPppoe($this->getPppoe());
-        $copyObj->setMac($this->getMac());
         $copyObj->setSenha($this->getSenha());
         $copyObj->setStcontrato($this->getStcontrato());
         $copyObj->setServico($this->getServico());
         $copyObj->setVelocidade($this->getVelocidade());
         $copyObj->setStatus($this->getStatus());
         $copyObj->setAnotacoes($this->getAnotacoes());
+        $copyObj->setMacroteador($this->getMacroteador());
+        $copyObj->setMaconu($this->getMaconu());
 
         if ($deepCopy) {
             // important: temporarily setNew(false) because this affects the behavior of
@@ -2447,13 +2507,14 @@ abstract class Cliente implements ActiveRecordInterface
         $this->concentrador = null;
         $this->vlan = null;
         $this->pppoe = null;
-        $this->mac = null;
         $this->senha = null;
         $this->stcontrato = null;
         $this->servico = null;
         $this->velocidade = null;
         $this->status = null;
         $this->anotacoes = null;
+        $this->macroteador = null;
+        $this->maconu = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();
         $this->resetModified();

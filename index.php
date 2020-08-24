@@ -29,7 +29,8 @@ $vars= [
     'velocidade'=>$dados->getVelocidade(),
     'id'=>$dados->getId(),
     'vlan'=>$dados->getVlan(),
-    'mac'=>$dados->getMac()
+    'maconu'=>$dados->getMaconu(),
+    'macroteador'=>$dados->getMacroteador()
 ];
 
 
@@ -86,33 +87,45 @@ for($c=0;$c<count($auths);$c++){
 
 // variáveis que serão usadas para os dados da ONU do cliente que serão futuramente retirados do OLT
 // TODO: Alterar esses dados, apartir da leitura realizada pela OLT
-$vars['onu']['mac'] = 'FHTT05442F08';
-$vars['onu']['olt'] = 'OLT-UNIAO';
-$vars['onu']['slot'] = '17/1';
-$vars['onu']['sinal'] = '-19.07';
-$vars['onu']['laston'] = '17/08/2020 15:43:28';
-$vars['onu']['lastoff'] = '17/08/2020 15:40:19';
-$vars['onu']['mode'] = 'Bridge';
 
-$vars['onu']['ports'][0]['number'] = '1';
-$vars['onu']['ports'][0]['status'] = 'Ativa';
-$vars['onu']['ports'][0]['speed'] = '1000';
-$vars['onu']['ports'][0]['vlan'] = '531';
+$onu = OnuQuery::create()->findOneByMac($dados->getMaconu());
+if($onu != null){
+    $vars['onu']['status'] = 'Ativo';
+    $vars['onu']['mac'] = $onu->getMac();
+    $vars['onu']['olt'] = $onu->getOlt();
+    $vars['onu']['slot'] = $onu->getOlt()."/".$onu->getPon();
+    $vars['onu']['sinal'] = '-19.07';
+    $vars['onu']['laston'] = '17/08/2020 15:43:28';
+    $vars['onu']['lastoff'] = '17/08/2020 15:40:19';
+    $vars['onu']['mode'] = 'Bridge';
 
-$vars['onu']['ports'][1]['number'] = '2';
-$vars['onu']['ports'][1]['status'] = 'Inativa';
-$vars['onu']['ports'][1]['speed'] = '0';
-$vars['onu']['ports'][1]['vlan'] = '531';
+    $vars['onu']['ports'][0]['number'] = '1';
+    $vars['onu']['ports'][0]['status'] = 'Ativa';
+    $vars['onu']['ports'][0]['speed'] = '1000';
+    $vars['onu']['ports'][0]['vlan'] = '531';
 
-$vars['onu']['ports'][2]['number'] = '3';
-$vars['onu']['ports'][2]['status'] = 'Inativa';
-$vars['onu']['ports'][2]['speed'] = '0';
-$vars['onu']['ports'][2]['vlan'] = '531';
+    $vars['onu']['ports'][1]['number'] = '2';
+    $vars['onu']['ports'][1]['status'] = 'Inativa';
+    $vars['onu']['ports'][1]['speed'] = '0';
+    $vars['onu']['ports'][1]['vlan'] = '531';
 
-$vars['onu']['ports'][3]['number'] = '4';
-$vars['onu']['ports'][3]['status'] = 'Inativa';
-$vars['onu']['ports'][3]['speed'] = '0';
-$vars['onu']['ports'][3]['vlan'] = '531';
+    $vars['onu']['ports'][2]['number'] = '3';
+    $vars['onu']['ports'][2]['status'] = 'Inativa';
+    $vars['onu']['ports'][2]['speed'] = '0';
+    $vars['onu']['ports'][2]['vlan'] = '531';
+
+    $vars['onu']['ports'][3]['number'] = '4';
+    $vars['onu']['ports'][3]['status'] = 'Inativa';
+    $vars['onu']['ports'][3]['speed'] = '0';
+    $vars['onu']['ports'][3]['vlan'] = '531';
+} else {
+    $vars['onu']['status'] = 'inativo';
+    $vars['onu']['mac'] = 'not found';
+    $vars['onu']['olt'] = 'not found';
+    $vars['onu']['slot'] = 'not found';
+    $vars['onu']['sinal'] = '-0.00';
+}
+
 
 // veriáveis para os botões
 if(isset($_GET['autenticacao']) AND $_GET['autenticacao'] == 1){

@@ -9,7 +9,15 @@
         <div class="column">
             <h3 class="no-margin-botton no-padding-botton">{{ nome }}</h3>
             <small>PPPoE: {{ pppoeuser }}</small><br>
-            <small>Senha: {{ pppoepass }}</small>
+            <small>Senha: {{ pppoepass }}</small><br><br>
+            <h4 class="no-margin-botton no-padding-botton">IP:
+                {% if ip %}
+                    <a class="anchor-green  " target="_blank" href="http://{{ ip }}:8096">{{ ip }} <i class="fas fa-sign-in-alt"></i></a>
+                {% else %}
+                    <a class="anchor-green  " target="_blank" href="#"> <i class="fas skull-crossbones"></i></a>
+                {% endif %}
+            </h4>
+            <small class="no-margin-botton no-padding-botton">Concentrador: {{ concentrador }} {% if vlan %}vlan: {{ vlan }}{% endif %}</small>
         </div>
         <div class="column float-right">
         </div>
@@ -18,12 +26,18 @@
             <b>ST Contrato:</b> {{ stcontrato }}<br>
             <b>Serviço:</b> {{ servico }}<br>
             <b>Up/Down (Plano):</b> {{ velocidade }}
+            <b></b><br><br>
+
+            <b>ONU Status:</b> {{ onu.status }}<br>
+            <b>MAC:</b> {{ onu.mac }}<br>
+            <b>OLT:</b> {{ onu.olt }}<br>
+            <b>Slot/Pon:</b> {{ onu.slot }}{% if slot.pon %}/{% endif %}{{ onu.pon }}<br>
+            <b>Sinal:</b> {{ onu.sinal }}dBm<br>
         </div>
     </div>
     <div class="row">
         <div class="column">
-            <h4 class="no-margin-botton no-padding-botton">IP: <a class="anchor-green  " target="_blank" href="http://{{ ip }}:8096">{{ ip }}</a></h4>
-            <small class="no-margin-botton no-padding-botton">{{ concentrador }} {% if vlan %}vlan: {{ vlan }}{% endif %}</small>
+            <br>
         </div>
         <div class="column"></div>
     </div>

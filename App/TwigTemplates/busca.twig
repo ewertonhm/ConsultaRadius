@@ -25,10 +25,10 @@
             <tbody>
                 {% for cliente in clientes %}
                     <tr>
-                        <td><a href="index.php?id={{ cliente.id }}">{{ cliente.nome }} - {{ cliente.documento }}</a></td>
-                        <td><a href="index.php?id={{ cliente.id }}">{{ cliente.pppoe }} - {{ cliente.servico }}</a></td>
-                        <td><a href="index.php?id={{ cliente.id }}">{{ cliente.endereco }} - {{ cliente.cidade }}</a></td>
-                        <td><a href="index.php?id={{ cliente.id }}">{{ cliente.stcontrato }}</a></td>
+                        <td><a href="index.php?id={{ cliente.id }}&onu=1">{{ cliente.nome }} - {{ cliente.documento }}</a></td>
+                        <td><a href="index.php?id={{ cliente.id }}&onu=1">{{ cliente.pppoe }} - {{ cliente.servico }}</a></td>
+                        <td><a href="index.php?id={{ cliente.id }}&onu=1">{{ cliente.endereco }} - {{ cliente.cidade }}</a></td>
+                        <td><a href="index.php?id={{ cliente.id }}&onu=1">{{ cliente.stcontrato }}</a></td>
                     </tr>
                 {% endfor %}
             </tbody>

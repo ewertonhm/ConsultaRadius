@@ -29,13 +29,14 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildClienteQuery orderByConcentrador($order = Criteria::ASC) Order by the concentrador column
  * @method     ChildClienteQuery orderByVlan($order = Criteria::ASC) Order by the vlan column
  * @method     ChildClienteQuery orderByPppoe($order = Criteria::ASC) Order by the pppoe column
- * @method     ChildClienteQuery orderByMac($order = Criteria::ASC) Order by the mac column
  * @method     ChildClienteQuery orderBySenha($order = Criteria::ASC) Order by the senha column
  * @method     ChildClienteQuery orderByStcontrato($order = Criteria::ASC) Order by the stcontrato column
  * @method     ChildClienteQuery orderByServico($order = Criteria::ASC) Order by the servico column
  * @method     ChildClienteQuery orderByVelocidade($order = Criteria::ASC) Order by the velocidade column
  * @method     ChildClienteQuery orderByStatus($order = Criteria::ASC) Order by the status column
  * @method     ChildClienteQuery orderByAnotacoes($order = Criteria::ASC) Order by the anotacoes column
+ * @method     ChildClienteQuery orderByMacroteador($order = Criteria::ASC) Order by the macroteador column
+ * @method     ChildClienteQuery orderByMaconu($order = Criteria::ASC) Order by the maconu column
  *
  * @method     ChildClienteQuery groupById() Group by the id column
  * @method     ChildClienteQuery groupByNome() Group by the nome column
@@ -46,13 +47,14 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildClienteQuery groupByConcentrador() Group by the concentrador column
  * @method     ChildClienteQuery groupByVlan() Group by the vlan column
  * @method     ChildClienteQuery groupByPppoe() Group by the pppoe column
- * @method     ChildClienteQuery groupByMac() Group by the mac column
  * @method     ChildClienteQuery groupBySenha() Group by the senha column
  * @method     ChildClienteQuery groupByStcontrato() Group by the stcontrato column
  * @method     ChildClienteQuery groupByServico() Group by the servico column
  * @method     ChildClienteQuery groupByVelocidade() Group by the velocidade column
  * @method     ChildClienteQuery groupByStatus() Group by the status column
  * @method     ChildClienteQuery groupByAnotacoes() Group by the anotacoes column
+ * @method     ChildClienteQuery groupByMacroteador() Group by the macroteador column
+ * @method     ChildClienteQuery groupByMaconu() Group by the maconu column
  *
  * @method     ChildClienteQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     ChildClienteQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -96,13 +98,14 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildCliente findOneByConcentrador(string $concentrador) Return the first ChildCliente filtered by the concentrador column
  * @method     ChildCliente findOneByVlan(int $vlan) Return the first ChildCliente filtered by the vlan column
  * @method     ChildCliente findOneByPppoe(string $pppoe) Return the first ChildCliente filtered by the pppoe column
- * @method     ChildCliente findOneByMac(string $mac) Return the first ChildCliente filtered by the mac column
  * @method     ChildCliente findOneBySenha(string $senha) Return the first ChildCliente filtered by the senha column
  * @method     ChildCliente findOneByStcontrato(string $stcontrato) Return the first ChildCliente filtered by the stcontrato column
  * @method     ChildCliente findOneByServico(string $servico) Return the first ChildCliente filtered by the servico column
  * @method     ChildCliente findOneByVelocidade(string $velocidade) Return the first ChildCliente filtered by the velocidade column
  * @method     ChildCliente findOneByStatus(string $status) Return the first ChildCliente filtered by the status column
- * @method     ChildCliente findOneByAnotacoes(string $anotacoes) Return the first ChildCliente filtered by the anotacoes column *
+ * @method     ChildCliente findOneByAnotacoes(string $anotacoes) Return the first ChildCliente filtered by the anotacoes column
+ * @method     ChildCliente findOneByMacroteador(string $macroteador) Return the first ChildCliente filtered by the macroteador column
+ * @method     ChildCliente findOneByMaconu(string $maconu) Return the first ChildCliente filtered by the maconu column *
 
  * @method     ChildCliente requirePk($key, ConnectionInterface $con = null) Return the ChildCliente by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildCliente requireOne(ConnectionInterface $con = null) Return the first ChildCliente matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
@@ -116,13 +119,14 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildCliente requireOneByConcentrador(string $concentrador) Return the first ChildCliente filtered by the concentrador column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildCliente requireOneByVlan(int $vlan) Return the first ChildCliente filtered by the vlan column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildCliente requireOneByPppoe(string $pppoe) Return the first ChildCliente filtered by the pppoe column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildCliente requireOneByMac(string $mac) Return the first ChildCliente filtered by the mac column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildCliente requireOneBySenha(string $senha) Return the first ChildCliente filtered by the senha column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildCliente requireOneByStcontrato(string $stcontrato) Return the first ChildCliente filtered by the stcontrato column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildCliente requireOneByServico(string $servico) Return the first ChildCliente filtered by the servico column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildCliente requireOneByVelocidade(string $velocidade) Return the first ChildCliente filtered by the velocidade column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildCliente requireOneByStatus(string $status) Return the first ChildCliente filtered by the status column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildCliente requireOneByAnotacoes(string $anotacoes) Return the first ChildCliente filtered by the anotacoes column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildCliente requireOneByMacroteador(string $macroteador) Return the first ChildCliente filtered by the macroteador column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildCliente requireOneByMaconu(string $maconu) Return the first ChildCliente filtered by the maconu column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildCliente[]|ObjectCollection find(ConnectionInterface $con = null) Return ChildCliente objects based on current ModelCriteria
  * @method     ChildCliente[]|ObjectCollection findById(int $id) Return ChildCliente objects filtered by the id column
@@ -134,13 +138,14 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildCliente[]|ObjectCollection findByConcentrador(string $concentrador) Return ChildCliente objects filtered by the concentrador column
  * @method     ChildCliente[]|ObjectCollection findByVlan(int $vlan) Return ChildCliente objects filtered by the vlan column
  * @method     ChildCliente[]|ObjectCollection findByPppoe(string $pppoe) Return ChildCliente objects filtered by the pppoe column
- * @method     ChildCliente[]|ObjectCollection findByMac(string $mac) Return ChildCliente objects filtered by the mac column
  * @method     ChildCliente[]|ObjectCollection findBySenha(string $senha) Return ChildCliente objects filtered by the senha column
  * @method     ChildCliente[]|ObjectCollection findByStcontrato(string $stcontrato) Return ChildCliente objects filtered by the stcontrato column
  * @method     ChildCliente[]|ObjectCollection findByServico(string $servico) Return ChildCliente objects filtered by the servico column
  * @method     ChildCliente[]|ObjectCollection findByVelocidade(string $velocidade) Return ChildCliente objects filtered by the velocidade column
  * @method     ChildCliente[]|ObjectCollection findByStatus(string $status) Return ChildCliente objects filtered by the status column
  * @method     ChildCliente[]|ObjectCollection findByAnotacoes(string $anotacoes) Return ChildCliente objects filtered by the anotacoes column
+ * @method     ChildCliente[]|ObjectCollection findByMacroteador(string $macroteador) Return ChildCliente objects filtered by the macroteador column
+ * @method     ChildCliente[]|ObjectCollection findByMaconu(string $maconu) Return ChildCliente objects filtered by the maconu column
  * @method     ChildCliente[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
  *
  */
@@ -239,7 +244,7 @@ abstract class ClienteQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT id, nome, documento, endereco, cidade, ip, concentrador, vlan, pppoe, mac, senha, stcontrato, servico, velocidade, status, anotacoes FROM cliente WHERE id = :p0';
+        $sql = 'SELECT id, nome, documento, endereco, cidade, ip, concentrador, vlan, pppoe, senha, stcontrato, servico, velocidade, status, anotacoes, macroteador, maconu FROM cliente WHERE id = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -587,31 +592,6 @@ abstract class ClienteQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the mac column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByMac('fooValue');   // WHERE mac = 'fooValue'
-     * $query->filterByMac('%fooValue%', Criteria::LIKE); // WHERE mac LIKE '%fooValue%'
-     * </code>
-     *
-     * @param     string $mac The value to use as filter.
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return $this|ChildClienteQuery The current query, for fluid interface
-     */
-    public function filterByMac($mac = null, $comparison = null)
-    {
-        if (null === $comparison) {
-            if (is_array($mac)) {
-                $comparison = Criteria::IN;
-            }
-        }
-
-        return $this->addUsingAlias(ClienteTableMap::COL_MAC, $mac, $comparison);
-    }
-
-    /**
      * Filter the query on the senha column
      *
      * Example usage:
@@ -759,6 +739,56 @@ abstract class ClienteQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(ClienteTableMap::COL_ANOTACOES, $anotacoes, $comparison);
+    }
+
+    /**
+     * Filter the query on the macroteador column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByMacroteador('fooValue');   // WHERE macroteador = 'fooValue'
+     * $query->filterByMacroteador('%fooValue%', Criteria::LIKE); // WHERE macroteador LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $macroteador The value to use as filter.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildClienteQuery The current query, for fluid interface
+     */
+    public function filterByMacroteador($macroteador = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($macroteador)) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(ClienteTableMap::COL_MACROTEADOR, $macroteador, $comparison);
+    }
+
+    /**
+     * Filter the query on the maconu column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByMaconu('fooValue');   // WHERE maconu = 'fooValue'
+     * $query->filterByMaconu('%fooValue%', Criteria::LIKE); // WHERE maconu LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $maconu The value to use as filter.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this|ChildClienteQuery The current query, for fluid interface
+     */
+    public function filterByMaconu($maconu = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($maconu)) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(ClienteTableMap::COL_MACONU, $maconu, $comparison);
     }
 
     /**
